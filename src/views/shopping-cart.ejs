@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include ('tiles/head') %>
+
+        <link rel="stylesheet" href="/css/footer.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/subcribe.css">
+        <link rel="stylesheet" href="/css/shopping-cart.css">
+
+        <title>HAN Shop</title>
+        
+</head>
+
+<body>
+
+    <!-- Header -->
+    <%- include ('tiles/header') %>
+
+        <main>
+            <!-- Shopping cart Section -->
+            <section class="shopping-box">
+                <div class="container">
+                    <div class="cart-page">
+                        <div class="shopping-header">
+                            <h1 class="shopping-title">Giỏ hàng</h1>
+                        </div>
+                        <div class="box-item">
+                            <% if(cartProduct.cartProducts.length==0){ %>
+                                <div class="empty-cart">
+                                    <img src="./images/empty-cart.webp" alt="" width="80%">
+                                    <a href="/san-pham" id="btn-contBuy" type="button">
+                                        Mua Ngay
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </a>
+                                </div>
+                                <% } %>
+                                    <% for(let product of cartProduct.cartProducts){ %>
+                                        <div class="itemCart" data-id="<%= product.id %>">
+                                            <div class="infocart">
+                                                <input type="checkbox" class="chbox_product" id="<%= product.id %>">
+                                                <div class="item-image">
+                                                    <a class="image-link" href="/san-pham/<%= product.slug %> ">
+                                                        <img src="<%= product.thumbnail %> " alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="item-info">
+                                                    <div class="item-title">
+                                                        <a href="/san-pham/<%= product.slug %> ">
+                                                            <h3>
+                                                                <%= product.productName %>
+                                                            </h3>
+                                                        </a>
+                                                    </div>
+                                                    <div class="item-size">
+                                                        <span class="badge badge-warning">
+                                                            Size Giày: <b class="product-size">
+                                                                <%= product.size %>
+                                                            </b>
+                                                        </span>
+                                                    </div>
+                                                    <div class="item-code"
+                                                        data-productcode="<%= product.productCode %>">
+                                                        <b>Mã SP:</b>
+                                                        <%= product.productCode %>
+                                                    </div>
+                                                    <div class="number">
+                                                        <div class="btn-amount-group" data-id="<%= product.id %>">
+                                                            <button class="btn-amount btn-decre"
+                                                                type="button">-</button>
+                                                            <input class="item-amount" type="text"
+                                                                value="<%= product.quantity %>" readonly>
+                                                            <button class="btn-amount btn-incre"
+                                                                type="button">+</button>
+                                                        </div>
+                                                        <i class="fa fa-times"></i>
+                                                        <span class="textPrice priceProduct"
+                                                            data-price="<%= product.price %> " id="<%= product.id %>">
+                                                            <%= formatMoney(product.price,"VND") %>
+                                                        </span>
+                                                    </div>
+                                                    <div class="total_price">
+                                                        Thành tiền:
+                                                        <span class="textPrice">
+                                                            <%= formatMoney(product.totalPrice,"VND") %>
+                                                        </span>
+                                                    </div>
+                                                    <div class="btn-card">
+                                                        <button data-id="<%= product.id %>" type="button"
+                                                            class="btn-remove" data-toggle="modal"
+                                                            data-target="#delete-product">
+                                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                        </div>
+                        <% if(cartProduct.cartProducts.length> 0){ %>
+                            <div class="total-money">
+                                <div class="inforSum">
+                                    <b>Tổng tiền:</b>
+                                    <span class="textPrice" id="totalPrice">
+                                        <%= formatMoney(cartProduct.totalBill,"VND") %>
+                                    </span>
+                                </div>
+                                <div class="btn-next">
+                                    <a href="/san-pham" id="btn-contBuy" type="button">Mua Tiep</a>
+                                    <a href="/checkouts" id="btn-order" type="button">Dat Hang</a>
+                                </div>
+                            </div>
+                            <div class="other-info">
+                                <p>
+                                    <img src="https://kingshoes.vn/data/upload/media/king-shoes-thanh-toan.png" alt=""
+                                        width="100%">
+                                </p>
+                                <p>
+                                    <strong>Mua hàng&nbsp;trên website HanShop.vn:</strong>
+                                </p>
+                                <p>
+                                    <strong>1) Giao -&nbsp;Nhận:</strong>
+                                </p>
+                                <p>
+                                    KingShoes.vn ship hàng toàn quốc COD - Kiểm tra hàng trước và thanh toán trực tiếp
+                                    khi
+                                    nhận hàng.&nbsp;
+                                </p>
+                                <p>
+                                    <strong>2) Đặt cọc - Xác nhận đơn hàng - Giao hàng: ( Áp dụng cho KH ngoại thành HCM
+                                        và
+                                        mua lần đầu&nbsp; )</strong>
+                                </p>
+                                <p>Bạn cọc bằng 2 hình thức nạp card điện thoại mobifone hoặc chuyển&nbsp; khoản
+                                    <strong>200K</strong> vào tài khoản ngân hàng <strong>(nội dung ck: ghi họ tên và số
+                                        điện thoại)</strong>. Kingshoes liện lạc xác nhận cọc và ship hàng ngay cho Bạn.
+                                </p>
+                                <p><span id="cke_bm_739S" style="display: none;">&nbsp;</span><img alt="" height="16"
+                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                        width="16"><img alt="" height="16"
+                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                        width="16"><img alt="" height="16"
+                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                        width="16">&nbsp;Ngân Hàng <strong>VIETCOMBANK</strong>&nbsp;<img alt=""
+                                        height="16"
+                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                        width="16"><img alt="" height="16"
+                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                        width="16"><img alt="" height="16"
+                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                        width="16"><br>
+                                    ✅ Stk: <b>90327 33333</b>&nbsp;<br>
+                                    ✅ Ctk: <b>Nguyễn Thế Hùng</b>&nbsp;✅&nbsp;CN Tien Giang</p>
+                                <p><span id="cke_bm_1225S" style="display: none;">&nbsp;</span><img alt="" height="16"
+                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                        width="16"><img alt="" height="16"
+                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                        width="16"><img alt="" height="16"
+                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                        width="16">&nbsp;Ngân Hàng <strong>TIÊN PHONG&nbsp;BANK</strong>&nbsp;<img
+                                        alt="" height="16"
+                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                        width="16"><img alt="" height="16"
+                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                        width="16"><img alt="" height="16"
+                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                        width="16"><br>
+                                    ✅ Stk: <strong>062 123579 01</strong><br>
+                                    ✅ Ctk: <b>Nguyễn Thế Hùng</b>&nbsp;✅&nbsp;CN&nbsp;TP.Hồ Chí Minh&nbsp;</p>
+                                <p>
+                                    <strong>---&gt;&gt;&gt; Chúng tôi biết BẠN có nhiều sự lựa chọn. Cảm ơn BẠN đã chọn
+                                        KING
+                                        SHOES.</strong>
+                                </p>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Model -->
+        <div class="modal fade delete-product" id="delete-product" tabindex="-1" aria-labelledby="modalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        Bạn có muốn xóa sản phẩm ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btn-confirm" class="btn btn-primary">Xóa</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subscribe Section-->
+        <%- include ('tiles/subscribe') %>
+
+        <!-- footer -->
+        <%- include ('tiles/footer') %>
+
+        <!-- Script -->
+        <%- include ('tiles/script') %>
+        <!-- Delete product in cart -->
+        <script src="/js/delete-product.js"></script>
+        <!-- Log Out -->
+        <script src="/js/logout.js"></script>
+
+        <script>
+
+            function formatMoney(money, type) {
+                let location = type == "D" || !type ? 'vi-VN' : 'it-IT';
+                return new Intl.NumberFormat(location, { style: 'currency', currency: 'VND' }).format(money);
+            }
+
+            function updateAmountProductCart(product) {
+                fetch("/gio-hang/update-quantity-product", {
+                    method: 'PATCH',
+                    body: JSON.stringify(product),
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                })
+            }
+
+            function amountHandle() {
+                let id = $(this).parent(".btn-amount-group").data("id");
+                let button = $(this).attr("class");
+
+                $(".itemCart").each(function () {
+                    if ($(this).data("id") == id) {
+                        let productCode = $(this).find(".item-code").data("productcode");
+                        let size = $(this).find(".product-size").text();
+                        let currentQuantity = Number($(this).find(".item-amount").attr("value"));
+                        let quantity = button.includes("btn-incre") ? currentQuantity + 1 : currentQuantity - 1;
+                        if (quantity < 1 || quantity > 100) {
+                            return;
+                        }
+                        // Set New Value
+                        $(this).find(".item-amount").attr("value", quantity);
+                        // send request update to server
+                        updateAmountProductCart({ productCode, quantity, size: Number(size) });
+                        $("#item-cart-quantity").text(quantity);
+                    }
+                })
+                // Update new price for product
+                priceHandle(id);
+            }
+
+            // Handle quantity
+            $(".btn-decre").click(amountHandle);
+            $(".btn-incre").click(amountHandle);
+
+            function priceHandle(id) {
+                let quantity = 0;
+                let price = 0;
+                let totalBill = 0;
+
+                $(".itemCart").each(function () {
+                    // Get price for 1 product
+                    price = Number($(this).find(".priceProduct").data("price"));
+                    // Get quantity of 1 product
+                    quantity = Number($(this).find(".item-amount").attr("value"));
+                    if ($(this).data("id") == id) {
+                        // set total price for 1 product
+                        $(this).find(".total_price > .textPrice").text(formatMoney(quantity * price));
+                    }
+                    totalBill += (quantity * price);
+                })
+                // Set Total bill
+                $("#totalPrice").text(formatMoney(totalBill, "VND"))
+            }
+
+        </script>
+
+        <script>
+            $(document).ready(function () {
+
+           
+                let productID = "";
+                $('#delete-product').on('show.bs.modal', function (event) {
+                    var button = $(event.relatedTarget) // Button that triggered the modal
+                    productID = button.data('id') // Extract info from data-* attributes
+                    // removeProduct(productID);
+                    $(".itemCart").each(function () {
+                        if ($(this).data("id") == productID) {
+                            let name = $(this).find(".item-title > a > h3").text();
+                            $(".modal-body").text(`Bạn có muốn xóa sản phẩm ${name} ?`)
+                        }
+                    })
+
+                })
+                $("#btn-confirm").click(function () {
+                    let formDelete = document.forms["remove-product-form"];
+                    console.log(formDelete);
+                    formDelete.action = `/gio-hang/delete/${productID}?_method=DELETE`;
+                    formDelete.submit();
+                })
+            })
+        </script>
+
+        <!-- Save Tempory product will be buy -->
+        <script>
+            let products = [];
+            
+            $("#btn-order").click(function(e){
+                e.preventDefault();
+                // Clear old order product
+                localStorage.removeItem("products");
+
+                $(".chbox_product").each(function(index,element){
+                    if(element.checked){
+                        products.push(
+                            {
+                                _id: $(element).attr("id"),
+                                quantity:$(element).closest(".infocart").find(".item-info > .number .item-amount").attr("value"),
+                                size: parseInt($(element).closest(".infocart").find(".product-size").text())
+                            }
+                        )
+                    }
+                })
+                localStorage.setItem("products", products);
+            })
+        </script>
+                    
+</body>
+
+</html>

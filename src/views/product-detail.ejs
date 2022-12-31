@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <%- include ('tiles/head') %>
+        <!-- Slick -->
+        <link rel="stylesheet" type="text/css"
+            href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+        <link rel="stylesheet" href="/css/product-detail.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/footer.css">
+        <link rel="stylesheet" href="/css/rate-star.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <%- include ('tiles/header') %>
+
+        <main>
+
+            <!-- Search section -->
+            <section class="search-section">
+                <div class="search-box">
+                    <form action="" method="GET">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <label>Chọn Size Giày</label>
+                                <div class="select">
+                                    <select>
+                                        <option selected disabled>Chọn Giá Trị</option>
+                                        <option value="1">HTML</option>
+                                        <option value="2">CSS</option>
+                                        <option value="3">Javascript</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <label>Khoảng Giá</label>
+                                <div class="select">
+                                    <select>
+                                        <option selected disabled>Chọn Giá Trị</option>
+                                        <option value="1">HTML</option>
+                                        <option value="2">CSS</option>
+                                        <option value="3">Javascript</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <label>Sắp Xếp Theo</label>
+                                <div class="select">
+                                    <select>
+                                        <option selected disabled>Chọn Giá Trị</option>
+                                        <option value="1">HTML</option>
+                                        <option value="2">CSS</option>
+                                        <option value="3">Javascript</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <button class="btn" id="btn-search-section">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    Tìm Giày Ngay
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+
+            <section class="product-detail-container">
+                <!-- breadcrumb -->
+                <div class="product-title">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/san-pham">San Pham</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                <%= product.productName %>
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <h3>Product</h3>
+                        <div class="product-img-box">
+                            <div class="product-thumbnail">
+                                <% if(product.discount){ %>
+                                    <div class="product-label discount-percent">
+                                        <span>-<%= product.discount %>% </span>
+                                    </div>
+                                    <% } %>
+
+                                        <div class="slider-for">
+                                            <% for(let image of product.productImgs){ %>
+                                                <div class="banner-img">
+                                                    <img src="<%= image %>" alt="">
+                                                </div>
+                                                <% } %>
+                                        </div>
+                            </div>
+                            <div class="product-preview slider-nav">
+                                <% for(let image of product.productImgs){ %>
+                                    <div class="preview-product-img">
+                                        <img src="<%= image %>" alt="" width="100%">
+                                    </div>
+                                    <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="product-info">
+
+                            <div class="ratings"></div>
+                            <h1 class="product-name">
+                                <%= product.productName %>
+                            </h1>
+                            <p>Mã SP: <strong id="product-code" data-productcode="<%= product.productCode %>">
+                                    <%= product.productCode %>
+                                </strong></p>
+                            <div class="product-price">
+                                <h4>Giá sản phẩm</h4>
+                                <h3>
+                                    <b class="new-price" data-price="<%= product.newPrice %>">
+                                        <%= formatMoney(product.newPrice,"VND") %>
+                                    </b>
+                                    <% if(product.discount !=0 ){ %>
+                                        <del class="old-price">
+                                            <%= product.oldPrice %>
+                                        </del>
+                                        <% } %>
+                                </h3>
+                            </div>
+                            <hr>
+                            <div class="product-size">
+                                <h3>Kích thước</h3>
+                                <% if(product.productSize==0){ %>
+                                    <h5 style="color: #fed700;">Free Size</h2>
+                                        <% } %>
+                                            <ul>
+
+                                                <% product.productSize.forEach((val, index)=>{ %>
+                                                    <% if(index==0){ %>
+                                                        <li>
+                                                            <label for="<%= val %>">
+                                                                <input type="radio" name="btn-size" class="btn-size"
+                                                                    id="<%= val %>" data-size="<%= val %>" checked>
+                                                                <div class="size">
+                                                                    <%= val %>
+                                                                </div>
+                                                            </label>
+                                                        </li>
+                                                        <% }else{ %>
+                                                            <li>
+                                                                <label for="<%= val %>">
+                                                                    <input type="radio" name="btn-size" class="btn-size"
+                                                                        id="<%= val %>" data-size="<%= val %>">
+                                                                    <div class="size">
+                                                                        <%= val %>
+                                                                    </div>
+                                                                </label>
+                                                            </li>
+                                                            <% } %>
+                                                                <%}) %>
+                                            </ul>
+                            </div>
+                            <hr>
+                            <%if(product.quantity> 0){%>
+                                <form action="">
+                                    <div class="product-amount">
+                                        <h3>Số lượng</h3>
+                                        <div>
+                                            <button type="button" class="btn-amount" id="btn-decrement">-</button>
+                                            <input id="input-amount" type="number" min="1" maxlength="12" value="1"
+                                                autocomplete="off" readonly>
+                                            <button type="button" class="btn-amount" id="btn-increment">+</button>
+                                        </div>
+                                        <h6>
+                                            <%= product.quantity%> sản phẩm có sẵn.
+                                        </h6>
+                                    </div>
+                                    <div class="group-button">
+                                        <button class="ps-button" id="btn-addToCard" type="button" data-toggle="modal"
+                                            data-target="#add-product">THÊM VÀO GIỎ</button>
+                                        <button class="ps-button" id="btn-buyNow">MUA NGAY</button>
+                                    </div>
+                                </form>
+                                <%}else{%>
+                                    <h4 style="color: red;">Sản phẩm này hiện tại đã hết hàng.</h4>
+                                    <%}%>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Contact & info -->
+                        <div class="block-phone">
+                            <span>Hoặc đặt mua: </span>
+                            <a title="Tư vấn &amp; đặt hàng: 093751xxxx" href="tel:093751xxxx">093751xxxx</a>
+                            ( Tư vấn Miễn phí )
+                        </div>
+                        <div class="social-media-block">
+                            <h3>Mạng xã hội</h3>
+                            <div class="box-icon">
+                                <a href="">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </a>
+                            </div>
+                            <div class="box-icon">
+                                <a href="">
+                                    <i class="fa-brands fa-pinterest"></i>
+                                </a>
+                            </div>
+                            <div class="box-icon">
+                                <a href="">
+                                    <i class="fa-brands fa-facebook-messenger"></i>
+                                </a>
+                            </div>
+                            <div class="box-icon">
+                                <a href="">
+                                    <i class="fa-brands fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="other-info-block">
+                            <div class="product-review-block" style="text-align: left;">
+
+
+                            </div>
+                            <p>⚡️&nbsp;<strong>HANSHOES.VN&nbsp;</strong>✓15 Ngày Đổi Hàng ✓Giao Hàng Miễn Phí
+                                ✓Thanh Toán
+                                Khi
+                                Nhận Hàng ✓Bảo Hành Hàng Chính Hãng Trọn Đời.!!!
+                            </p>
+                            <p>
+                                <img alt=""
+                                    src="https://static.xx.fbcdn.net/images/emoji.php/v9/f51/1/16/1f449.png"><img alt=""
+                                    src="https://static.xx.fbcdn.net/images/emoji.php/v9/f51/1/16/1f449.png"><img alt=""
+                                    src="https://static.xx.fbcdn.net/images/emoji.php/v9/f51/1/16/1f449.png">&nbsp;&nbsp;<strong>HAN.VN
+                                    "You're King In Your&nbsp;Way".!!!&nbsp;</strong><img alt=""
+                                    src="https://static.xx.fbcdn.net/images/emoji.php/v9/f9d/1/16/1f45f.png">&nbsp;<img
+                                    alt=""
+                                    src="https://static.xx.fbcdn.net/images/emoji.php/v9/f9d/1/16/1f45f.png">&nbsp;<img
+                                    alt="" src="https://static.xx.fbcdn.net/images/emoji.php/v9/f9d/1/16/1f45f.png">
+                            </p>
+                            <p><strong><strong><strong>Đến với "HAN.VN”&nbsp;quý khách hàng sẽ có những sản phẩm
+                                            ưng ý
+                                            nhất, chất lượng phục vụ tốt và giá thành tốt nhất, cùng
+                                            những&nbsp;“ Chương
+                                            Trình Khuyến Mãi Đặc Biệt”.</strong></strong>&nbsp;</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </section>
+        </main>
+
+        <!-- Model addProduct -->
+        <div class="modal fade" id="add-product" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true"
+            role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="modalLabel">Thêm thành công.</h3>
+                    </div>
+                    <div class="modal-body">
+                        Sản phẩm <span class="modal-productName">
+                            <%= product.productName %>
+                        </span> đã được thêm vào giỏ!
+                        <br>
+                        <a href="/gio-hang">Xem giỏ hàng.</a>
+                    </div>
+                    <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btn-close-modal" class="btn btn-primary">Save changes</button>
+                </div> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <%- include ('tiles/footer') %>
+
+            <!-- Script -->
+            <%- include ('tiles/script') %>
+                <!-- Slick -->
+                <script type="text/javascript"
+                    src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+                <!-- Rating -->
+                <script src="/js/rate-star.js"></script>
+                <!-- Delete product in cart -->
+                <script src="/js/delete-product.js"></script>
+                <!-- Logout -->
+                <script src="/js/logout.js"></script>
+                <script>
+                    function amountHandle() {
+                        let currentValue = $("#input-amount").attr("value");
+                        currentValue = Number(currentValue);
+
+                        let newValue = this.id == "btn-increment" ? currentValue + 1 : currentValue - 1;
+                        if (newValue < 1 || newValue > 100) {
+                            return;
+                        }
+                        $("#input-amount").attr("value", newValue);
+                    }
+
+                    async function sendAddToCart(product) {
+                        const rawResponse = await fetch('/gio-hang/add-new-product', {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(product)
+                        });
+                        let respone = await rawResponse.json();
+                        return respone;
+                    }
+
+                    async function addNewProductToCart() {
+                        let productCode = $("#product-code").data("productcode");
+                        let quantity = Number($("#input-amount").val());
+                        let size = "";
+                        let price = Number($(".new-price").data("price"));
+
+                        $(".btn-size").each(function (el) {
+                            if ($(this).is(":checked")) {
+                                size = $(this).data("size");
+                            }
+                        })
+
+                        return await sendAddToCart({ productCode, quantity, size });
+
+                    }
+
+                    $(document).ready(function () {
+                        // slick
+                        $('.slider-for').slick({
+                            slidesToShow: 1,
+                            slidesToScroll: 1,
+                            arrows: false,
+                            infinite: true,
+                            fade: true,
+                            asNavFor: '.slider-nav'
+                        });
+                        $('.slider-nav').slick({
+                            slidesToShow: 4,
+                            slidesToScroll: 1,
+                            asNavFor: '.slider-for',
+                            dots: false,
+
+                            focusOnSelect: true,
+                            arrows: false,
+                            vertical: true,
+                            verticalSwiping: true,
+                        });
+
+                        $(".banner-slider").slick({
+                            arrows: false,
+                            infinite: true,
+                            autoplay: true,
+                            autoplaySpeed: 2000,
+                            dots: true,
+                        })
+                        // Rating
+                        $(".ratings").starrr({
+                            rating: 5,
+                            readOnly: true
+                        });
+                        // Amount
+                        $("#btn-decrement").click(amountHandle);
+                        $("#btn-increment").click(amountHandle);
+
+
+                        // Add product to cart
+
+                        $("#btn-addToCard").click(async function () {
+                            // Close modal
+                            setTimeout(function () {
+                                location.reload();
+                                $('#add-product').modal('toggle');
+                            }, 500);
+                            let res = await addNewProductToCart();
+                            if (res.status == 401) {
+                                window.location.replace("/accounts/login");
+                                return;
+                            }
+
+
+
+                        })
+
+                        // Buy now
+                        $("#btn-buyNow").click(async function () {
+                            let res = await addNewProductToCart();
+                            if (res.status == 401) {
+                                window.location.replace("/accounts/login");
+                                return;
+                            }
+                            window.location.replace("/gio-hang");
+                        })
+                    });
+
+
+
+                </script>
+</body>
+
+</html>

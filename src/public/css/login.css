@@ -1,0 +1,195 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff&display=swap');
+:root {
+    --yellow-color: #fed700;
+    --bg-discount: #cf5050;
+    --bg-hot: #f19708;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow: hidden;
+    font-family: "Roboto Condensed", sans-serif !important;
+}
+
+.container{
+    min-width: 100%;
+    padding: 0;
+}
+
+.section-header{
+    padding: 1em 0;
+    height: 5em;
+}
+
+
+.section-header .header-logo{
+    margin-left: 5em;
+    width: 180px;
+}
+
+.section-header .header-title{
+    display: inline-block;
+    margin-left: 10px;
+    font-weight: 550;
+}
+
+.section-header .header-help{
+    margin-left: 50%;
+}
+
+/* Section body */
+.section-body{
+    min-width: 100%;
+    height: 36em;
+    background-color: var(--yellow-color);
+    position: relative;
+}
+
+.section-body .banner-img{
+    width: 500px;
+}
+
+.section-body .logo-box{
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    text-align: center;
+}
+
+.section-body .slogan{
+    margin-top: 0.5em;
+    font-size: 2em;
+    color: aliceblue;
+    font-family: 'DynaPuff', cursive;
+}
+
+/* From Login */
+.box-form{
+    background-color: rgba(255, 255, 255, 0.592);
+    padding: 1em;
+    width: 25em;
+    position: absolute;
+    top: 8%;
+    right: 12%;
+}
+
+input#phonenumber,input#password{
+    padding: 6px 3px;
+    background-color:rgba(0, 0, 0, 0);
+    outline: none;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.597);
+}
+
+.password-box{
+    position: relative;
+}
+
+.password-box .fa-solid{
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 8%;
+    transform: translateY(-50%);
+}
+
+.box-form #btn-login{
+    width: 100%;
+    text-transform: uppercase;
+    color: white;
+}
+
+
+.line-or{
+    color: #ccc;
+}
+
+.line{
+    width: 9em;
+    height: 1px;
+    background-color: #dbdbdb;
+    display: inline-block;
+}
+
+.btn-group-oauth{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-oauth{
+    font-size: .875rem;
+    display: flex;
+    align-items: center;
+}
+
+.oauth-name{
+padding-left: 0.5em;   
+}
+
+.oauth-img{
+    width: 25px;
+}
+
+/* Footer section */
+.section-footer{
+    position: relative;
+}
+
+.logo-box{
+    text-align: center;
+}
+
+.logo-footer{
+    width: 8em;
+    margin: 0 2em;
+}
+
+.section-footer ul li h5{
+    font-size: .75rem;
+    font-weight: 700;
+    color: rgba(0,0,0,.54);
+}
+
+.section-footer ul li{
+    list-style: none;
+}
+
+.policy-box{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.policy-box ul{
+    display: flex;
+}
+
+.policy-box ul li{
+    margin: 0 10px;
+    font-size: .75rem;
+}
+
+.policy-box ul li a{
+    text-decoration: none;
+    color: rgba(0,0,0,.54) !important;
+}
+
+.policy-box .policy-middle{
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    margin: 0;
+    padding: 0 10px;
+}
+
+.footer-box-1 li a{
+    text-decoration: none;
+    font-size: .75rem;
+    color: rgba(0,0,0,.54);
+}
+

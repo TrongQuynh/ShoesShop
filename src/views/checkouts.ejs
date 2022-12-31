@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/checkout.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main">
+            <div class="main-container">
+                <div class="main-header">
+                    <div class="logo">
+                        <a href="">
+                            <img src="images/logoShop.png" alt="">
+                        </a>
+                    </div>
+                    <!-- breadcrumb -->
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/gio-hang">Giỏ hàng</a>
+                        </li>
+                        <li class="breadcrumb-item breadcrumb-item-current">
+                            <a href="/checkouts" aria-readonly="true">
+                                Thông tin giao hàng & Phương thức thanh toán
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="" class="isDisabled">
+                                Hoàn Thành
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="main-content">
+                    <form action="">
+                        <h2>Thông tin giao hàng</h2>
+                        <div class="main-content-info">
+                            <div class="row">
+                                <input class="field" id="username" type="text" placeholder="Họ và tên" value="han">
+                                <input class="field" id="phonenumber" type="text" placeholder="Số điện thoại" value="0925714402">
+                            </div>
+                            <div class="row">
+                                <input class="field" id="address" type="text" placeholder="Địa chỉ" value="21 bach dang">
+                            </div>
+                            <div class="row">
+                                <select class="field field-third" name="calc_shipping_provinces" id="province" required="">
+                                    <option value="">Tỉnh / Thành phố</option>
+                                    <% for(let province of provinces){ %> 
+                                        <option value="<%= province.code %>"><%= province.name %></option>
+                                    <% } %> 
+                                </select>
+                                <input class="billing_address_1" name="" type="hidden" value="">
+
+                                <select class="field field-third" name="calc_shipping_provinces" id="distric" required="">
+                                    <option value="">Huyện</option>
+                                </select>
+                                <input class="billing_address_1" name="" type="hidden" value="">
+
+                                <select class="field field-third" name="calc_shipping_provinces" id="ward" required="">
+                                    <option value="">Xã</option>
+                                </select>
+                                <input class="billing_address_1" name="" type="hidden" value="">
+                            </div>
+                            <div class="row">
+                                <input class="field" type="text" placeholder="Email" id="email">
+                            </div>
+                            <div class="row">
+                                <textarea class="field" placeholder="Nội dung" name="" id="billing_note">Do de vo</textarea>
+                            </div>
+                        </div>
+                        
+                    </form>
+
+                    <div class="payment-by">
+                        <div class="section-header">
+                            <h2 class="section-title">Phương thức thanh toán</h2>
+                        </div>
+                        <div class="radio-wrapper">
+                            <label class="radio-label paymentBy-active">
+                                <div class="radio-input"><input type="radio" name="btn-payment-by" id="rbtn_directPayment" checked></div>
+                                <span class="radio-label-primary">Thanh toán trực tiếp</span>
+                            </label>
+                        </div>
+                        <div class="radio-wrapper">
+                            <label class="radio-label">
+                                <div class="radio-input"><input type="radio" name="btn-payment-by" id="rbtn_onlinePayment"></div>
+                                <span class="radio-label-primary">Chuyển khoản ngân hàng</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="payment-info">
+                        <div class="section-header">
+                            <h2 class="section-title">Thông tin thanh toán</h2>
+                        </div>
+                        <div class="radio-wrapper">
+                           <div class="margin-box">
+                                <p>
+                                    <img src="https://kingshoes.vn/data/upload/media/king-shoes-thanh-toan.png"
+                                        alt="" width="619" height="376">
+                                </p>
+                                <p>Chúng tôi biết BẠN có nhiều sự lựa chọn. Cảm ơn BẠN đã chọn HAN SHOES</p>
+                           </div>
+                        </div>
+                    </div>
+
+                    <div class="main-content-footer">
+                        <a href="/gio-hang" id="btn-shoppingCart">Giỏ hàng</a>
+                        <button type="button" id="btn-payment">
+                            Tiếp tục đến phương thức thanh toán
+                        </button>
+                    </div>
+                </div>
+                <div class="main-footer">
+                    <ul class="menu">
+                        <li class="menu-item">
+                            <a href="">Chăm sóc khách hàng</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="">Chế độ bảo hành</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="">Thanh toán</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="">Chính sách đổi hàng</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="">Hướng dẫn mua hàng</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="">Bảo mật thông tin</a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="">Chính sách giao nhận</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar">
+            <h2>Thong Tin Don Hang</h2>
+            <div class="product-list">
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(let product of products.cartProducts){ %> 
+                            <tr class="product" data-product-id="1419">
+                                <td class="product-image">
+                                    <a href="" target="_blank">
+                                    <div class="product-thumbnail">
+                                        <div class="product-thumbnail-wrapper">
+                                          <img class="product-thumbnail-image" 
+                                          alt="<%= product.productName %>" src="<%= product.thumbnail %>">
+                                        </div>
+                                        <span class="product-thumbnail-quantity" aria-hidden="true"><%= product.quantity %></span>
+                                    </div>
+                                    </a>
+                                </td>
+                                <td class="product-description">
+                                    <a href="adidas-qtflex-da9449.html" target="_blank"><span class="product-description-name order-summary-emphasis"><%= product.productName %></span></a>
+                                    <% if(product.size) {%>
+                                        <div class="attribute_pro"><span class="badge-size">Size Giày: <b><%= product.size %></b></span></div>
+                                    <% } %>  
+                                </td>
+                                <td class="product-quantity visually-hidden"><%= product.quantity %></td>
+                                <td class="product-price">
+                                    <span class="order-summary-emphasis"><%= formatMoney(product.totalPrice) %></span>
+                                </td>
+                            </tr>
+                        <% } %> 
+                    </tbody>
+                </table>
+            </div>
+            <div class="total-section">
+                <div class="total-line total-line-subtotal">
+                    <span class="total-line-name">Tạm tính</span>
+                    <span class="total-line-price"><%= formatMoney(products.totalBill) %></span>
+                </div>
+                <div class="total-line total-line-shipping">
+                    <span class="total-line-name">Phí vận chuyển</span>
+                    <span class="total-line-price">Chưa bao gồm</span>
+                </div>
+                <div class="total-line total-line-footer">
+                    <span class="total-line-name">Tổng cộng</span>
+                    <span class="payment-due-price"><%= formatMoney(products.totalBill,"VND") %></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Script -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.4.0.js"></script>
+
+    <script>
+        // Change color when SELECT PAYMENT BY
+        $(document).ready(function(){
+            $("#rbtn_directPayment").click(function(){
+                $("#rbtn_onlinePayment").closest(".radio-label").removeClass("paymentBy-active");
+                $("#rbtn_directPayment").closest(".radio-label").addClass("paymentBy-active");
+            })
+
+            $("#rbtn_onlinePayment").click(function(){
+                $("#rbtn_directPayment").closest(".radio-label").removeClass("paymentBy-active");
+                $("#rbtn_onlinePayment").closest(".radio-label").addClass("paymentBy-active");
+            })
+
+        })
+    </script>
+
+    <script>
+        let provinceName = "", districName = "", wardName = "";
+
+        async function getProvinceData(){
+            let respone = await fetch("/checkouts/province-api");
+            let data = await respone.json();
+            return data;
+        }
+
+        function addDistric(districs){
+            $("#distric").html(`<option value="">Huyện</option>`);
+            $("#ward").html(`<option value="">Xã</option>`);
+            districs.forEach((distric)=>{
+                let html = `<option value="${distric.code}">${distric.name}</option>`;
+                $("#distric").append(html);
+            })
+        }
+
+        function addWard(wards){
+            $("#ward").html(`<option value="">Xã</option>`);
+            wards.forEach((ward) => {
+                let html = `<option value="${ward.code}">${ward.name}</option>`;
+                $("#ward").append(html);
+            })
+        }
+
+        async function fillDataToElement(){
+            let provincesData = await getProvinceData();
+            let provinces = document.getElementById("#province");
+
+            let provinceIndex = 0, districIndex = 0;
+            $("#province").change(function(){
+                let optionSelected = $(this).find("option:selected");
+                let valueSelected = optionSelected.val();
+                provinceName = optionSelected.text();
+                provinceIndex = provincesData.findIndex((provinces)=> provinces.code == Number(valueSelected));
+                let districs = provincesData[provinceIndex].districts;
+                addDistric(districs);
+            })
+
+            $("#distric").change(function(){
+                let optionSelected = $(this).find("option:selected");
+                let valueSelected = optionSelected.val();
+                districName = optionSelected.text();
+                let districIndex = provincesData[provinceIndex].districts.findIndex((distric)=> distric.code == Number(valueSelected));
+                let wards = provincesData[provinceIndex].districts[districIndex].wards;
+                addWard(wards);
+            })
+
+            $("#ward").change(function(){
+                let optionSelected = $(this).find("option:selected");
+                wardName = optionSelected.text();
+            })
+
+        }
+    </script>
+
+    <script>
+        function getFullAddress(){
+            let detail = $("#address").val();
+            return {
+                province: provinceName,
+                district: districName, 
+                ward: wardName, 
+                detail
+            }
+        }
+
+        async function sendData(data){
+            return (await fetch("/checkouts", {
+                    method: 'POST',
+                    headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+            }) );
+        }
+
+        $(document).ready(async function(){
+            await fillDataToElement();
+
+            $("#btn-payment").click(async function(event){
+                
+                let username = $("#username").val();
+                let phonenumber = $("#phonenumber").val();
+                let address = getFullAddress();
+                let email = $("#email").val();
+                let note = $("#billing_note").val();
+                let isPaymentOnline = $('#rbtn_onlinePayment').is(':checked') ? true : false;
+                
+                console.log({username,phonenumber,address, email, note, isPaymentOnline});
+                
+                let respone = await sendData({username,phonenumber,address, email, note});
+                if(respone.status == 200){
+                    let data = await respone.json();
+                    window.location.replace(`/checkouts/order/${data.orderCode}`);
+                } 
+                
+            })
+        })
+    </script>
+</body>
+</html>

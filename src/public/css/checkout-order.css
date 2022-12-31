@@ -1,0 +1,246 @@
+:root {
+    --yellow-color: #fed700;
+    --bg-discount: #cf5050;
+    --bg-hot: #f19708;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    overflow: hidden;
+    font-family: "Roboto Condensed", sans-serif !important;
+  }
+  
+  /* Main */
+  .container {
+    width: 100%;
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .main {
+    width: 55%;
+    background-color: #EFE4D3;
+  }
+  .main-header{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  .main-header .header-img{
+    width: 150px;
+  }
+
+  .header-title{
+    margin: 1em 0 0.7em 0;
+  }
+
+  .order-code{
+    color: #338dbc;
+  }
+
+  .header-description{
+    color: var(--bg-discount);
+    
+  }
+  
+  /* main content info*/
+  
+  .main-container {
+    float: right;
+    padding-right: 66px;
+    padding-top: 1em;
+  }
+  
+  .main-content {
+    /* background-color: #cf5050; */
+    margin-bottom: 1em;
+    margin-top: 25px;
+  }
+
+  .content-box{
+    box-shadow: 0 0 0 1px #d9d9d9;
+    border-radius: 4px;
+    background: #fff;
+    color: #737373;
+    margin-top: 1em;
+    padding: 1em 1.3em;
+  }
+
+  .section-content{
+    margin-bottom: 1em;
+    /* padding: 1em 0 1em 0; */
+    /* margin-top: 10px; */
+  }
+
+  .section-content-title{
+    margin: 0.7em 0 .3em 0;
+  }
+
+  .content-info{
+    line-height: 1.5em;
+  }
+  
+  .main-content-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 10px;
+  }
+  
+  /* Main footer */
+  #btn-shoppingCart {
+    display: inline-block;
+    text-decoration: none;
+    color: #338dbc;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  #btn-payment {
+    text-decoration: none;
+    padding: 20px 25px;
+    background-color: rgb(51, 141, 188);
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    text-align: center;
+    color: white;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #btn-payment:hover {
+    background-color: #286f94;
+  }
+  
+  .main-footer {
+    max-width: 530px;
+    padding: 1em 0;
+  }
+  
+  ul.menu {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+  }
+  
+  li.menu-item {
+    font-size: 0.8571428571em;
+    margin-right: 1.5em;
+    margin-bottom: 0.5em;
+    display: inline-flex;
+  }
+  
+  li.menu-item a {
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+    color: #338dbc;
+  }
+  
+  /* sidebar section */
+  .sidebar {
+    width: 25%;
+    padding-top: 4em;
+    padding-left: 4%;
+  }
+  
+  .product-thumbnail {
+    width: 4.6em;
+    height: 4.6em;
+    border-radius: 8px;
+    background: #fff;
+    position: relative;
+  }
+  
+  .product-thumbnail-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  
+  .product-thumbnail-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+  }
+  
+  .product-thumbnail-quantity {
+    font-size: 0.85714em;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 0.15em 0.65em;
+    border-radius: 2em;
+    background-color: rgba(153, 153, 153, 0.9);
+    color: #fff;
+    position: absolute;
+    right: -0.75em;
+    top: -0.75em;
+    z-index: 2;
+  }
+  
+  .product-description a {
+    text-decoration: none;
+  }
+  
+  .order-summary-emphasis {
+    font-weight: 500;
+    color: #4b4b4b;
+  }
+  
+  .badge-size {
+    display: inline-block;
+    padding: 0.35em 0.65em;
+    font-size: .75em;
+    font-weight: 500;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    margin: 2px 2px;
+    background-color: #d26e4b;
+  }
+  
+  .product td {
+    padding-top: 1em
+  }
+  
+  .product-list {
+    /* background-color: #d26e4b; */
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e1e1e1;
+  }
+  
+  .total-line {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+  }
+  
+  .total-line-footer {
+    border-top: 1px solid #e1e1e1;
+    padding-top: 30px;
+  }
+  
+  .payment-due-price {
+    color: #cf5050;
+    font-size: 1.71429em;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    /* color: #4b4b4b; */
+    line-height: 1em;
+  
+  }

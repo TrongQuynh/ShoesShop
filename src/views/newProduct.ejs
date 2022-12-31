@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Thêm sản phẩm | Quản trị Admin</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <!-- Font-icon css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- or -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- PACE Automatic page load progress bar -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css">
+    <script>
+
+        function readURL(input, thumbimage) {
+            if (input.files && input.files[0]) { //Sử dụng  cho Firefox - chrome
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#thumbimage").attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+            else { // Sử dụng cho IE
+                $("#thumbimage").attr('src', input.value);
+
+            }
+            $("#thumbimage").show();
+            $('.filename').text($("#uploadfile").val());
+            $('.Choicefile').css('background', '#14142B');
+            $('.Choicefile').css('cursor', 'default');
+            $(".removeimg").show();
+            $(".Choicefile").unbind('click');
+
+        }
+
+        $(document).ready(function () {
+            $(".Choicefile").bind('click', function () {
+                $("#uploadfile").click();
+
+            });
+            $(".removeimg").click(function () {
+                $("#thumbimage").attr('src', '').hide();
+                $("#myfileupload").html('<input type="file" id="uploadfile"  onchange="readURL(this);" />');
+                $(".removeimg").hide();
+                $(".Choicefile").bind('click', function () {
+                    $("#uploadfile").click();
+                });
+                $('.Choicefile').css('background', '#14142B');
+                $('.Choicefile').css('cursor', 'pointer');
+                $(".filename").text("");
+            });
+        })
+    </script>
+</head>
+
+<body class="app sidebar-mini rtl">
+    <style>
+        .Choicefile {
+            display: block;
+            background: #14142B;
+            border: 1px solid #fff;
+            color: #fff;
+            width: 150px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 5px 0px;
+            border-radius: 5px;
+            font-weight: 500;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .Choicefile:hover {
+            text-decoration: none;
+            color: white;
+        }
+
+        #uploadfile,
+        .removeimg {
+            display: none;
+        }
+
+        #thumbbox {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .removeimg {
+            height: 25px;
+            position: absolute;
+            background-repeat: no-repeat;
+            top: 5px;
+            left: 5px;
+            background-size: 25px;
+            width: 25px;
+            /* border: 3px solid red; */
+            border-radius: 50%;
+
+        }
+
+        .removeimg::before {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            content: '';
+            border: 1px solid red;
+            background: red;
+            text-align: center;
+            display: block;
+            margin-top: 11px;
+            transform: rotate(45deg);
+        }
+
+        .removeimg::after {
+            /* color: #FFF; */
+            /* background-color: #DC403B; */
+            content: '';
+            background: red;
+            border: 1px solid red;
+            text-align: center;
+            display: block;
+            transform: rotate(-45deg);
+            margin-top: -2px;
+        }
+    </style>
+
+    <!-- STYLE FOR SELECT FILE -->
+    <style>
+        .choose-imgs {
+            text-align: center;
+        }
+
+        #productImgs {
+            display: none;
+
+        }
+
+        #btn-uploadImg {
+            background-color: #5959fb;
+            color: white;
+            letter-spacing: 0.5px;
+            padding: 0.8em 1.3em;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #grid-img-container {
+            border: 0px solid black;
+            width: 90%;
+            margin: auto;
+            margin-bottom: 1em;
+            display: grid;
+            grid-template-columns: auto auto auto;
+        }
+
+        .grid-img {
+            padding: 1em;
+        }
+
+        #grid-img-container img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .fa-upload {
+            padding-right: 0.2em;
+        }
+
+        .right-side-box #productImgs {
+            display: none;
+        }
+
+        #number-files {
+            display: block;
+        }
+    </style>
+    <!-- Navbar-->
+    <header class="app-header">
+        <!-- Sidebar toggle button-->
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
+        <!-- Navbar Right Menu-->
+        <ul class="app-nav">
+            <!-- User Menu-->
+            <li>
+                <a class="app-nav__item" href="/index.html" title="Log out">
+                    <i class='bx bx-log-out bx-rotate-180'></i>
+                </a>
+            </li>
+        </ul>
+    </header>
+    <!-- Sidebar menu-->
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    <%- include ('tiles/admin-SidebarMenu') %>
+
+        <main class="app-content">
+            <div class="app-title">
+                <ul class="app-breadcrumb breadcrumb">
+                    <li class="breadcrumb-item">Danh sách sản phẩm</li>
+                    <li class="breadcrumb-item"><a href="#">Thêm sản phẩm</a></li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tile">
+                        <h3 class="tile-title">Tạo mới sản phẩm</h3>
+                        <div class="tile-body">
+                            <div class="row element-button">
+                                <div class="col-sm-2">
+                                    <a class="btn btn-add btn-sm" data-toggle="modal"
+                                        data-target="#exampleModalCenter"><i class="fas fa-folder-plus"></i> Thêm nhà
+                                        cung cấp</a>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc"><i
+                                            class="fas fa-folder-plus"></i> Thêm danh mục</a>
+                                </div>
+                                <div class="col-sm-2">
+                                    <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#addtinhtrang"><i
+                                            class="fas fa-folder-plus"></i> Thêm tình trạng</a>
+                                </div>
+                            </div>
+                            <form class="row">
+                                <div class="form-group col-md-3">
+                                    <label class="control-label">Mã sản phẩm </label>
+                                    <input class="form-control" type="text" placeholder="" id="productID">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="control-label">Tên sản phẩm</label>
+                                    <input class="form-control" type="text" id="productName">
+                                </div>
+
+
+                                <div class="form-group  col-md-3">
+                                    <label class="control-label">Số lượng</label>
+                                    <input class="form-control" type="number" id="productQuantity">
+                                </div>
+                                <div class="form-group col-md-3 ">
+                                    <label for="cbox_productStatus" class="control-label">Tình trạng</label>
+                                    <select class="form-control" id="cbox_productStatus">
+                                        <option>-- Chọn tình trạng --</option>
+                                        <option>Còn hàng</option>
+                                        <option>Hết hàng</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="cbox_productCategory" class="control-label">Danh mục</label>
+                                    <select class="form-control" id="cbox_productCategory">
+                                        <option>-- Chọn danh mục --</option>
+                                        <option>Giay</option>
+                                        <option>Dep</option>
+                                        <option>Phu Kien</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-3 ">
+                                    <label class="control-label">Kích thước</label>
+                                    <input class="form-control" type="text" id="productSize">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="control-label">Giá bán (VND)</label>
+                                    <input class="form-control" type="text" id="productPrice">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="control-label">Giá vốn</label>
+                                    <input class="form-control" type="text">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <!-- <label class="control-label">Ảnh sản phẩm</label>
+                                <div id="myfileupload">
+                                    <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);" />
+                                </div>
+                                <div id="thumbbox">
+                                    <img height="450" width="400" alt="Thumb image" id="thumbimage"
+                                        style="display: none" />
+                                    <a class="removeimg" href="javascript:"></a>
+                                </div>
+                                <div id="boxchoice">
+                                    <a href="javascript:" class="Choicefile"><i class="fas fa-cloud-upload-alt"></i>
+                                        Chọn ảnh</a>
+                                    <p style="clear:both"></p>
+                                </div> -->
+                                    <label id="btn-uploadImg" for="productImgs">
+                                        <i class="fas fa-upload"></i> Chon anh san pham
+                                    </label>
+                                    <input type="file" id="productImgs" name="imageFiles" multiple="multiple"
+                                        enctype="multipart/form-data" accept="image/jpeg, image/png, image/jpg">
+                                    <p id="number-files">No file choosen</p>
+                                    <div id="grid-img-container"></div>
+
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="control-label">Mô tả sản phẩm</label>
+                                    <textarea class="form-control" name="mota" id="productNote"></textarea>
+                                    <script>tinymce.init({ selector: '#productNote' });</script>
+                                    <!-- <script>CKEDITOR.replace('mota');</script> -->
+                                </div>
+
+                        </div>
+                        <button class="btn btn-save" id="btn_complete" type="button">Lưu lại</button>
+                        <a class="btn btn-cancel" href="/">Hủy bỏ</a>
+                    </div>
+        </main>
+
+
+        <!--MODAL CHỨC VỤ -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group  col-md-12">
+                                <span class="thong-tin-thanh-toan">
+                                    <h5>Thêm mới nhà cung cấp</h5>
+                                </span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập tên chức vụ mới</label>
+                                <input class="form-control" type="text" required>
+                            </div>
+                        </div>
+                        <BR>
+                        <button class="btn btn-save" type="button">Lưu lại</button>
+                        <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                        <BR>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--MODAL-->
+
+        <!--MODAL DANH MỤC-->
+        <div class="modal fade" id="adddanhmuc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group  col-md-12">
+                                <span class="thong-tin-thanh-toan">
+                                    <h5>Thêm mới danh mục </h5>
+                                </span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập tên danh mục mới</label>
+                                <input class="form-control" type="text" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Danh mục sản phẩm hiện đang có</label>
+                                <ul style="padding-left: 20px;">
+                                    <li>Bàn ăn</li>
+                                    <li>Bàn thông minh</li>
+                                    <li>Tủ</li>
+                                    <li>Ghế gỗ</li>
+                                    <li>Ghế sắt</li>
+                                    <li>Giường người lớn</li>
+                                    <li>Giường trẻ em</li>
+                                    <li>Bàn trang điểm</li>
+                                    <li>Giá đỡ</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <BR>
+                        <button class="btn btn-save" type="button">Lưu lại</button>
+                        <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                        <BR>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--MODAL-->
+
+        <!--  MODAL TÌNH TRẠNG-->
+        <div class="modal fade" id="addtinhtrang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group  col-md-12">
+                                <span class="thong-tin-thanh-toan">
+                                    <h5>Thêm mới tình trạng</h5>
+                                </span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập tình trạng mới</label>
+                                <input class="form-control" type="text" required>
+                            </div>
+                        </div>
+                        <BR>
+                        <button class="btn btn-save" type="button">Lưu lại</button>
+                        <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                        <BR>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--MODAL-->
+
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        <script src="https://code.jquery.com/jquery-migrate-3.4.0.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+        <!-- PACE PROCESS BAR -->
+        <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+
+        <!-- HELPER -->
+        <script src="/js/helper.js"></script>
+
+        <!-- Can DELETE -->
+        <script>
+            const inpFile = document.getElementById("inpFile");
+            const loadFile = document.getElementById("loadFile");
+            const previewContainer = document.getElementById("imagePreview");
+            const previewImage = previewContainer.querySelector(".image-preview__image");
+            const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+            inpFile.addEventListener("change", function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    previewDefaultText.style.display = "none";
+                    previewImage.style.display = "block";
+                    reader.addEventListener("load", function () {
+                        previewImage.setAttribute("src", this.result);
+                    });
+                    reader.readAsDataURL(file);
+                }
+            });
+
+        </script>
+
+        <script>
+            (function () {
+                "use strict";
+
+                var treeviewMenu = $('.app-menu');
+
+                // Toggle Sidebar
+                $('[data-toggle="sidebar"]').click(function (event) {
+                    event.preventDefault();
+                    $('.app').toggleClass('sidenav-toggled');
+                });
+
+                // Activate sidebar treeview toggle
+                $("[data-toggle='treeview']").click(function (event) {
+                    event.preventDefault();
+                    if (!$(this).parent().hasClass('is-expanded')) {
+                        treeviewMenu.find("[data-toggle='treeview']").parent().removeClass('is-expanded');
+                    }
+                    $(this).parent().toggleClass('is-expanded');
+                });
+
+                // Set initial active toggle
+                $("[data-toggle='treeview.'].is-expanded").parent().toggleClass('is-expanded');
+
+                //Activate bootstrip tooltips
+                $("[data-toggle='tooltip']").tooltip();
+
+            })();
+
+        </script>
+
+        <!-- SCRTPT CHOOSE FILE -->
+        <script>
+            let inputFiles = document.getElementById("productImgs");
+            let imageContainer = document.getElementById("grid-img-container");
+            let numberOfFile = document.getElementById("number-files");
+
+            inputFiles.addEventListener("change", function () {
+                imageContainer.innerHTML = "";
+                numberOfFile.textContent = `${inputFiles.files.length} Files selected`;
+                for (i of inputFiles.files) {
+                    let fileReader = new FileReader();
+                    let div = document.createElement("div");
+                    div.setAttribute("class", "grid-img");
+                    fileReader.onload = function () {
+                        // console.log(fileReader);
+                        let img = document.createElement("img");
+                        img.setAttribute("src", fileReader.result);
+                        // figure.insertBefore(img, figcap);
+                        div.appendChild(img);
+                    }
+                    imageContainer.appendChild(div);
+                    fileReader.readAsDataURL(i);
+                }
+                document.getElementById("grid-img-container").style = "border: 1px solid rgb(216 207 207);"
+            })
+        </script>
+
+        <!-- FAKE DATA (Can Delete) -->
+        <script>
+            $(document).ready(function () {
+                (function () {
+                    $("#productID").val("AJX123");
+                    $("#productName").val("SanPham 1");
+                    $("#productQuantity").val(12);
+                    $("#productSize").val("40,41,43");
+                    $("#productPrice").val(20000000);
+                    $("#productNote").val("Some note here");
+                })()
+            })
+
+        </script>
+
+        <!-- SCRIPT GET DATA -->
+        <script>
+            $(document).ready(function () {
+
+                async function sendProductData(product) {
+                    let data = new FormData();
+                    data.append("productID", product.productID)
+                    data.append("productName", product.productName)
+                    data.append("quantity", product.quantity)
+                    data.append("productStatus", product.productStatus)
+                    data.append("category", product.category)
+                    data.append("productSizes", product.productSizes)
+                    data.append("note", product.note)
+                    for (let file of product.productImage) {
+                        data.append("productImage", file)
+                    }
+
+                    // console.log(product.productImage);
+                    let raw_respone = await fetch("/san-pham/san-pham-moi", {
+                        method: "POST",
+                        body: data
+                    });
+                    alert("Send Success")
+                }
+
+                // EVENT COMPLETE
+                $("#btn_complete").off().click(async function () {
+                    let productID = $("#productID").val();
+                    let productName = $("#productName").val();
+                    let quantity = $("#productQuantity").val();
+                    let productStatus = $("#cbox_productStatus").val();
+                    let category = $("#cbox_productCategory").val();
+                    let productSizes = $("#productSize").val().split(",");
+                    let productPrice = $("#productPrice").val();
+                    let note = $("#productNote").val();
+                    let productImage = $("#productImgs").prop("files")
+                    console.log({ productID, productName, quantity, productStatus, category, productSizes, productPrice, note, productImage });
+                    await sendProductData({ productID, productName, quantity, productStatus, category, productSizes, productPrice, note, productImage });
+                })
+
+                /*
+                    EVENT ENTER MONEY
+                    - Product Price
+                */
+                $("#productPrice").keyup(function () {
+                    let money = String($("#productPrice").val()).replaceAll(".", "")
+                    let moneyFormat = formatToMoney(money, "it-IT");
+                    $("#productPrice").val(moneyFormat.replaceAll(/(V|N|D)/g, "").replaceAll(/\s/g, ""));
+                })
+
+            })
+        </script>
+</body>
+
+</html>
+
+<!--  -->

@@ -1,0 +1,30 @@
+/* Section body */
+/* From Login */
+.box-form{
+    top: 2%;
+}
+
+input#username,input#email{
+    padding: 6px 3px;
+    background-color:rgba(0, 0, 0, 0);
+    outline: none;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.597);
+}
+
+#btn-register{
+    width: 100%;
+    text-transform: uppercase;
+    color: white;
+}
+
+.password-box .fa-solid{
+    top: 45%;
+    right: 9%;
+}
+
+/*Remove invalid exclamation part validation for password */
+#password{
+    background-image: none;
+}

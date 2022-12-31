@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include ('tiles/head') %>
+
+        <link rel="stylesheet" href="/css/footer.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/subcribe.css">
+        <link rel="stylesheet" href="/css/purchase.css">
+
+        <title>HAN Shop</title>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <%- include ('tiles/header') %>
+
+        <main>
+            <!-- Shopping cart Section -->
+            <section class="shopping-box">
+                <div class="container">
+                    <!-- Header cart -->
+                    <div class="cart-page">
+                        <div class="shopping-header">
+                            <h1 class="shopping-title">Đơn Mua</h1>
+                        </div>
+                    </div>
+
+                    <!-- cart seccsion -->
+                    <% for(let order of purchases){ %>
+                        <div class="cart-page">
+                            <div class="shopping-header">
+                                <p>Đơn hàng được đặt lúc: <%= order.timeOrder %> | Ngay: <%= order.dateOrder %>
+                                </p>
+                            </div>
+                            <div class="box-item">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Sản Phẩm</th>
+                                            <th>Tên Sản Phẩm</th>
+                                            <th>Số Lượng</th>
+                                            <th>Size</th>
+                                            <th>Giá</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for(let product of order.products){ %>
+                                            <tr class="product-row" data-href="<%= product.slug %>">
+                                                <td><img src="<%= product["picture"] %>" alt="" width="100"></td>
+                                                <td>
+                                                    <h6 class="truncate">
+                                                        <%= product["productName"] %>
+                                                    </h6>
+                                                </td>
+                                                <td>
+                                                    <%= product.quantity %>
+                                                </td>
+                                                <td>
+                                                    <%= product.size %>
+                                                </td>
+                                                <td>
+                                                    <%= formatMoney(product.price) %>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="footer-cart">
+                                <div class="total-box">
+                                    <p><i class="fas fa-dollar-sign"></i>Tổng số tiền: <span class="total-price">
+                                            <%= formatMoney(order.totalMoney) %>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="btn-box">
+                                    <a class="btn-repurchase" href="">Mua Lại</a>
+                                    <a id="btn-rate" href="">Đánh Giá</a>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                </div>
+            </section>
+        </main>
+
+        <!-- Subscribe Section-->
+        <%- include ('tiles/subscribe') %>
+
+            <!-- footer -->
+            <%- include ('tiles/footer') %>
+
+                <!-- Script -->
+                <%- include ('tiles/script') %>
+
+                    <script src="/js/logout.js"></script>
+
+                    <!-- Delete product in mini cart -->
+                    <script src="/js/delete-product.js"></script>
+
+                    <script>
+                        $(document).ready(function () {
+                            $(".product-row").click(function () {
+                                window.location = `/san-pham/${$(this).data("href")}`;
+                            })
+                            $(".btn-repurchase").click(function () {
+                                $(this)
+                            })
+                        })
+                    </script>
+</body>
+
+</html>

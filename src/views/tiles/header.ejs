@@ -1,0 +1,214 @@
+<header>
+    <div class="header-top">
+        <div class="container-header-top">
+            <div class="content-header-top text-right">
+                <p>
+                    <a href="">
+                        <i class="fa-solid fa-crown"></i>
+                        KING AND QUEEN
+                    </a>
+                </p>
+                <p class="user-check">
+                    <a href="">
+                        <i class="fa-solid fa-users"></i>
+                        KING AND QUEEN
+                    </a>
+                </p>
+                <p>
+                    <a href="">
+                        <i class="fa-solid fa-phone"></i>
+                        KING AND QUEEN
+                    </a>
+                </p>
+                <% if(userData){ %>
+                    <p>
+                    <div class="dropdown">
+                        <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <img src="<%= userData.picture %> " alt="" width="25">
+                            <%= userData.username %>
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/user/tao-san-pham-moi">Tài khoản của tôi</a>
+                            <a class="dropdown-item" href="/user/purchase">Đơn Mua</a>
+                            <button class="dropdown-item" id="btn-logout">đăng xuất</button>
+                        </div>
+                    </div>
+                    </p>
+                    <% }else{ %>
+                        <p class="login-box">
+                            <a href="/accounts/login">
+                                Đăng nhập
+                            </a>
+                        </p>
+                        <p class="register-box">
+                            <a href="/accounts/register">
+                                Đăng ký
+                            </a>
+                        </p>
+                        <% } %>
+            </div>
+        </div>
+    </div>
+    <!-- Navigator -->
+    <nav class="navbar navbar-expand-sm navbar-dark justify-content-center nav-header">
+        <!-- Brand -->
+        <a class="navbar-brand" href="/">
+            <img src="/images/logoShop.png" class="logoShop" alt="">
+        </a>
+
+        <!-- Links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Gioi Thieu</a>
+            </li>
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    NIKE
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">NAM</a>
+                    <a class="dropdown-item" href="#">NU</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    ADIDAS
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">NAM</a>
+                    <a class="dropdown-item" href="#">NU</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    JORDAN
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">AIR JORDAN</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    YEEZY
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">YEEZY BOOST 350</a>
+                    <a class="dropdown-item" href="#">YEEZY BOOST 700</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    OTHER BRANDS
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">SNEAKER AUTHENTIC</a>
+                    <a class="dropdown-item" href="#">Giày thể thao chạy bộ -tập gym</a>
+                    <a class="dropdown-item" href="#">Giày tennis nike chính hãng</a>
+                    <a class="dropdown-item" href="#">Dép Authentic</a>
+                    <a class="dropdown-item" href="#">Crep Protect vệ sinh giày Sneaker</a>
+                    <a class="dropdown-item" href="#">Giày Thanh Lý</a>
+                </div>
+            </li>
+        </ul>
+
+        <div class="navbar-nav">
+            <form class="form-inline nav-item" action="">
+                <input class="form-control" type="text" placeholder="Search">
+                <div class="suggestion-box">
+                    <!-- Product sugestion -->
+
+                </div>
+                <button type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+            <div class="shopping-cart nav-item">
+                <a href="/gio-hang" class="btn-cart rounded-circle"><i
+                        class="fa-solid fa-cart-shopping text-white"></i></a>
+                <span class="badge badge-light bg-warning text-white" id="item-cart-quantity">
+                    <%= cartProduct.totalProduct || 0 %>
+                </span>
+                <!-- dropdown shopping cart -->
+
+                <% if(cartProduct.cartProducts.length> 0){ %>
+                    <div class="cart-listing">
+                        <div class="content">
+                            <div class="cart-content">
+                                <% for(let product of cartProduct.cartProducts){ %>
+                                    <div class="cart-item">
+                                        <a href="#delete-product-cart" id="btn-cartDel" data-id="<%= product.id %>"
+                                            data-toggle="modal" data-target="#delete-product-cart">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </a>
+                                        <div class="item-cart-thumbnail">
+                                            <a href=""></a>
+                                            <img src="<%= product.thumbnail %> " alt="<%= product.productName %>">
+                                        </div>
+                                        <div class="item-cart-content">
+                                            <a href="" class="cart-item-namePro">
+                                                <%= product.productName %>
+                                            </a>
+                                            <div class="pro-attribute">
+                                                <span class="badge-size">Size Giày: <b>
+                                                        <%= product.size %>
+                                                    </b></span>
+                                            </div>
+                                            <p>
+                                                <span>Số lượng:<i>
+                                                        <%= product.quantity %>
+                                                    </i></span>
+                                                <span>Thành tiền: <i>
+                                                        <%= formatMoney(product.totalPrice) %>
+                                                    </i></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                            </div>
+                            <div class="cart-total">
+                                <p>Số sản phẩm:<span id="numberSumProduct">
+                                        <%= cartProduct.totalProduct %>
+                                    </span></p>
+                                <p>Tổng:<span class="sumPrice">
+                                        <%= formatMoney(cartProduct.totalBill,"VND") %>
+                                    </span></p>
+                                <!-- 4,100,000 đ -->
+                            </div>
+                            <div class="cart-footer">
+                                <a href="/gio-hang" id="btn-shoppingCart">Giỏ hàng</a>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+
+            </div>
+        </div>
+
+    </nav>
+
+</header>
+
+<!-- Model -->
+<div class="modal fade delete-product" id="delete-product-cart" tabindex="-1" aria-labelledby="modalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                </h5>
+            </div>
+            <div class="modal-body">
+                Bạn có muốn xóa sản phẩm ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-confirm-delete" class="btn btn-primary">Xóa</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Form delete product -->
+<form method="POST" name="remove-product-form"></form>

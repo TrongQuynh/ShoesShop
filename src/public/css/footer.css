@@ -1,0 +1,54 @@
+/* Footer section */
+.footer-box {
+    margin-bottom: 0;
+    padding: 30px;
+    padding-bottom: 0;
+    background-color: rgb(6, 7, 9);
+    color: #F0F0F0;
+}
+
+.myweb,
+.footer-news-link {
+    display: inline;
+}
+
+.footer-news-link {
+    margin-left: 235px;
+}
+
+.footer-icon-media {
+    text-align: right;
+}
+
+.footer-icon-media>i {
+    font-size: 20px;
+    margin: 0 10px;
+}
+
+.footer-copy-right {
+    border-top: 1px solid #b3b3b3;
+    padding: 10px 0;
+}
+
+.footer-logo>img {
+    width: 350px;
+}
+
+.footer-logo-noti>img {
+    width: 410px;
+    height: 160px;
+}
+
+.footer-content {
+    padding-bottom: 20px;
+}
+
+.footer-heading {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+ul.footer-list>li {
+    list-style: none;
+    margin-top: 20px;
+}

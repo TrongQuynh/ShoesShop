@@ -1,0 +1,111 @@
+:root {
+    --yellow-color: #fed700;
+    --bg-discount: #cf5050;
+    --bg-hot: #f19708;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: "Roboto Condensed", sans-serif !important;
+}
+
+/* Main */
+
+.shopping-box {
+    padding: 30px 0;
+}
+
+.container {
+    margin: 0 auto;
+    width: 800px;
+    max-width: 100%;
+}
+
+.cart-page {
+    box-shadow: 0 0 20px rgb(0 0 0 / 15%);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.shopping-title {
+    margin: 0;
+    /* padding-bottom: 15px; */
+}
+
+.truncate {
+    width: 230px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* cart */
+.shopping-header {
+    margin-bottom: 1.5em;
+}
+
+/* Vertical align in bootstrap table */
+.table>tbody>tr td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table>tbody>tr:hover {
+    cursor: pointer;
+}
+
+.table>thead>tr {
+    text-align: center;
+}
+
+/* Total Box */
+.total-box {
+    text-align: right;
+}
+
+.total-box .fa-dollar-sign {
+    margin-right: 0.3em;
+    color: #cf5050;
+}
+
+.total-price {
+    font-size: 23px;
+    color: red;
+}
+
+/* Button box */
+
+.btn-box {
+    margin-top: 2em;
+    text-align: right;
+}
+
+.btn-repurchase {
+    display: inline-block;
+    background-color: #cf5050;
+    color: white;
+    text-decoration: none;
+    padding: 0.8em 1.5em;
+}
+
+#btn-rate {
+    text-decoration: none;
+    margin: 0 0 0 1.5em;
+    color: black;
+    display: inline-block;
+    padding: 0.8em 1.5em;
+    background-color: antiquewhite;
+}
+
+/* footer-cart */
+
+.footer-cart {
+    border-top: 1px solid #f1f1f1;
+    padding-top: 1em;
+    /* background-color: rgb(237, 235, 231); */
+}

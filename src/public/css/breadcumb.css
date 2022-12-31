@@ -1,0 +1,13 @@
+/* breadcrumb section */
+
+.breadcrumb {
+    background-color: transparent;
+}
+
+.product-title>nav {
+    margin: 20px 0;
+}
+
+ol.breadcrumb{
+    padding-left: 0;
+}

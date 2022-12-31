@@ -1,0 +1,54 @@
+/* Subscribe Secction */
+.subscribe-box {
+    padding: 15px 30px;
+    /* height: 50px; */
+    background-color: #333;
+    color: white;
+}
+
+.form-subscribe {
+    position: relative;
+}
+
+.form-subscribe>input {
+    padding: 5px 30px;
+    font-size: 16px;
+    border-radius: 24px;
+    outline: none;
+    width: 95%;
+    height: 50px;
+}
+
+.form-subscribe>button {
+    position: absolute;
+    top: 50%;
+    right: 7%;
+    transform: translateY(-50%);
+
+    outline: none;
+    background-color: var(--yellow-color);
+    color: white;
+    padding: 8px 40px;
+    border: none;
+    border-radius: 24px;
+
+    transition: 0.4s;
+}
+
+.form-subscribe:hover>button {
+    color: var(--yellow-color);
+    background-color: #000000;
+}
+
+.subscribe-box>.row>.col {
+    line-height: 40px;
+}
+
+.subscribe-box>.row>.col:last-child {
+    text-align: right;
+}
+
+.subscribe-box>.row>.col:first-child {
+    letter-spacing: 2px;
+    font-size: 20px;
+}

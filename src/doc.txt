@@ -1,0 +1,45 @@
+Rating star
+https://github.com/dobtco/starrr
+
+Slick
+https://kenwheeler.github.io/slick/
+
+Zoom in IMG
+https://www.magictoolbox.com/magiczoomplus/integration/
+
+slick vertical
+https://codepen.io/kimyangsun/pen/vYOoBWJ
+
+api province
+https://provinces.open-api.vn/examples
+
+express validate
+https://github.com/validatorjs/validator.js#validators
+
+joi validate
+https://joi.dev/api/?v=17.6.0#stringemailoptions
+
+download png picture
+https://vi.cleanpng.com/png-60jkvt/download-png.html
+https://icons8.com/icon/set/apple-logo/ios-filled
+
+Status codepen
+https://www.webfx.com/web-development/glossary/http-status-codes/
+
+Handling JWT securely on your client
+https://mannharleen.github.io/2020-03-19-handling-jwt-securely-part-1/
+
+localStorage in JavaScript: A complete guide
+https://blog.logrocket.com/localstorage-javascript-complete-guide/#:~:text=To%20get%20items%20from%20localStorage%2C%20use%20the%20getItem()%20method,in%20the%20browser's%20localStorage%20object.
+
+Get a beautiful progress indicator for your page load and ajax navigation.
+https://codebyzach.github.io/pace/
+
+DataTables is the core software of the DataTables project, and involves two primary files, the DataTables Javascript and CSS.
+https://cdn.datatables.net/
+
+Disable click outside of bootstrap modal area to close modal
+https://stackoverflow.com/questions/22207377/disable-click-outside-of-bootstrap-modal-area-to-close-modal
+
+SWEETALERT 
+https://www.javatpoint.com/sweetalert

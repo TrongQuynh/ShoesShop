@@ -1,0 +1,201 @@
+:root {
+    --yellow-color: #fed700;
+    --bg-discount: #cf5050;
+    --bg-hot: #f19708;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: "Roboto Condensed", sans-serif !important;
+}
+
+/* Main */
+
+.clear {
+    clear: both;
+    display: block;
+}
+
+.shopping-box {
+    padding: 30px 0;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 100%;
+    /* height: 100vh; */
+}
+
+.clear {
+    clear: both;
+}
+
+/* Sidebar side */
+.sidebar-side {
+    float: left;
+    background-color: #cf5050;
+    width: 16%;
+    height: 100%;
+}
+
+.sidebar-options {
+    padding-top: 1em;
+}
+
+.sidebar-options li {
+    list-style: none;
+    padding: 0.8em 0;
+    background-color: #f19708;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.sidebar-options li a {
+    text-decoration: none;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    padding-left: 0.4em;
+}
+
+.main-side {
+    display: inline-block;
+    /* background-color: aqua; */
+    width: 84%;
+    height: 100%;
+    padding: 1em;
+}
+
+/* Main side Content */
+
+.main-side-content {
+    width: 100%;
+    /* background-color: #fed700; */
+}
+
+.main-side-content .title {
+    padding: 0.5em;
+    font-weight: 700;
+}
+
+.content-box .search-bar {
+    text-align: center;
+    padding: 1em;
+}
+
+#search-product {
+    padding: 0.5em 0;
+    padding-left: 0.8em;
+    width: 60%;
+    outline: none;
+    border-radius: 8px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+/* Main Side - Left section */
+
+.content-box .left-side {
+    float: left;
+    margin: 2em 2.5em;
+}
+
+.left-side-box {
+    margin-bottom: 1em;
+}
+
+.left-side-box select {
+    width: 12em;
+    height: 2em;
+    padding-left: 0.7em;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.left-side-box input[type=text] {
+    padding: 0.2em 0;
+    padding-left: 0.7em;
+    outline: none;
+    border-radius: 8px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    width: 15em;
+}
+
+/* Size chooser */
+.size-chooser {
+    display: inline-block;
+    margin: 1em;
+}
+
+.size-chooser input[type=checkbox] {
+    transform: scale(1.5);
+    margin-right: 0.4em;
+}
+
+/* Main Side - Right section */
+
+.content-box .right-side {
+    margin-top: 2em;
+    margin-right: 12em;
+    float: right;
+    /* background-color: #cf5050; */
+    width: 35em;
+}
+
+.choose-imgs {
+    text-align: center;
+}
+
+.right-side-box #btn-uploadImg,
+.button {
+    background-color: #5959fb;
+    color: white;
+    letter-spacing: 0.5px;
+    padding: 0.8em 1.3em;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#grid-img-container {
+    border: 1px solid black;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 1em;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.grid-img {
+    padding: 1em;
+}
+
+#grid-img-container img {
+    width: 100%;
+    height: 100%;
+}
+
+.fa-upload {
+    padding-right: 0.2em;
+}
+
+.right-side-box #productImgs {
+    display: none;
+
+}
+
+
+/* area button add TMP or Reshesh in create new product */
+/* START */
+.add-temporary-box {
+    margin-bottom: 2em;
+}
+
+/* END */

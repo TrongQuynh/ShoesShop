@@ -1,0 +1,24 @@
+<script>
+    let inputFiles = document.getElementById("productImgs");
+    let imageContainer = document.getElementById("grid-img-container");
+    let numberOfFile = document.getElementById("number-files");
+
+    inputFiles.addEventListener("change", function () {
+        imageContainer.innerHTML = "";
+        numberOfFile.textContent = `${inputFiles.files.length} Files selected`;
+        for (i of inputFiles.files) {
+            let fileReader = new FileReader();
+            let div = document.createElement("div");
+            div.setAttribute("class", "grid-img");
+            fileReader.onload = function () {
+                console.log(fileReader);
+                let img = document.createElement("img");
+                img.setAttribute("src", fileReader.result);
+                // figure.insertBefore(img, figcap);
+                div.appendChild(img);
+            }
+            imageContainer.appendChild(div);
+            fileReader.readAsDataURL(i);
+        }
+    })
+</script>

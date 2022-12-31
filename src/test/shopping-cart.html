@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/logoShopFooter.png" type="image/icon type">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="../public/css/footer.css">
+    <link rel="stylesheet" href="../public/css/header.css">
+    <link rel="stylesheet" href="../public/css/subcribe.css">
+    <link rel="stylesheet" href="../public/css/shopping-cart.css">
+    
+    <title>HAN Shop</title>
+    <style>
+       input[type=checkbox]  {
+            position: absolute;
+            /* margin-left: 2em; */
+            top: 50%;
+            transform: translateY(-50%);
+            transform: scale(1.5);
+        }
+        .item-image{
+            margin-left: 2em;
+        }
+        .item-info{
+            width: 65%;
+            float: left;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <header>
+        <div class="header-top">
+            <div class="container-header-top">
+                <div class="content-header-top text-right">
+                    <p>
+                        <a href="">
+                            <i class="fa-solid fa-crown"></i>
+                            KING AND QUEEN
+                        </a>
+                    </p>
+                    <p class="user-check">
+                        <a href="">
+                            <i class="fa-solid fa-users"></i>
+                            KING AND QUEEN
+                        </a>
+                    </p>
+                    <p>
+                        <a href="">
+                            <i class="fa-solid fa-phone"></i>
+                            KING AND QUEEN
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Navigator -->
+        <nav class="navbar navbar-expand-sm navbar-dark justify-content-center nav-header">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#">
+                <img src="../public/images/logoShop.png" class="logoShop" alt="">
+            </a>
+
+            <!-- Links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Gioi Thieu</a>
+                </li>
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        NIKE
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">NAM</a>
+                        <a class="dropdown-item" href="#">NU</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        ADIDAS
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">NAM</a>
+                        <a class="dropdown-item" href="#">NU</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        JORDAN
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">AIR JORDAN</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        YEEZY
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">YEEZY BOOST 350</a>
+                        <a class="dropdown-item" href="#">YEEZY BOOST 700</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                        OTHER BRANDS
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">SNEAKER AUTHENTIC</a>
+                        <a class="dropdown-item" href="#">Giày thể thao chạy bộ -tập gym</a>
+                        <a class="dropdown-item" href="#">Giày tennis nike chính hãng</a>
+                        <a class="dropdown-item" href="#">Dép Authentic</a>
+                        <a class="dropdown-item" href="#">Crep Protect vệ sinh giày Sneaker</a>
+                        <a class="dropdown-item" href="#">Giày Thanh Lý</a>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="navbar-nav">
+                <form class="form-inline nav-item" action="">
+                    <input class="form-control" type="text" placeholder="Search">
+                    <button type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+                <div class="shopping-cart nav-item">
+                    <a class="btn-cart rounded-circle"><i class="fa-solid fa-cart-shopping text-white"></i></a>
+                    <span class="badge-light bg-warning text-white" id="item-cart">4</span>
+                    <!-- dropdown shopping cart -->
+                    <div class="cart-listing">
+                        <div class="content">
+                            <div class="cart-content">
+                                <div class="cart-item">
+                                    <a href="" id="btn-cartDel">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </a>
+                                    <div class="item-cart-thumbnail">
+                                        <a href=""></a>
+                                        <img src="https://kingshoes.vn/data/upload/media/adidas-qtflex-da94491-king-shoes-sneaker-real-hcm-1624254373.jpeg"
+                                            alt="">
+                                    </div>
+                                    <div class="item-cart-content">
+                                        <a href="" class="cart-item-namePro">ADIDAS QTFLEX</a>
+                                        <div class="pro-attribute">
+                                            <span class="badge-size">Size Giày: <b>A-US 5.5 | 36 2/3</b></span>
+                                        </div>
+                                        <p>
+                                            <span>Số lượng:<i>1</i></span>
+                                            <span>Thành tiền:<i>1,200,000 đ</i></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="cart-item">
+                                    <a href="" id="btn-cartDel">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </a>
+                                    <div class="item-cart-thumbnail">
+                                        <a href=""></a>
+                                        <img src="https://kingshoes.vn/data/upload/media/adidas-qtflex-da94491-king-shoes-sneaker-real-hcm-1624254373.jpeg"
+                                            alt="">
+                                    </div>
+                                    <div class="item-cart-content">
+                                        <a href="" class="cart-item-namePro">ADIDAS QTFLEX</a>
+                                        <div class="pro-attribute">
+                                            <span class="badge-size">Size Giày: <b>A-US 5.5 | 36 2/3</b></span>
+                                        </div>
+                                        <p>
+                                            <span>Số lượng:<i>1</i></span>
+                                            <span>Thành tiền:<i>1,200,000 đ</i></span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cart-total">
+                                <p>Số sản phẩm:<span class="numberSumProduct"> 2</span></p>
+                                <p>Tổng:<span class="sumPrice"> 4,100,000 đ</span></p>
+                            </div>
+                            <div class="cart-footer">
+                                <a href="" id="btn-shoppingCart">Giỏ hàng</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+
+    </header>
+
+    <main>
+
+
+        <!-- Shopping cart Section -->
+        <section class="shopping-box">
+            <div class="container">
+                <div class="cart-page">
+                    <div class="shopping-header">
+                        <h1 class="shopping-title">Giỏ hàng</h1>
+                    </div>
+                    <div class="box-item">
+                        <div class="itemCart"  data-id="<%= product.id %>">
+                            
+                            <div class="infocart">
+                                <input type="checkbox">
+                                <div class="item-image">
+                                    <a class="image-link" href="">
+                                        <img src="../public/images/shoes3.jpeg"
+                                            alt="">
+                                    </a>
+                                </div>
+                                <div class="item-info">
+                                    <div class="item-title">
+                                        <a href="/san-pham/<%= product.slug %> ">
+                                            <h3>Name Product</h3>
+                                        </a>
+                                    </div>
+                                    <div class="item-size">
+                                        <span class="badge badge-warning">
+                                            Size Giày: <b class="product-size">42 </b>
+                                        </span>
+                                    </div>
+                                    <div class="item-code" data-productcode="">
+                                        <b>Mã SP:</b>
+                                        MC112
+                                    </div>
+                                    <div class="number">
+                                        <div class="btn-amount-group" data-id="">
+                                            <button class="btn-amount btn-decre" type="button">-</button>
+                                            <input class="item-amount" type="text" value="1" readonly>
+                                            <button class="btn-amount btn-incre"type="button">+</button>
+                                        </div>
+                                        <i class="fa fa-times"></i>
+                                        <span class="textPrice priceProduct" data-price="" id="">12.000.000D</span>
+                                    </div>
+                                    <div class="total_price">
+                                        Thành tiền:
+                                        <span class="textPrice">12.000.000D</span>
+                                    </div>
+                                    <div class="btn-card">
+                                            <button data-id="" type="button" 
+                                                class="btn-remove" data-toggle="modal" data-target="#delete-product">
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                            </button>       
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="itemCart"  data-id="<%= product.id %>">
+                            
+                            <div class="infocart">
+                                <input type="checkbox">
+                                <div class="item-image">
+                                    <a class="image-link" href="">
+                                        <img src="../public/images/shoes3.jpeg"
+                                            alt="">
+                                    </a>
+                                </div>
+                                <div class="item-info">
+                                    <div class="item-title">
+                                        <a href="/san-pham/<%= product.slug %> ">
+                                            <h3>Name Product</h3>
+                                        </a>
+                                    </div>
+                                    <div class="item-size">
+                                        <span class="badge badge-warning">
+                                            Size Giày: <b class="product-size">42 </b>
+                                        </span>
+                                    </div>
+                                    <div class="item-code" data-productcode="">
+                                        <b>Mã SP:</b>
+                                        MC112
+                                    </div>
+                                    <div class="number">
+                                        <div class="btn-amount-group" data-id="">
+                                            <button class="btn-amount btn-decre" type="button">-</button>
+                                            <input class="item-amount" type="text" value="1" readonly>
+                                            <button class="btn-amount btn-incre"type="button">+</button>
+                                        </div>
+                                        <i class="fa fa-times"></i>
+                                        <span class="textPrice priceProduct" data-price="" id="">12.000.000D</span>
+                                    </div>
+                                    <div class="total_price">
+                                        Thành tiền:
+                                        <span class="textPrice">12.000.000D</span>
+                                    </div>
+                                    <div class="btn-card">
+                                            <button data-id="" type="button" 
+                                                class="btn-remove" data-toggle="modal" data-target="#delete-product">
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                            </button>       
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="total-money">
+                        <div class="inforSum">
+                            <b>Tổng tiền:</b>
+                            <span class="textPrice">2,800,000 đ</span>
+                        </div>
+                        <div class="btn-next">
+                            <a href="#" id="btn-contBuy" type="button">Mua Tiep</a>
+                            <a href="#" id="btn-order" type="button">Dat Hang</a>
+                        </div>
+                    </div>
+                    <div class="other-info">
+                        <p>
+                            <img src="https://kingshoes.vn/data/upload/media/king-shoes-thanh-toan.png" alt=""
+                                width="100%">
+                        </p>
+                        <p>
+                            <strong>Mua hàng&nbsp;trên website HanShop.vn:</strong>
+                        </p>
+                        <p>
+                            <strong>1) Giao -&nbsp;Nhận:</strong>
+                        </p>
+                        <p>
+                            KingShoes.vn ship hàng toàn quốc COD - Kiểm tra hàng trước và thanh toán trực tiếp khi nhận
+                            hàng.&nbsp;
+                        </p>
+                        <p>
+                            <strong>2) Đặt cọc - Xác nhận đơn hàng - Giao hàng: ( Áp dụng cho KH ngoại thành HCM và mua
+                                lần đầu&nbsp; )</strong>
+                        </p>
+                        <p>Bạn cọc bằng 2 hình thức nạp card điện thoại mobifone hoặc chuyển&nbsp; khoản
+                            <strong>200K</strong> vào tài khoản ngân hàng <strong>(nội dung ck: ghi họ tên và số điện
+                                thoại)</strong>. Kingshoes liện lạc xác nhận cọc và ship hàng ngay cho Bạn.
+                        </p>
+                        <p><span id="cke_bm_739S" style="display: none;">&nbsp;</span><img alt="" height="16"
+                                src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png" width="16"><img
+                                alt="" height="16"
+                                src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png" width="16"><img
+                                alt="" height="16"
+                                src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                width="16">&nbsp;Ngân Hàng <strong>VIETCOMBANK</strong>&nbsp;<img alt="" height="16"
+                                src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png" width="16"><img
+                                alt="" height="16"
+                                src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png" width="16"><img
+                                alt="" height="16"
+                                src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png" width="16"><br>
+                            ✅ Stk: <b>90327 33333</b>&nbsp;<br>
+                            ✅ Ctk: <b>Nguyễn Thế Hùng</b>&nbsp;✅&nbsp;CN Tien Giang</p>
+                        <p><span id="cke_bm_1225S" style="display: none;">&nbsp;</span><img alt="" height="16"
+                                src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png" width="16"><img
+                                alt="" height="16"
+                                src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png" width="16"><img
+                                alt="" height="16"
+                                src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                width="16">&nbsp;Ngân Hàng <strong>TIÊN PHONG&nbsp;BANK</strong>&nbsp;<img alt=""
+                                height="16" src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
+                                width="16"><img alt="" height="16"
+                                src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png" width="16"><img
+                                alt="" height="16"
+                                src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png" width="16"><br>
+                            ✅ Stk: <strong>062 123579 01</strong><br>
+                            ✅ Ctk: <b>Nguyễn Thế Hùng</b>&nbsp;✅&nbsp;CN&nbsp;TP.Hồ Chí Minh&nbsp;</p>
+                        <p>
+                            <strong>---&gt;&gt;&gt; Chúng tôi biết BẠN có nhiều sự lựa chọn. Cảm ơn BẠN đã chọn KING
+                                SHOES.</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Model -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Subscribe Section-->
+    <section>
+        <div class="subscribe-box">
+            <div class="row">
+                <div class="col">
+                    <b>
+                        <i class="fa-solid fa-envelope"></i>
+                        ĐĂNG KÝ NHẬN CODE
+                    </b>
+                </div>
+                <div class="col">
+                    <form action="" class="form-subscribe">
+                        <input type="text" placeholder="Địa chỉ mail của bạn">
+                        <button class="btn">Đăng ký</button>
+                    </form>
+                </div>
+                <div class="col">
+                    ...Nhận Ngay <span>VOUCHER 100k</span> từ chúng tôi.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-box">
+            <div class="footer-content">
+                <div class="row">
+                    <div class="col">
+                        <div class="footer-logo">
+                            <img src="../public/images/logoShopFooter.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="footer-detail">
+                            <div class="row">
+                                <div class="col">
+                                    <h6 class="footer-heading">HỖ TRỢ KHÁCH HÀNG</h6>
+                                    <ul class="footer-list">
+                                        <li>Chăm sóc khách hàng</li>
+                                        <li>Thanh toán</li>
+                                        <li>BHướng dẫn mua hàng</li>
+                                    </ul>
+                                </div>
+                                <div class="col">
+                                    <h6 class="footer-heading">CHÍNH SÁCH</h6>
+                                    <ul class="footer-list">
+                                        <li>Chế độ bảo hành</li>
+                                        <li>Chính sách đổi hàng</li>
+                                        <li>Bảo mật thông tin</li>
+                                        <li>Chính sách giao nhận</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="footer-logo-noti">
+                            <img src="../public/images/logoSaleNoti.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copy-right">
+                <div class="row">
+                    <div class="col-lg-10 col-md-9 col-xs-12">
+                        <p class="myweb">
+                            © Bản quyền thuộc về
+                            <b>HAN.VN</b>
+                        </p>
+                        <div class="footer-news-link">
+                            <a href="">Giày chạy bộ</a>
+                            <a href="">Giày tập Gym</a>
+                            <a href="">Giày tập Yoga</a>
+                            <a href="">Giày thể thao</a>
+                            <a href="">Giày chính hãng</a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="footer-icon-media">
+                            <i class="fa-brands fa-facebook"></i>
+                            <i class="fa-brands fa-twitter"></i>
+                            <i class="fa-brands fa-youtube"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+
+    <script src="https://kit.fontawesome.com/4f9b2b93ff.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.4.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    
+</body>
+
+</html>

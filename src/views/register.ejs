@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/register.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="section-header">
+            <a href="/">
+                <img src="/images/logoShop.png" alt="logo" class="header-logo">
+            </a>
+            <h3 class="header-title">Đăng ký</h3>
+            <a href="" class="header-help">Bạn cần giúp đỡ?</a>
+        </div>
+        <div class="section-body">
+            <div class="logo-box">
+                <img class="banner-img" src="/images/banner-login.png" alt="">
+                <h3 class="slogan">your life your choice</h3>
+            </div>
+            <div class="box-form rounded">
+                <form name="register-form" class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-lg-12 mb-2">
+                            <h3>Đăng ký</h3>
+                        </div>
+                        <div class="col-lg-12 mb-3">
+                            <input type="text" class="form-control shadow-none" id="username" name="username"
+                                placeholder="Username" autocomplete="off" value="han123" required>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="col-lg-12 mb-3">
+                            <input type="text" class="form-control shadow-none" id="phonenumber" name="phonenumber"
+                                placeholder="Phonenumber" value="1234567899" autocomplete="off" required>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="col-lg-12 mb-3">
+                            <input type="email" class="form-control shadow-none" id="email" name="email"
+                                placeholder="E-mail" value="ab@gmail.com" autocomplete="off" required>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="col-lg-12 mb-3 password-box">
+                            <i class="fa-solid fa-eye-slash" id="btn-eye"></i>
+                            <input type="password" class="form-control shadow-none" id="password" name="password"
+                                placeholder="Password" value="123123123">
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="col-lg-12 mb-3">
+                            <button type="button" id="btn-register" class="btn btn-warning">Đăng ký</button>
+                        </div>
+                        <div class="col-lg-12 mb-1 text-right">
+                            <a href="" class="text-warning">Quên mật khẩu?</a>
+                        </div>
+                        <div class="col-lg-12 mb-3 line-or align-middle">
+                            <div class="line align-middle"></div>
+                            <span class="mr-2 ml-2">HOẶC</span>
+                            <div class="line align-middle"></div>
+                        </div>
+                        <div class="col-lg-12 mb-4 btn-group-oauth">
+                            <button type="button" id="btn-face-login" class="btn btn-outline-info btn-oauth">
+                                <img src="/images/icons/facebook.png" class="oauth-img" alt="">
+                                <span class="oauth-name">Facebook</span>
+
+                            </button>
+
+                            <button type="button" id="btn-gg-login" class="btn btn-outline-info btn-oauth">
+                                <img src="/images/icons/apple.png" class="oauth-img" alt="">
+                                <span class="oauth-name">Google</span>
+                            </button>
+
+                            <button type="button" id="btn-app-login" class="btn btn-outline-info btn-oauth">
+                                <img src="/images/icons/google.png" class="oauth-img" alt="">
+                                <span class="oauth-name">Apple</span>
+                            </button>
+                        </div>
+                        <div class="col-lg-12 mb-3 text-center">
+                            Bạn mới biết đến Shopee?
+                            <a href="/accounts/login" class="text-warning">Đăng nhập</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="section-footer mt-2">
+            <div class="row">
+                <div class="col-lg-3 footer-box-1 text-center">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul>
+                                <li><h5>CHĂM SÓC KHÁCH HÀNG</h5></li>
+                                <li>
+                                    <a href="">Trung Tâm Trợ Giúp</a>
+                                </li>
+                                <li>
+                                    <a href="">Hướng Dẫn Mua Hàng</a>
+                                </li>
+                                <li>
+                                    <a href="">Chăm Sóc Khách Hàng</a>
+                                </li>
+                                <li>
+                                    <a href="">Chính Sách Bảo Hành</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul>
+                                <li><h5>CHĂM SÓC KHÁCH HÀNG</h5></li>
+                                <li>
+                                    <a href="">Trung Tâm Trợ Giúp</a>
+                                </li>
+                                <li>
+                                    <a href="">Hướng Dẫn Mua Hàng</a>
+                                </li>
+                                <li>
+                                    <a href="">Chăm Sóc Khách Hàng</a>
+                                </li>
+                                <li>
+                                    <a href="">Chính Sách Bảo Hành</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 footer-box-2">
+                    <div class="policy-box">
+                        <ul>
+                            <li><a href="">CHÍNH SÁCH BẢO MẬT</a></li>
+                            <li class="policy-middle"><a href="">QUY CHẾ HOẠT ĐỘNG</a></li>
+                            <li><a href="">CHÍNH SÁCH TRẢ HÀNG VÀ HOÀN TIỀN</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 footer-box-3">
+                    <div class="row">
+                        <div class="col-lg-6 text-center">
+                            <ul>
+                                <li>
+                                    <h5>THANH TOÁN</h5>
+                                    <img src="/images/payment1.png" class="ml-1 mr-1" alt="" width="30">
+                                    <img src="/images/payment2.png" class="ml-1 mr-1" alt="" width="30">
+                                    <img src="/images/payment3.png" class="ml-1 mr-1" alt="" width="30">
+
+                                </li>
+                                
+                            </ul>
+                        </div>
+                        <div class="col-lg-6 text-center">
+                            <ul>
+                                <li>
+                                    <h5>ĐƠN VỊ VẬN CHUYỂN</h5>
+                                    <img src="/images/giaoHangNhanh.webp" class="ml-1 mr-1" alt="" width="30">
+                                    <img src="/images/giaoHangNhanh2.png" class="ml-1 mr-1" alt="" width="30">
+                                    <img src="/images/giaoHangNhanh2.png" class="ml-1 mr-1" alt="" width="30">
+                                </li>
+                                <li>
+                                    <img src="/images/giaoHangNhanh.webp" class="ml-1 mr-1" alt="" width="30">
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+    <!-- Icon -->
+    <script src="https://kit.fontawesome.com/4f9b2b93ff.js" crossorigin="anonymous"></script>
+    <!-- Script -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.4.0.js"></script>
+    <!-- Boostrap -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+        integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+        crossorigin="anonymous"></script>
+
+    <script>
+        // Eye Show passord
+        $("#btn-eye").click(function () {
+            let isEyeOpen = $("#btn-eye").hasClass("fa-eye");
+            let type = "password";
+            if (isEyeOpen) {
+                $("#btn-eye").addClass("fa-eye-slash");
+                $("#btn-eye").removeClass("fa-eye");
+            } else {
+                $("#btn-eye").addClass("fa-eye");
+                $("#btn-eye").removeClass("fa-eye-slash");
+                type = "text";
+            }
+            $("#password").attr("type", type);
+        })
+        
+        // POST Data
+        async function sendData(data){
+            try {
+                let url = "/accounts/register";
+                const response = await fetch("/accounts/register", {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                const resData = await response.json();
+                // Get status code
+                if(response.status === 400) alert(resData.message)
+                if(response.status === 409) alert("User already exsit")
+                if(response.status === 200) return true;
+            } catch (error) {}
+        }
+
+        $("#btn-register").click(async function(event){
+            let formRegister = document.forms["register-form"];
+            if(formRegister.checkValidity() === false || ($("#password").val()).length == 0){
+                event.preventDefault();
+                event.stopPropagation();
+                $("form[name='register-form']").addClass("was-validated");
+            }else{
+                // Send Data
+                let dataArr = $("form[name='register-form']").serializeArray();
+                console.log(dataArr);
+                let userData = {};
+                dataArr.forEach((data) => {
+                    userData[data.name] = data.value;
+                })
+
+                let resData = await sendData(userData);
+                if(resData){
+                    window.location.replace("/accounts/login");
+                }
+            }
+            
+        })
+
+    </script>
+</body>
+
+</html>

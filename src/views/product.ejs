@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <%- include ('tiles/head') %>
+
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/rate-star.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <title>HAN Shop | San Pham</title>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <%- include ('tiles/header') %>
+
+        <main>
+            <!-- Search section -->
+            <section class="search-section">
+                <div class="search-box">
+                    <form name="filter-form">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <label>Chọn Size Giày</label>
+                                <div class="select">
+                                    <select id="size-select">
+                                        <option selected disabled>Chọn Giá Trị</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <label>Khoảng Giá</label>
+                                <div class="select">
+                                    <select id="price-select">
+                                        <option selected disabled>Chọn Giá Trị</option>
+                                        <option value="0-3000000">Dưới 3 Triệu</option>
+                                        <option value="3000000-5000000">Từ 3 đến 5 Triệu</option>
+                                        <option value="5000000-10000000">Từ 5 đến 10 Triệu</option>
+                                        <option value="10000000-15000000">Từ 10 đến 15 Triệu</option>
+                                        <option value="15000000-100000000"> Trên 15 Triệu</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <label>Sắp Xếp Theo</label>
+                                <div class="select">
+                                    <select id="sort-select">
+                                        <option selected disabled>Chọn Giá Trị</option>
+                                        <option value="price_asc">Giá thấp đến cao</option>
+                                        <option value="price_des">Giá cao đến thấp</option>
+                                        <option value="name_asc">Tên A - Z</option>
+                                        <option value="name_des">Tên Z - A</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                                <button class="btn" id="btn-search-section">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    Tìm Giày Ngay
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Product Section -->
+            <section class="product-section">
+
+                <!-- Product Container -->
+                <div class="product-container">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-9 col-12">
+
+                            <!-- breadcrumb -->
+                            <div class="product-title">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">San Pham</li>
+                                    </ol>
+                                </nav>
+                            </div>
+
+                            <div class="product-items">
+                                <!-- Row 1 -->
+                                <div class="row">
+
+                                    <% for(let product of products){ %>
+                                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4 col-6">
+                                            <div class="product-item">
+                                                <div class="product-thumbnail">
+                                                    <div class="product-label-group">
+                                                        <% if(product.isNewProduct){ %>
+                                                            <div class="product-label">
+                                                                <span>New</span>
+                                                            </div>
+                                                            <% } %>
+
+                                                        <% if(product.isHotProduct){ %>
+                                                            <div class="product-label hot-label">
+                                                                <span>Hot</span>
+                                                            </div>
+                                                        <% } %>
+
+                                                        <% if(product.discount != 0){ %>
+                                                            <div class="product-label discount-percent">
+                                                                <span>
+                                                                   -<%= product.discount %>%
+                                                                </span>
+                                                            </div>
+                                                            <% } %>
+                                                    </div>
+                                                    <a href="/san-pham/<%= product.slug %>">
+                                                        <img class="product-img" src="<%= product.productImgs[0] %> " alt="<%= product.productName %>">
+                                                    </a>
+                                                </div>
+                                                <div class="product-content">
+                                                    <div class="shoes-detail">
+                                                        <div class="product-name">
+                                                            <a href="/san-pham/<%= product.slug %>"><b>
+                                                                    <%= product.productName %>
+                                                                </b></a>
+                                                        </div>
+                                                        <div class="rate-star">
+                                                            <div class="ratings" disabled></div>
+                                                        </div>
+                                                        <div class="shoes-price">
+                                                            <b>
+                                                                <%= formatMoney(product.newPrice) %>
+                                                            </b>
+                                                        </div>
+                                                        <% if(product.discount != ""){ %>
+                                                            <div class="old-price">
+                                                                <%= product.oldPrice %>
+                                                            </div>
+                                                            <% } %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                </div>
+                                <!-- End row 1 -->
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                            <aside class="product-sidebar">
+                                <div class="box-img">
+                                    <a href="">
+                                        <img src="https://kingshoes.vn/template/Default/img/bannersitebar01.jpg" alt=""
+                                            width="330" height="260">
+                                    </a>
+                                </div>
+                            </aside>
+                            <aside class="product-sidebar">
+                                <div class="product-widget-header">
+                                    <h3>Tin tức mới</h3>
+                                </div>
+                                <div class="product-widget-content">
+                                    <% for(let post of sidebarPost){%>
+                                        <div class="ps-post-item">
+                                            <div class="ps-post-thumbnail">
+                                                <a href=""></a>
+                                                <img src="<%= post.postImgs %> " width="70" height="70" alt="<%= post.title %>" title="<%= post.title %>">
+                                            </div>
+                                            <div class="ps-post-content">
+                                                <a href="" class="ps-post-title">
+                                                    <%= post.title %>
+                                                </a>
+                                                <span>
+                                                    <i class="fa fa-calendar-o"></i>
+                                                    <%= post.date %> -
+                                                        <i class="fa fa-clock-o"></i>
+                                                        <%= post.time %>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                </div>
+                            </aside>
+                            <aside class="product-sidebar">
+                                <div class="product-widget-header">
+                                    <h3>SẢN PHẨM MỚI</h3>
+                                </div>
+                                <div class="product-widget-content">
+                                    <% for(let product of sidebarProduct){%>
+                                        <div class="ps-post-item">
+                                            <div class="ps-post-thumbnail">
+                                                <a href="/san-pham/<%= product.slug %>"></a>
+                                                <img src="<%= product.productImgs[0] %> " width="70" alt="<%= product.productName %>" title="<%= product.shoesName %>">
+                                            </div>
+                                            <div class="ps-post-content">
+                                                <a href="/san-pham/<%= product.slug %>" class="ps-post-title">
+                                                    <%= product.productName %>
+                                                </a>
+                                                <div class="rate-star">
+                                                    <div class="ratings" disabled></div>
+                                                </div>
+                                                <p>
+                                                    <%= formatMoney(product.newPrice) %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                </div>
+                            </aside>
+                            <aside class="product-sidebar">
+                                <div class="product-widget-header">
+                                    <h3>DANH MỤC</h3>
+                                </div>
+                                <div class="product-widget-content">
+                                    <ul class="ps-tags">
+                                        <li><a href="" class="btn">Dây Giày</a></li>
+                                        <li><a href="" class="btn">Other Brands</a></li>
+                                        <li><a href="" class="btn">Jordan</a></li>
+                                        <li><a href="" class="btn">Yeezy</a></li>
+                                        <li><a href="" class="btn">Nike</a></li>
+                                        <li><a href="" class="btn">Adidas</a></li>
+                                    </ul>
+                                </div>
+                            </aside>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagingnation -->
+
+                <%- include ('tiles/pagingnation') %>
+            </section>
+
+        </main>
+
+        <!-- Subscribe Section-->
+        <%- include ('tiles/subscribe') %>
+
+            <!-- footer -->
+            <%- include ('tiles/footer') %>
+
+                <script src="https://kit.fontawesome.com/4f9b2b93ff.js" crossorigin="anonymous"></script>
+                <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+                <script src="https://code.jquery.com/jquery-migrate-3.4.0.js"></script>
+                <script type="text/javascript"
+                    src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+                    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                    crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+                    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                    crossorigin="anonymous"></script>
+                
+                    <script src="/js/logout.js"></script>
+                             <!-- Search Product-->
+         <script src="/js/search-product.js"></script>
+                <script src="/js/rate-star.js"></script>
+                <script>
+                    $(".ratings").starrr({
+                        rating: 5,
+                        readOnly: true
+                    });
+
+                </script>
+</body>
+
+</html>
