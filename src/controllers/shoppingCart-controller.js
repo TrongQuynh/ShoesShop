@@ -8,7 +8,7 @@ const userModel = require("../models/user.model");
 const helper = require("../helpers/index");
 
 function updateProductQuantity(cart, newProduct, isUpdate) {
-    let productIndex = cart.products.findIndex((product) => (product.productCode == newProduct.productCode) && (product.size == newProduct.size));
+    let productIndex = cart.products.findIndex((product) => (product.productID == newProduct.productID) && (product.size == newProduct.size));
 
     if (productIndex > -1) {
         let quantity = cart.products[productIndex].quantity;
@@ -21,29 +21,31 @@ function updateProductQuantity(cart, newProduct, isUpdate) {
     return cart;
 }
 
-async function getCartProduct(userId){
+async function getCartProduct(userID){
         
         let newCartProduct = [];
         let totalBill = 0;
         let totalProduct = 0;
-        let cart = await shoppingCartModel.findOne({userId});
+        
+        let cart = await shoppingCartModel.findOne({userID});
 
         if(!cart){
             return {cartProducts:newCartProduct, totalBill};
         }
         for (let cartProduct of cart.products) {
-            let product = await productModel.findOne({ productCode: cartProduct.productCode });
+            let product = await productModel.findOne({ _id: cartProduct.productID });
             totalBill += ((product.newPrice) * (cartProduct.quantity));
             totalProduct += Number(cartProduct.quantity);
             newCartProduct.push({
                 price: product.newPrice,
+                productID: product._id,
                 productCode: product.productCode,
                 productName: product.productName,
                 quantity: cartProduct.quantity,
                 thumbnail: product.productImgs[0],
                 size: cartProduct.size,
                 slug: product.slug,
-                id: cartProduct._id,
+                cardID: cartProduct._id,
                 totalPrice: (product.newPrice) * (cartProduct.quantity)
             })
         }
@@ -54,47 +56,53 @@ class cartController {
 
     // [GET] /gio-hang/
     async loadData(req, res, next) {
-        let userId = req.userID;
-        
-        let cartProduct = userId == "" ? {cartProducts:[], totalBill:0} : await getCartProduct(userId);
+        let userID = req.userID;
+        console.log("// [GET] /gio-hang/: " + req.userData != null);
+        console.log("// [GET] /gio-hang/: " + userID);
+        let cartProduct = userID == "" ? {cartProducts:[], totalBill:0} : await getCartProduct(userID);
         // return res.json(newCart)
         return res.render("shopping-cart", {
             cartProduct,
-            userData: req.user,
+            userData: req.userData,
             formatMoney: helper.formatToMoney
         })
     }
 
     // [POST] /gio-hang/add-new-product
     async addNewProduct(req, res, next) {
+        console.log("addNewProduct: ");
+        console.log(req.userID);
 
-        const userId = req.userID;
-        const {productCode, quantity, size } = req.body;
+        const userID = req.userID;
+        if(!userID){
+            return res.render("login");
+        }
+        const {productID, quantity, size } = req.body;
         // let userId = "62efa3490f31b54514b2baf2", productCode ="Mk23", quantity = 2, size = 45;
-        let cart = await shoppingCartModel.findOne({ userId });
+        let cart = await shoppingCartModel.findOne({ userID });
         let totalQuantity = 0;
         if (cart) {
-            cart = updateProductQuantity(cart, {productCode, quantity, size},false);
+            cart = updateProductQuantity(cart, {productID, quantity, size},false);
             cart = await cart.save();
         } else {
             await new shoppingCartModel({
-                userId,
-                products: [{ productCode, quantity, size }]
+                userID,
+                products: [{ productID, quantity, size }]
             }).save();
         }
-        cart = await shoppingCartModel.findOne({ userId });
+        cart = await shoppingCartModel.findOne({ userID });
         cart.products.forEach((product) => totalQuantity += product.quantity);
     
-        return res.status(200).end();
+        return res.status(200).json({ "status": 200 }).end();
     }
 
     // [PATCH] /gio-hang/update-quantity-product
     async updateQuantityProduct(req, res) {
-        let userId = req.userID;
-        let {productCode, quantity, size} = req.body;
-        let cart = await shoppingCartModel.findOne({ userId });
+        let userID = req.userID;
+        let {productID, quantity, size} = req.body;
+        let cart = await shoppingCartModel.findOne({ userID });
         if (cart) {
-              cart = updateProductQuantity(cart,{productCode, quantity, size},true);
+              cart = updateProductQuantity(cart,{productID, quantity, size},true);
               cart = await cart.save();
               return res.status(200).json(cart); 
         } else {
@@ -105,9 +113,9 @@ class cartController {
     // [DELETE] /gio-hang/delete/:id
     async deleteProduct(req, res){
         let id = req.params.id;
-        let userId = req.userID;
-        let cart = await shoppingCartModel.findOne({ userId });
-        let products = cart.products.filter((product) => product._id != id);
+        let userID = req.userID;
+        let cart = await shoppingCartModel.findOne({ userID });
+        let products = cart.products.filter((product) => product.productID != id);
         cart.products = products;
         await cart.save();
 

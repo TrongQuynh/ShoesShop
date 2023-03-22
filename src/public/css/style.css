@@ -93,20 +93,6 @@ nav>div {
     margin-bottom: 5px;
 }
 
-/* serch field */
-.form-inline {
-    position: relative;
-}
-
-.form-inline button {
-    position: relative;
-    left: -35px;
-    border: 0;
-    outline: none;
-    background-color: transparent;
-    cursor: pointer;
-}
-
 
 .btn-cart {
     padding: 10px 15px;
@@ -323,7 +309,7 @@ header {
 /* Product content */
 
 
-.product-name {
+.shoes-detail .product-name {
     height: 44px;
     margin-bottom: 10px;
 }
@@ -352,36 +338,6 @@ header {
 
 .rate-star {
     color: var(--yellow-color);
-}
-
-/* Pagingnation */
-.product-pagination {
-    margin-top: 0;
-    display: flex;
-    justify-content: center;
-}
-
-.page-item:first-child .page-link,
-.page-item:last-child .page-link {
-    border-radius: 50%;
-}
-
-
-.page-item>.page-link {
-    border-radius: 50%;
-    margin: 0 10px;
-    padding: 20px 20px;
-    transition: 0.4s;
-    color: #000000;
-}
-
-.page-item>.page-link:hover {
-    background: var(--yellow-color);
-    color: white;
-}
-
-.page-active {
-    background-color: var(--yellow-color);
 }
 
 /* End Product secction */

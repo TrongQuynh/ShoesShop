@@ -16,6 +16,10 @@ body {
     font-family: "Roboto Condensed", sans-serif !important;
 }
 
+.clear {
+    clear: both;
+}
+
 .header-top {
     border-bottom: 1px solid #f1f1f1;
 }
@@ -100,6 +104,10 @@ nav>div {
 
 .nav-header{
     margin-bottom: 5px;
+}
+
+.form-inline{
+    position: relative;
 }
 
 .form-inline button {
@@ -417,6 +425,7 @@ header {
 }
 
 /* Modal Delete Product*/
+#delete-product > .modal-dialog,
 .delete-product > .modal-dialog{
     position: absolute;
     transform: translate(-50%, -50%) !important;
@@ -424,21 +433,26 @@ header {
     left: 50%;
 }
 
-.delete-product .modal-title{
+.model-SC .modal-title{
     font-size: 60px;
 }
 
-.delete-product .modal-body{
+.model-SC .modal-body{
     text-align: center;
     font-size:1.875em;
     font-weight: 600;
 }
 
-.delete-product .modal-footer,.delete-product .modal-header{
+.model-SC .modal-footer,.model-SC .modal-header{
     display: flex;
     justify-content: center;
 }
 
-.delete-product .modal-footer button{
+.model-SC .modal-footer button{
     padding: 8px 30px;
+}
+
+/* Modal Order Product*/
+#order-product .modal-footer button{
+    width: 100%;
 }

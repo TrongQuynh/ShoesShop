@@ -253,7 +253,7 @@ li.menu-item a {
 /* ================================================================================== */
 /* SLIDEBAR SECTION */
 .sidebar {
-  width: 25%;
+  width: 30%;
   height: 100vh;
   padding-top: 4em;
   padding-left: 4%;
@@ -298,6 +298,11 @@ li.menu-item a {
   right: -0.75em;
   top: -0.75em;
   z-index: 2;
+}
+
+.product td.product-description {
+  width: 250px;
+  padding-left: 10px;
 }
 
 .product-description a {

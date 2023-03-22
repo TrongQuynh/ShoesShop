@@ -50,7 +50,7 @@
                             </div>
                             <div class="row">
                                 <select class="field field-third" name="calc_shipping_provinces" id="province" required="">
-                                    <option value="">Tỉnh / Thành phố</option>
+                                    <option value="-10">Tỉnh / Thành phố</option>
                                     <% for(let province of provinces){ %> 
                                         <option value="<%= province.code %>"><%= province.name %></option>
                                     <% } %> 
@@ -155,7 +155,7 @@
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="product-box">
                         <% for(let product of products.cartProducts){ %> 
                             <tr class="product" data-product-id="1419">
                                 <td class="product-image">
@@ -175,7 +175,7 @@
                                         <div class="attribute_pro"><span class="badge-size">Size Giày: <b><%= product.size %></b></span></div>
                                     <% } %>  
                                 </td>
-                                <td class="product-quantity visually-hidden"><%= product.quantity %></td>
+                                <!-- <td class="product-quantity visually-hidden"><%= product.quantity %></td> -->
                                 <td class="product-price">
                                     <span class="order-summary-emphasis"><%= formatMoney(product.totalPrice) %></span>
                                 </td>
@@ -187,7 +187,7 @@
             <div class="total-section">
                 <div class="total-line total-line-subtotal">
                     <span class="total-line-name">Tạm tính</span>
-                    <span class="total-line-price"><%= formatMoney(products.totalBill) %></span>
+                    <span class="total-line-price" id="tmp_totalBill"><%= formatMoney(products.totalBill) %></span>
                 </div>
                 <div class="total-line total-line-shipping">
                     <span class="total-line-name">Phí vận chuyển</span>
@@ -195,7 +195,7 @@
                 </div>
                 <div class="total-line total-line-footer">
                     <span class="total-line-name">Tổng cộng</span>
-                    <span class="payment-due-price"><%= formatMoney(products.totalBill,"VND") %></span>
+                    <span class="payment-due-price" id="totalBill"><%= formatMoney(products.totalBill,"VND") %></span>
                 </div>
             </div>
         </div>
@@ -230,7 +230,7 @@
         }
 
         function addDistric(districs){
-            $("#distric").html(`<option value="">Huyện</option>`);
+            $("#distric").html(`<option value="-10">Huyện</option>`);
             $("#ward").html(`<option value="">Xã</option>`);
             districs.forEach((distric)=>{
                 let html = `<option value="${distric.code}">${distric.name}</option>`;
@@ -239,7 +239,7 @@
         }
 
         function addWard(wards){
-            $("#ward").html(`<option value="">Xã</option>`);
+            $("#ward").html(`<option value="-10">Xã</option>`);
             wards.forEach((ward) => {
                 let html = `<option value="${ward.code}">${ward.name}</option>`;
                 $("#ward").append(html);
@@ -277,7 +277,23 @@
         }
     </script>
 
+    <!-- HANDLE COMPLETE ORDER -->
     <script>
+
+        function checkValidateAddress(){
+            if($("#province :selected").text() == "Tỉnh / Thành phố"
+            || $("#distric :selected").text() == "Huyện"
+            || $("#ward :selected").text() == "Xã"
+            || String($("#address").val()).replaceAll(" ","") == ""){
+                return false;
+            }
+            console.log($("#address").val());
+            return true;
+            console.log($("#province :selected").text());
+            console.log($("#distric :selected").text());
+            console.log($("#ward :selected").text());
+        }
+
         function getFullAddress(){
             let detail = $("#address").val();
             return {
@@ -310,17 +326,101 @@
                 let email = $("#email").val();
                 let note = $("#billing_note").val();
                 let isPaymentOnline = $('#rbtn_onlinePayment').is(':checked') ? true : false;
+
+                if(checkValidateAddress() && username.length > 0 && phonenumber.length > 0){
+                    let products = JSON.parse(localStorage.getItem("products") || "[]");
+                    let respone = await sendData({username,phonenumber,address, email, note, products});
+                    if(respone.status == 200){
+                        let data = await respone.json();
+                        window.location.replace(`/checkouts/order/${data.orderCode}`);
+                    } 
+                }else{
+                    alert("Vui lòng điền đầy đủ thông tin");
+                }
+                // console.log({username,phonenumber,address, email, note, isPaymentOnline});
+
                 
-                console.log({username,phonenumber,address, email, note, isPaymentOnline});
-                
-                let respone = await sendData({username,phonenumber,address, email, note});
-                if(respone.status == 200){
-                    let data = await respone.json();
-                    window.location.replace(`/checkouts/order/${data.orderCode}`);
-                } 
                 
             })
         })
     </script>
+
+    <!-- ========== RENDER PRODUCT ========== -->
+    <script>
+
+        async function getProductData(productID){
+            let rawData = await fetch("/san-pham/product-detail", {
+                    method: 'POST',
+                    headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({productID})
+            });
+            return await rawData.json();
+        }
+
+        function formatToMoney(number, type) {
+            // 'it-IT' => VND
+            // 'vi-VN' => ₫
+            let location = type == "D" || !type ? 'vi-VN' : 'it-IT';
+            return new Intl.NumberFormat(location, { style: 'currency', currency: 'VND' }).format(number);
+        }
+
+        function getHTMLProduct(product){
+            let sizeHtml = "";
+            if(product.size) {
+                sizeHtml = `<div class="attribute_pro"><span class="badge-size">Size Giày: <b>${product.size}</b></span></div>`;
+            } 
+            console.log(sizeHtml);
+            return `
+                <tr class="product">
+                    <td class="product-image">
+                        <a href="" target="_blank">
+                        <div class="product-thumbnail">
+                            <div class="product-thumbnail-wrapper">
+                                <img class="product-thumbnail-image" 
+                                alt="${product.productName}" src="${product.productImgs[0]}">
+                            </div>
+                            <span class="product-thumbnail-quantity" aria-hidden="true">${product.quantity}</span>
+                        </div>
+                        </a>
+                    </td>
+                    <td class="product-description">
+                        <a href="adidas-qtflex-da9449.html" target="_blank"><span class="product-description-name order-summary-emphasis">${product.productName}</span></a>
+            ` +
+                    sizeHtml
+            +` 
+                    </td>
+                    <td class="product-quantity visually-hidden">${ product.quantity }</td>
+                    <td class="product-price">
+                        <span class="order-summary-emphasis">${formatToMoney(parseInt(product.quantity) * parseInt(product.newPrice))}</span>
+                    </td>
+                </tr>
+            `
+        }
+
+        async function renderProductList(){
+            let productList = JSON.parse(localStorage.getItem("products") || "[]");
+            console.log(productList);
+            let totalBill = 0;
+            $("#product-box").empty();
+            for(let value of productList){
+                let product = await getProductData(value.productID);
+                product.size = value.size;
+                product.quantity = value.quantity;
+                $("#product-box").append(getHTMLProduct(product));
+                totalBill += (parseInt(product.newPrice) * parseInt(value.quantity));
+            }
+            $("#tmp_totalBill").text(formatToMoney(totalBill,"VND"));
+            $("#totalBill").text(formatToMoney(totalBill,"VND"));
+        }
+
+        $(document).ready(async function(){
+            await renderProductList();
+        })
+
+    </script>
+
 </body>
 </html>

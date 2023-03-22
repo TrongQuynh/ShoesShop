@@ -24,12 +24,15 @@
                     <p>
                     <div class="dropdown">
                         <a class="btn" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-                            <img src="<%= userData.picture %> " alt="" width="25">
+                            <img src="<%= userData.picture %>" alt="" width="25">
                             <%= userData.username %>
                         </a>
 
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="/user/tao-san-pham-moi">Tài khoản của tôi</a>
+                            <% if(userData.role == 1) {%> 
+                                <a class="dropdown-item" href="/quan-ly">Quản lý</a>    
+                            <% } %>
                             <a class="dropdown-item" href="/user/purchase">Đơn Mua</a>
                             <button class="dropdown-item" id="btn-logout">đăng xuất</button>
                         </div>

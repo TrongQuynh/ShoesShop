@@ -7,8 +7,9 @@
         <!-- Slick -->
         <link rel="stylesheet" type="text/css"
             href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-        <link rel="stylesheet" href="/css/product-detail.css">
         <link rel="stylesheet" href="/css/header.css">
+        <!-- <link rel="stylesheet" href="/css/style.css"> -->
+        <link rel="stylesheet" href="/css/product-detail.css">
         <link rel="stylesheet" href="/css/footer.css">
         <link rel="stylesheet" href="/css/rate-star.css">
 </head>
@@ -91,15 +92,15 @@
                                     <div class="product-label discount-percent">
                                         <span>-<%= product.discount %>% </span>
                                     </div>
-                                    <% } %>
+                                <% } %>
 
-                                        <div class="slider-for">
-                                            <% for(let image of product.productImgs){ %>
-                                                <div class="banner-img">
-                                                    <img src="<%= image %>" alt="">
-                                                </div>
-                                                <% } %>
+                                <div class="slider-for">
+                                    <% for(let image of product.productImgs){ %>
+                                        <div class="banner-img">
+                                            <img src="<%= image %>" alt="">
                                         </div>
+                                    <% } %>
+                                </div>
                             </div>
                             <div class="product-preview slider-nav">
                                 <% for(let image of product.productImgs){ %>
@@ -117,7 +118,7 @@
                             <h1 class="product-name">
                                 <%= product.productName %>
                             </h1>
-                            <p>Mã SP: <strong id="product-code" data-productcode="<%= product.productCode %>">
+                            <p>Mã SP: <strong id="product-code" data-productID="<%= product._id %>" data-productCode="<%= product.productCode %>">
                                     <%= product.productCode %>
                                 </strong></p>
                             <div class="product-price">
@@ -187,9 +188,9 @@
                                         <button class="ps-button" id="btn-buyNow">MUA NGAY</button>
                                     </div>
                                 </form>
-                                <%}else{%>
-                                    <h4 style="color: red;">Sản phẩm này hiện tại đã hết hàng.</h4>
-                                    <%}%>
+                            <%}else{%>
+                                <h4 style="color: red;">Sản phẩm này hiện tại đã hết hàng.</h4>
+                            <%}%>
 
                         </div>
                     </div>
@@ -285,30 +286,99 @@
         <!-- footer -->
         <%- include ('tiles/footer') %>
 
-            <!-- Script -->
-            <%- include ('tiles/script') %>
-                <!-- Slick -->
-                <script type="text/javascript"
-                    src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-                <!-- Rating -->
-                <script src="/js/rate-star.js"></script>
-                <!-- Delete product in cart -->
-                <script src="/js/delete-product.js"></script>
-                <!-- Logout -->
-                <script src="/js/logout.js"></script>
-                <script>
-                    function amountHandle() {
-                        let currentValue = $("#input-amount").attr("value");
-                        currentValue = Number(currentValue);
+        <!-- Script -->
+        <%- include ('tiles/script') %>
+        <!-- Slick -->
+        <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+        <!-- Rating -->
+        <script src="/js/rate-star.js"></script>
+        <!-- Delete product in cart -->
+        <script src="/js/delete-product.js"></script>
+        <!-- Logout -->
+        <script src="/js/logout.js"></script>
+        <!-- Search Product -->
+        <script src="/js/search-product.js"></script>
 
-                        let newValue = this.id == "btn-increment" ? currentValue + 1 : currentValue - 1;
-                        if (newValue < 1 || newValue > 100) {
-                            return;
-                        }
-                        $("#input-amount").attr("value", newValue);
-                    }
+        <!-- Handle amount of product for for add to cart -->
+        <script>
+            function amountHandle() {
+                let currentValue = $("#input-amount").attr("value");
+                currentValue = Number(currentValue);
 
-                    async function sendAddToCart(product) {
+                let newValue = this.id == "btn-increment" ? currentValue + 1 : currentValue - 1;
+                if (newValue < 1 || newValue > 100) {
+                    return;
+                }
+                $("#input-amount").attr("value", newValue);
+            }
+        </script>
+
+        <!-- Handle Slick -->
+        <script>
+            $(document).ready(function () {
+                // slick
+                $('.slider-for').slick({
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: false,
+                    infinite: true,
+                    fade: true,
+                    asNavFor: '.slider-nav'
+                });
+                $('.slider-nav').slick({
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    asNavFor: '.slider-for',
+                    dots: false,
+
+                    focusOnSelect: true,
+                    arrows: false,
+                    vertical: true,
+                    verticalSwiping: true,
+                });
+
+                $(".banner-slider").slick({
+                    arrows: false,
+                    infinite: true,
+                    autoplay: true,
+                    autoplaySpeed: 2000,
+                    dots: true,
+                })
+                // Rating
+                $(".ratings").starrr({
+                    rating: 5,
+                    readOnly: true
+                });
+                // Amount
+                $("#btn-decrement").click(amountHandle);
+                $("#btn-increment").click(amountHandle);
+
+
+                
+            });
+        </script>
+
+        <!-- Init and Hide Product ID -->
+        <script>
+            $(document).ready(function(){
+                let productID = $("#product-code").attr("data-productID");
+                let productCode = $("#product-code").attr("data-productCode");
+                // Set data to element
+                $("#product-code").data("productID",productID);
+                $("#product-code").data("productCode",productCode);
+
+                // Remove attribute
+                $("#product-code").removeAttr("data-productID");
+                $("#product-code").removeAttr("data-productCode");
+            })
+        </script>
+
+        <!-- EVENT ADD TO CART AND BUY NOW -->
+        <script>
+            $(document).ready(function () {
+
+                async function sendAddToCart(product) {
                         const rawResponse = await fetch('/gio-hang/add-new-product', {
                             method: 'POST',
                             headers: {
@@ -321,93 +391,49 @@
                         return respone;
                     }
 
-                    async function addNewProductToCart() {
-                        let productCode = $("#product-code").data("productcode");
-                        let quantity = Number($("#input-amount").val());
-                        let size = "";
-                        let price = Number($(".new-price").data("price"));
+                async function addNewProductToCart() {
+                    let productID = $("#product-code").data("productID");
+                    let productCode = $("#product-code").data("productCode");
+                    let quantity = Number($("#input-amount").val());
+                    let size = "";
+                    let price = Number($(".new-price").data("price"));
 
-                        $(".btn-size").each(function (el) {
-                            if ($(this).is(":checked")) {
-                                size = $(this).data("size");
-                            }
-                        })
+                    $(".btn-size").each(function (el) {
+                        if ($(this).is(":checked")) {
+                            size = $(this).data("size");
+                        }
+                    })
 
-                        return await sendAddToCart({ productCode, quantity, size });
+                    return await sendAddToCart({ productID, quantity, size });
 
+                }
+
+                // Add product to cart
+                $("#btn-addToCard").click(async function () {
+                    // Close modal
+                    setTimeout(function () {
+                        location.reload();
+                        $('#add-product').modal('toggle');
+                    }, 500);
+                    let res = await addNewProductToCart();
+                    if (res.status == 401) {
+                        window.location.replace("/accounts/login");
+                        return;
                     }
+                })
 
-                    $(document).ready(function () {
-                        // slick
-                        $('.slider-for').slick({
-                            slidesToShow: 1,
-                            slidesToScroll: 1,
-                            arrows: false,
-                            infinite: true,
-                            fade: true,
-                            asNavFor: '.slider-nav'
-                        });
-                        $('.slider-nav').slick({
-                            slidesToShow: 4,
-                            slidesToScroll: 1,
-                            asNavFor: '.slider-for',
-                            dots: false,
-
-                            focusOnSelect: true,
-                            arrows: false,
-                            vertical: true,
-                            verticalSwiping: true,
-                        });
-
-                        $(".banner-slider").slick({
-                            arrows: false,
-                            infinite: true,
-                            autoplay: true,
-                            autoplaySpeed: 2000,
-                            dots: true,
-                        })
-                        // Rating
-                        $(".ratings").starrr({
-                            rating: 5,
-                            readOnly: true
-                        });
-                        // Amount
-                        $("#btn-decrement").click(amountHandle);
-                        $("#btn-increment").click(amountHandle);
-
-
-                        // Add product to cart
-
-                        $("#btn-addToCard").click(async function () {
-                            // Close modal
-                            setTimeout(function () {
-                                location.reload();
-                                $('#add-product').modal('toggle');
-                            }, 500);
-                            let res = await addNewProductToCart();
-                            if (res.status == 401) {
-                                window.location.replace("/accounts/login");
-                                return;
-                            }
-
-
-
-                        })
-
-                        // Buy now
-                        $("#btn-buyNow").click(async function () {
-                            let res = await addNewProductToCart();
-                            if (res.status == 401) {
-                                window.location.replace("/accounts/login");
-                                return;
-                            }
-                            window.location.replace("/gio-hang");
-                        })
-                    });
-
-
-
-                </script>
+                // Buy now
+                $("#btn-buyNow").click(async function () {
+                    let res = await addNewProductToCart();
+                    if (res.status == 401) {
+                        window.location.replace("/accounts/login");
+                        return;
+                    }else{
+                        window.location.href = "/gio-hang";
+                    }
+                })
+            })
+        </script>
 </body>
 
 </html>

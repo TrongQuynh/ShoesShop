@@ -25,11 +25,11 @@ function Router(app) {
     app.use("/checkouts", authMiddleWare.handleRequest,
         authMiddleWare.userData, authMiddleWare.isHaveProductInCart, checkoutRouter);
 
-    app.use("/quan-ly", adminRouter);
+    app.use("/quan-ly", authMiddleWare.handleRequest, authMiddleWare.userData, authMiddleWare.isAdmin,adminRouter);
 
     app.use("/gio-hang", authMiddleWare.handleRequest, authMiddleWare.userData, cartRouter);
     app.use("/accounts", authMiddleWare.handleRequest, accountRouter);
-    app.use("/user", authMiddleWare.handleRequest, userRouter);
+    app.use("/user", authMiddleWare.handleRequest, authMiddleWare.userData, userRouter);
     // Not need login
     app.use("/san-pham", authMiddleWare.isNotNeedLogin, authMiddleWare.handleRequest, authMiddleWare.userData, productRouter);
     app.use("/tim-kiem", searchRouter);

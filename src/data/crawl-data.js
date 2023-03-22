@@ -16,6 +16,9 @@ function isExistProductCode(productCode){
 }
 
 function generateSlug(str, productCode) {
+   
+    str = str.includes("/") ? str.replaceAll("/","-") : str;
+    
     let slug = str.toLocaleLowerCase().replaceAll(" ", "-");
     while (isSlugExit(slug)) {
         slug = isSlugExit(str) ? `${str}-${productCode}-${Date.now()}` : str;
@@ -46,6 +49,7 @@ async function crawlProductDetail(url) {
         while(isExistProductCode(productCode) || productCode == ""){
             let tmp = String(productName.replaceAll(' ','')).toUpperCase();
             productCode = (tmp.slice(tmp.length > 4 ? 4 : tmp.length)) + String(getRandomQuantity() + 55);
+            console.log(productCode);
         }
         
 
@@ -271,7 +275,7 @@ async function saveFile(collection) {
         fileName = "postData.json"
         content = postList;
     }
-    await fs.writeFileSync(`${__dirname}/${fileName}`, JSON.stringify(content));
+    await fs.writeFile(`${__dirname}/${fileName}`, JSON.stringify(content));
     console.log(`"Write ${fileName} success"`);
     // fs.writeFile(`${__dirname}/${fileName}`, JSON.stringify(content), err => {
     //     if (err) {

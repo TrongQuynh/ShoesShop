@@ -32,14 +32,16 @@ const orderSchema = new Schema({
                 ward: {type: String},
             },
             /*
-                0 - Not confirmed orders
-                1 - Confirmed orders
-                2 - Prepare orders
-                3 - In Delivery
-                4 - Delivery Success
+                0 - inWaitConfirm
+                1 - inPrepareOrder
+                2 - inDeliveryOrder
+                3 - Success
+                4 - isOrderCancel
+                
             */
             status: [
                 {
+                    _id: false,
                     key:{
                         type: String
                     },
@@ -50,7 +52,8 @@ const orderSchema = new Schema({
                 }
             ], 
             note: String,
-            isPaymentOnline:{type: Boolean, default:false}
+            isPaymentOnline:{type: Boolean, default:false},
+            orderAt: { type: Date, default: Date.now }
         }
     ]
 

@@ -22,7 +22,7 @@ body {
 
 .container {
     margin: 0 auto;
-    width: 800px;
+    width: 900px;
     max-width: 100%;
 }
 
@@ -85,7 +85,7 @@ body {
     text-align: right;
 }
 
-.btn-repurchase {
+.btn-reBuy {
     display: inline-block;
     background-color: #cf5050;
     color: white;

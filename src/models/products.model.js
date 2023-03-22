@@ -11,14 +11,14 @@ const productSchema = new Schema({
     newPrice: Number,
     quantity: { type: Number, default: 0 },
     oldPrice: String,
-    discount: Number,
-    isHotProduct: Boolean,
-    isNewProduct: Boolean,
+    discount: {type: Number, default: 0},
+    isHotProduct: {type: Boolean, default: false},
+    isNewProduct: {type: Boolean, default: false},
     productSize: { type: Array },
     productCode: String,
-    productType: String,
+    productType: {type: String, default: "Shoes"},
     note: String,
-    status: Boolean,
+    status: {type: Boolean, default: true},
     slug: { type: String, slug: 'productName', unique: true }
 }, { timestamps: true });
 

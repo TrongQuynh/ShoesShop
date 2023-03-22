@@ -35,11 +35,11 @@
                                         <i class="fas fa-shopping-cart"></i>
                                     </a>
                                 </div>
-                                <% } %>
-                                    <% for(let product of cartProduct.cartProducts){ %>
-                                        <div class="itemCart" data-id="<%= product.id %>">
+                            <% } %>
+                            <% for(let product of cartProduct.cartProducts){ %>
+                                <div class="itemCart" data-productID="<%= product.productID %>">
                                             <div class="infocart">
-                                                <input type="checkbox" class="chbox_product" id="<%= product.id %>">
+                                                <input type="checkbox" class="chbox_product" id="<%= product.productID %>">
                                                 <div class="item-image">
                                                     <a class="image-link" href="/san-pham/<%= product.slug %> ">
                                                         <img src="<%= product.thumbnail %> " alt="">
@@ -61,12 +61,13 @@
                                                         </span>
                                                     </div>
                                                     <div class="item-code"
+                                                        data-productID="<%= product.productID %>"
                                                         data-productcode="<%= product.productCode %>">
                                                         <b>Mã SP:</b>
                                                         <%= product.productCode %>
                                                     </div>
                                                     <div class="number">
-                                                        <div class="btn-amount-group" data-id="<%= product.id %>">
+                                                        <div class="btn-amount-group" data-productID="<%= product.productID %>">
                                                             <button class="btn-amount btn-decre"
                                                                 type="button">-</button>
                                                             <input class="item-amount" type="text"
@@ -87,7 +88,7 @@
                                                         </span>
                                                     </div>
                                                     <div class="btn-card">
-                                                        <button data-id="<%= product.id %>" type="button"
+                                                        <button data-productID="<%= product.productID %>" type="button"
                                                             class="btn-remove" data-toggle="modal"
                                                             data-target="#delete-product">
                                                             <i class="fa fa-times" aria-hidden="true"></i>
@@ -96,8 +97,8 @@
                                                 </div>
                                                 <div class="clear"></div>
                                             </div>
-                                        </div>
-                                        <% } %>
+                                </div>
+                            <% } %>
                         </div>
                         <% if(cartProduct.cartProducts.length> 0){ %>
                             <div class="total-money">
@@ -175,14 +176,14 @@
                                         SHOES.</strong>
                                 </p>
                             </div>
-                            <% } %>
+                        <% } %>
                     </div>
                 </div>
             </section>
         </main>
 
         <!-- Model -->
-        <div class="modal fade delete-product" id="delete-product" tabindex="-1" aria-labelledby="modalLabel"
+        <div class="modal fade model-SC" id="delete-product" tabindex="-1" aria-labelledby="modalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -202,6 +203,26 @@
             </div>
         </div>
 
+        <div class="modal fade model-SC" id="order-product" tabindex="-1" aria-labelledby="modalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                        </h5>
+                    </div>
+                    <div class="modal-body">
+                        Bạn vẫn chưa chọn sản phẩm nào để mua.
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" id="btn-confirm" class="btn btn-primary">Xóa</button> -->
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Subscribe Section-->
         <%- include ('tiles/subscribe') %>
 
@@ -214,6 +235,27 @@
         <script src="/js/delete-product.js"></script>
         <!-- Log Out -->
         <script src="/js/logout.js"></script>
+
+        <!-- Init and Hide ProductID -->
+        <script>
+            $(document).ready(function(){
+                $(".itemCart").each(function (index,element) {
+                    let productID = $(element).attr("data-productID");
+                    $(element).data("productID", productID);
+                    $(element).removeAttr("data-productID")
+                })
+                $(".btn-amount-group").each(function(index,element){
+                    let productID = $(element).attr("data-productID");
+                    $(element).data("productID", productID);
+                    $(element).removeAttr("data-productID")
+                })
+                $(".btn-remove").each(function(index,element){
+                    let productID = $(element).attr("data-productID");
+                    $(element).data("productID", productID);
+                    $(element).removeAttr("data-productID")
+                })
+            })
+        </script>
 
         <script>
 
@@ -234,12 +276,15 @@
             }
 
             function amountHandle() {
-                let id = $(this).parent(".btn-amount-group").data("id");
+                let id = $(this).parent(".btn-amount-group").data("productID");
                 let button = $(this).attr("class");
 
                 $(".itemCart").each(function () {
-                    if ($(this).data("id") == id) {
-                        let productCode = $(this).find(".item-code").data("productcode");
+                    console.log($(this).data("productID"));
+                    console.log(id);
+                    if ($(this).data("productID") == id) {
+                        // let productCode = $(this).find(".item-code").data("productcode");
+                        let productID = $(this).data("productID");
                         let size = $(this).find(".product-size").text();
                         let currentQuantity = Number($(this).find(".item-amount").attr("value"));
                         let quantity = button.includes("btn-incre") ? currentQuantity + 1 : currentQuantity - 1;
@@ -248,8 +293,10 @@
                         }
                         // Set New Value
                         $(this).find(".item-amount").attr("value", quantity);
+                        console.log(quantity);
                         // send request update to server
-                        updateAmountProductCart({ productCode, quantity, size: Number(size) });
+                        updateAmountProductCart({ productID, quantity, size: Number(size) });
+                        
                         $("#item-cart-quantity").text(quantity);
                     }
                 })
@@ -271,7 +318,7 @@
                     price = Number($(this).find(".priceProduct").data("price"));
                     // Get quantity of 1 product
                     quantity = Number($(this).find(".item-amount").attr("value"));
-                    if ($(this).data("id") == id) {
+                    if ($(this).data("productID") == id) {
                         // set total price for 1 product
                         $(this).find(".total_price > .textPrice").text(formatMoney(quantity * price));
                     }
@@ -283,17 +330,16 @@
 
         </script>
 
+        <!-- HANDLE EVENT REMOVE PRODUCT FROM CART -->
         <script>
             $(document).ready(function () {
-
-           
                 let productID = "";
                 $('#delete-product').on('show.bs.modal', function (event) {
                     var button = $(event.relatedTarget) // Button that triggered the modal
-                    productID = button.data('id') // Extract info from data-* attributes
+                    productID = button.data("productID") // Extract info from data-* attributes
                     // removeProduct(productID);
                     $(".itemCart").each(function () {
-                        if ($(this).data("id") == productID) {
+                        if ($(this).data("productID") == productID) {
                             let name = $(this).find(".item-title > a > h3").text();
                             $(".modal-body").text(`Bạn có muốn xóa sản phẩm ${name} ?`)
                         }
@@ -322,14 +368,20 @@
                     if(element.checked){
                         products.push(
                             {
-                                _id: $(element).attr("id"),
+                                productID: $(element).attr("id"),
                                 quantity:$(element).closest(".infocart").find(".item-info > .number .item-amount").attr("value"),
                                 size: parseInt($(element).closest(".infocart").find(".product-size").text())
                             }
                         )
                     }
                 })
-                localStorage.setItem("products", products);
+                if(products.length == 0){
+                    $('#order-product').modal('toggle');
+                }else{
+                    localStorage.setItem("products", JSON.stringify(products));
+                    window.location.replace("/checkouts");
+                }
+                
             })
         </script>
                     

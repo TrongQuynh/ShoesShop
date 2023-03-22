@@ -312,6 +312,7 @@ ol.breadcrumb {
 /* Product Name */
 .product-info > .product-name{
     font-family: 'Andika', sans-serif;
+    margin-bottom: 10px;
 }
 
 /* Product size */

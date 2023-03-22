@@ -4,13 +4,14 @@ require("../models/user.model");
 
 // Create Schema
 const shoppingCartSchema = new Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user"
-    },
+    // userID: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "user"
+    // },
+    userID: String,
     products: [
         {
-            productCode: String,
+            productID: String,
             quantity: {
                 type: Number,
                 required: true,

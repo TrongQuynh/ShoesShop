@@ -50,17 +50,14 @@ class checkoutController {
         const userID = req.userID;
         const orderDetail = req.body;
 
-        let {username,phonenumber,address, email, note, isPaymentOnline} = req.body;
+        let {username,phonenumber,address, email, note, isPaymentOnline,products} = req.body;
         let { province,district,ward, detail} = address;
         let orderCode = generateOrderCode();
-        let products = await cartController.getCartProduct(userID);
-        let productOrder = products.cartProducts.map(function(value, index){
-            return {
-                productID: value.id,
-                quantity: value.quantity,
-                size: value.size
-            }
-        })
+        let status = {
+            key:"inWaitConfirm",
+            value: true
+        }
+
         username = (String(username).replaceAll(" ","")).length < 1 ? (await userModel.findOne({_id:userID}).username) : username;
 
         let order = await orderModel.findOne({userID});
@@ -69,7 +66,7 @@ class checkoutController {
                 {
                     orderCode,
                     username,
-                    products: productOrder,
+                    products,
                     phonenumber,
                     address: { 
                         province,
@@ -79,7 +76,9 @@ class checkoutController {
                     },
                     note,
                     isPaymentOnline,
-                    status:[]
+                    status:[
+                        status
+                    ]
                 }
             )
             await order.save();
@@ -90,7 +89,7 @@ class checkoutController {
                     {
                         orderCode,
                         username,
-                        products: productOrder,
+                        products,
                         phonenumber,
                         address: { 
                             province,
@@ -100,7 +99,9 @@ class checkoutController {
                         },
                         note,
                         isPaymentOnline,
-                        status:[]
+                        status:[
+                            status
+                        ]
                     }
                 ]
             }).save();
@@ -113,17 +114,49 @@ class checkoutController {
         let userID = req.userID;
         let products = await cartController.getCartProduct(userID);
         let orderCode = req.params.orderCode;
-        console.log(orderCode);
+
         let orderData = await orderModel.findOne({userID, "orders.orderCode":orderCode});
         if(!orderData) return res.redirect("/gio-hang");
+
+        let order = orderData.orders.filter(function(value,index){
+            if(value.orderCode == orderCode){
+                return value;
+            }
+        })[0]
+
+        
+        let productIDList = [];
+       
+        order.products.forEach(function(value,index){
+            productIDList.push(String(value.productID));
+        })
+
+        let totalBill = 0;
+        let totalProduct = 0;
+        let productOrders = products.cartProducts.filter(function(value, index){
+            if(productIDList.includes(String(value.productID))){
+                totalBill += ((value.totalPrice) * (value.quantity));
+                totalProduct += (value.quantity);
+                return value;
+            }
+        })
        
 
-        // Detele All Product In Cart
-        await shoppingCartModel.deleteMany({});
+        // Detele Product had bought In Cart
+        let card = await shoppingCartModel.findOne({userID});
+        card.products = card.products.filter(function(product,index){
+            // Get product that not in order
+            if(!productIDList.includes(String(product.productID))){
+                return product
+            }
+        })
+        await card.save();
 
-        console.log(products)
-        console.log("=====================");
-        console.log(orderData);
+        // Addition data
+        products.productOrders = productOrders;
+        products.totalBill = totalBill;
+        products.totalProduct = totalProduct;
+        // console.log(orderData);
         
         return res.render("checkout-order", {
             products,

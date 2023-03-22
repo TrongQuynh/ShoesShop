@@ -5,10 +5,11 @@ const multer = require('multer');
 // Controller
 const userController = require("../controllers/user-controller");
 
-router.get("/tao-san-pham-moi", userController.showCreateNewProduct);
-
 // [GET]/user/purchase
 router.get("/purchase", userController.purchase);
+
+// [POST] user/repurchase
+router.post("/repurchase", userController.repurchase);
 
 // router.post("/add-roduct", upload.array("imageFiles",max),userController.addNewProduct);
 

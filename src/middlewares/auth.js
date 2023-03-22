@@ -15,6 +15,7 @@ const getUserID = async function (req) {
             let decoded = await jwtHelper.verifyJWT(tokenFromClient, ACCESS_SECRET_KEY);
             let expireTime = decoded.exp;
             req.userID = decoded.id;
+            console.log("Auth.js - getUserID: " + req.userID);
             return decoded.id;
         } catch (error) {
             return res.json({ "message": "Error Token" });
@@ -84,13 +85,23 @@ const userData = async function (req, res, next) {
         return next()
     }
     let data = await userModel.findOne({ _id: req.userID });
+    console.log("Auth.js - userData: " + data.username);
     let userData = {
         username: data.username,
         phonenumber: data.phonenumber,
-        picture: data.picture
+        picture: data.picture,
+        role: data.role
     }
     req.userData = userData;
     return next();
+}
+
+const isAdmin = function(req,res,next){
+    if(req.userData.role == 0){
+        return res.status(401).json({"status": 401});
+    }else{
+        return next();
+    }
 }
 
 const isLogin = async function (req) {
@@ -133,13 +144,15 @@ const handleRequest = async function (req, res, next) {
     }
 
     // Request need login
-    // if have tokenm but token is expired
+    // if have token but token is expired
     if (isHaveToken(req) && !await isValidateToken(req)) {
-        return res.status(400).send("Token is expired");
+        // return res.status(400).send("Token is expired");
+        return res.status(400).render("login");
     }
 
 
     if (await isLogin(req)) {
+        console.log("Use has login => get data => Next");
         await getUserID(req);
         return next();
     } else {
@@ -148,7 +161,10 @@ const handleRequest = async function (req, res, next) {
             * user
             * gio-hang
         */
-
+            console.log("Use No login");
+        if(req.method == "GET"){
+            return res.render("404");
+        }
         return res.json({ "status": 401 });
     }
 }
@@ -162,4 +178,4 @@ const isHaveProductInCart = async function (req, res, next) {
     return amountProduct < 1 ? res.redirect("/gio-hang") : next();
 }
 
-module.exports = { userData, isHaveProductInCart, handleRequest, isNotNeedLogin };
+module.exports = { userData, isHaveProductInCart, handleRequest, isNotNeedLogin, isAdmin };

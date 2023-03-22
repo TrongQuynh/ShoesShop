@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include ('tiles/head') %>
+
+        <link rel="stylesheet" href="/css/footer.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/subcribe.css">
+        <link rel="stylesheet" href="/css/shopping-cart.css">
+
+        <title>HAN Shop</title>
+        
+</head>
+
+<body>
+
+    <!-- Header -->
+   
+
+        <main>
+            <!-- Shopping cart Section -->
+            <section class="shopping-box">
+                <div class="container">
+                    <div class="cart-page" style="background-color: #FEBD00;">
+                        <div class="box-item">
+                            <div class="empty-cart">
+                                <img src="/images/404.jpg" alt="" width="80%">
+                                <a href="/san-pham" id="btn-contBuy" type="button">
+                                    Trang chủ
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </section>
+        </main>
+
+       
+        <!-- Subscribe Section-->
+        <%- include ('tiles/subscribe') %>
+
+        <!-- footer -->
+        <%- include ('tiles/footer') %>
+
+        <!-- Script -->
+        <%- include ('tiles/script') %>
+        <!-- Delete product in cart -->
+        <script src="/js/delete-product.js"></script>
+        <!-- Log Out -->
+        <script src="/js/logout.js"></script>
+
+ 
+                    
+</body>
+
+</html>

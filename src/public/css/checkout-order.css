@@ -142,9 +142,9 @@
     color: #338dbc;
   }
   
-  /* sidebar section */
+  /* Sidebar Section */
   .sidebar {
-    width: 25%;
+    width: 30%;
     padding-top: 4em;
     padding-left: 4%;
   }
@@ -192,6 +192,16 @@
   
   .product-description a {
     text-decoration: none;
+   
+  }
+
+  .product td.product-description{
+    width: 250px;
+    padding-left: 10px;
+  }
+
+  .product td.product-price{
+    text-align: end;
   }
   
   .order-summary-emphasis {
@@ -213,7 +223,7 @@
     margin: 2px 2px;
     background-color: #d26e4b;
   }
-  
+
   .product td {
     padding-top: 1em
   }

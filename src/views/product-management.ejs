@@ -353,7 +353,7 @@
 
             async function getProductDetail(productID) {
                 let respone = await fetch("/san-pham/product-detail", {
-                    method: 'POST',
+                    method: 'GET',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'

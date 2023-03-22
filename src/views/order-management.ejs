@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Danh sách đơn hàng | Quản trị Admin</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Main CSS-->
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <!-- or -->
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+  <!-- Font-icon css-->
+  <link rel="stylesheet" type="text/css"
+    href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <!-- Data Tables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
+</head>
+
+<body onload="time()" class="app sidebar-mini rtl">
+  <!-- Navbar-->
+  <header class="app-header">
+    <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
+      aria-label="Hide Sidebar"></a>
+    <!-- Navbar Right Menu-->
+    <ul class="app-nav">
+
+
+      <!-- User Menu-->
+      <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a>
+
+      </li>
+    </ul>
+  </header>
+  <!-- Sidebar menu-->
+  <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+  <%- include ('tiles/admin-SidebarMenu') %>
+
+
+    <main class="app-content">
+      <div class="app-title">
+        <ul class="app-breadcrumb breadcrumb side">
+          <li class="breadcrumb-item active"><a href="#"><b>Danh sách đơn hàng</b></a></li>
+        </ul>
+        <div id="clock"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="tile">
+            <div class="tile-body">
+              <div class="row element-button">
+                <div class="col-sm-2">
+  
+                  <a class="btn btn-add btn-sm" href="form-add-don-hang.html" title="Thêm"><i class="fas fa-plus"></i>
+                    Tạo mới đơn hàng</a>
+                </div>
+                <div class="col-sm-2">
+                  <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
+                      class="fas fa-file-upload"></i> Tải từ file</a>
+                </div>
+  
+                <div class="col-sm-2">
+                  <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i
+                      class="fas fa-print"></i> In dữ liệu</a>
+                </div>
+                <div class="col-sm-2">
+                  <a class="btn btn-delete btn-sm print-file js-textareacopybtn" type="button" title="Sao chép"><i
+                      class="fas fa-copy"></i> Sao chép</a>
+                </div>
+  
+                <div class="col-sm-2">
+                  <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xuất Excel</a>
+                </div>
+                <div class="col-sm-2">
+                  <a class="btn btn-delete btn-sm pdf-file" type="button" title="In" onclick="myFunction(this)"><i
+                      class="fas fa-file-pdf"></i> Xuất PDF</a>
+                </div>
+                <div class="col-sm-2">
+                  <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
+                      class="fas fa-trash-alt"></i> Xóa tất cả </a>
+                </div>
+              </div>
+              <div class="statusTab">
+                <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/quan-ly/quan-ly-don-hang?status=0">Đơn hàng đợi duyệt</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/quan-ly/quan-ly-don-hang?status=1">Đang chuẩn bị hàng</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/quan-ly/quan-ly-don-hang?status=2">Đang vận chuyển</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/quan-ly/quan-ly-don-hang?status=3">Hoàn thành</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link disabled" href="/quan-ly/quan-ly-don-hang?status=4">Đã hủy</a>
+                  </li>
+                </ul>
+
+                <table class="table table-hover table-bordered" id="orderTable">
+                  <thead>
+                    <tr>
+                      <th width="10"><input type="checkbox" id="all"></th>
+                      <th>ID đơn hàng</th>
+                      <th>Khách hàng</th>
+                      <th>Đơn hàng</th>
+                      <th>Số lượng</th>
+                      <th>Kích Thước</th>
+                      <th>Tổng tiền</th>
+                      <th>Tình trạng</th>
+                      <th>Tính năng</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% for(let order of orders){ %> 
+                      
+                        <% order.products.forEach(function(product,index){ %>
+                            <% if(index == 0) {%> 
+                              <tr class="row-table row-<%= order.orderCode %>">
+                                <td rowspan="<%= order.products.length %>" width="10"><input type="checkbox" name="check1" value="1"></td>
+                                <td class="orderCode" rowspan="<%= order.products.length %>"><%= order.orderCode %></td>
+                                <td class="user" id="<%= order.userID%>" rowspan="<%= order.products.length %>"><%= order.username %></td>
+              
+                                <td><%= product.productName %></td>
+                                <td><%= product.quantity %></td>
+                                <td><%= product.size %></td>
+              
+                                <td rowspan="<%= order.products.length %>"><%= order.totalBill %></td>
+                                <td rowspan="<%= order.products.length %>">
+                                  <a href="#">
+                                  <% if(order.stage == 0){%>
+                                    <span class="badge bg-secondary">Đợi duyệt</span>  
+                                  <% }else if(order.stage == 1){ %>  
+                                    <span class="badge bg-info">Đang chuẩn bị hàng</span>  
+                                  <% }else if(order.stage == 2){ %>  
+                                    <span class="badge bg-warning">Đang giao</span>  
+                                  <% }else if(order.stage == 3){ %>  
+                                    <span class="badge bg-success">Giao hàng thành công</span>  
+                                  <% }else{ %>  
+                                    <span class="badge bg-danger">Hủy đơn</span>  
+                                  <% } %> 
+                                </a>
+                                </td>
+                                <td rowspan="<%= order.products.length %>">
+                                  <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"><i class="fas fa-trash-alt"></i> </button>
+                                  <button class="btn btn-primary btn-sm next-stage" type="button" title="Tiếp">
+                                    <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+                                  </button>
+                                </td>
+                              </tr>
+                            <% }else{ %> 
+                              <tr class="row-<%= order.orderCode %>">
+                                <td><%= product.productName %></td>
+                                <td><%= product.quantity %></td>
+                                <td><%= product.size %></td>
+                              </tr>
+                            <% } %> 
+                        <% }) %> 
+                        
+                        
+                     
+                    <% } %> 
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  <!-- Essential javascripts for application to work-->
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/jquery-migrate-3.4.0.js"></script>
+  <!--===============================================================================================-->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+  crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+  
+  <!-- <script src="src/jquery.table2excel.js"></script> -->
+  <!-- PACE PROCESS BAR -->
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+  <!-- Page specific javascripts-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+   <!-- Data table plugin-->
+   <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+   <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Run current time -->
+    <script src="/js/currentTime.js"></script>
+
+  <script type="text/javascript">
+    $('#orderTable').DataTable();
+    let alert = function() {};
+  </script>
+  
+  <script>
+    function deleteRow(r) {
+      var i = r.parentNode.parentNode.rowIndex;
+      document.getElementById("myTable").deleteRow(i);
+    }
+    jQuery(function () {
+      jQuery(".trash").click(function () {
+        swal({
+          title: "Cảnh báo",
+         
+          text: "Bạn có chắc chắn là muốn xóa đơn hàng này?",
+          buttons: ["Hủy bỏ", "Đồng ý"],
+        })
+          .then((willDelete) => {
+            if (willDelete) {
+              swal("Đã xóa thành công.!", {
+                
+              });
+            }
+          });
+      });
+    });
+    oTable = $('#orderTable').dataTable();
+    $('#all').click(function (e) {
+      $('#orderTable tbody :checkbox').prop('checked', $(this).is(':checked'));
+      e.stopImmediatePropagation();
+    });
+
+    //EXCEL
+    // $(document).ready(function () {
+    //   $('#').DataTable({
+
+    //     dom: 'Bfrtip',
+    //     "buttons": [
+    //       'excel'
+    //     ]
+    //   });
+    // });
+
+
+    
+    //In dữ liệu
+    var myApp = new function () {
+      this.printTable = function () {
+        var tab = document.getElementById('orderTable');
+        var win = window.open('', '', 'height=700,width=700');
+        win.document.write(tab.outerHTML);
+        win.document.close();
+        win.print();
+      }
+    }
+    //     //Sao chép dữ liệu
+    //     var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
+
+    // copyTextareaBtn.addEventListener('click', function(event) {
+    //   var copyTextarea = document.querySelector('.js-copytextarea');
+    //   copyTextarea.focus();
+    //   copyTextarea.select();
+
+    //   try {
+    //     var successful = document.execCommand('copy');
+    //     var msg = successful ? 'successful' : 'unsuccessful';
+    //     console.log('Copying text command was ' + msg);
+    //   } catch (err) {
+    //     console.log('Oops, unable to copy');
+    //   }
+    // });
+
+
+    //Modal
+    $("#show-emp").on("click", function () {
+      $("#ModalUP").modal({ backdrop: false, keyboard: false })
+    });
+  </script>
+
+  <!-- HANDLE STYLE TAB ACTIVE  -->
+  <script>
+    // STYLE TAB ACTIVE
+    $(document).ready(function(){
+      let url = window.location.href;
+      if(!url.includes("status") && window.location.pathname == "/quan-ly/quan-ly-don-hang"){
+        $(".statusTab .nav-link[href='/quan-ly/quan-ly-don-hang?status=0']").addClass("active");  
+        // Add Stage text
+        $(".orderTable .order-stage > span").removeClass("bg-secondary")
+        return;
+      }
+      
+
+      $(".statusTab .nav-link").each(function(index,element){
+ 
+        if(url.includes($(element).attr("href"))){
+          $(element).addClass("active");   
+        }  
+      })
+
+      // HIDEN "NEXT STAGE" BUTTON WHEN IN "SUCCESS" STAGE
+      let statusCode = (url.split("?")[1])[(url.split("?")[1]).length - 1]; 
+      if(statusCode == 3){
+        $(".next-stage").remove();
+      }
+    })
+  </script>
+
+  <!-- Init UserID -->
+  <script>
+    $(document).ready(function(){
+      $(".row-table > .user").each(function(index,element){
+        $(element).data("userID",$(element).attr("id"));
+        $(element).removeAttr("id");
+      })
+    })
+  </script>
+
+  <!-- HANDLE STATUS TAB OF ORDER -->
+  <script>
+
+    async function updateStageOrder(data){
+      let respone = await fetch("/quan-ly/cap-nhap-tinh-trang", {
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+      })
+      return await respone.json();
+    }
+
+    $(".next-stage").click(async function(e){
+      let url = window.location.href;
+      let orderCode = $(e.target).closest(".row-table").find(".orderCode").html();
+      let userID = $(e.target).closest(".row-table").find(".user").data("userID");
+      let status = {};
+      if(url.includes("status")){
+        let currStatusCode = (url.split("?")[1])[(url.split("?")[1]).length - 1]
+        if(currStatusCode == 0){
+          status.key = "inPrepareOrder";
+          status.value = true;
+        }else if(currStatusCode == 1){
+          status.key = "inDeliveryOrder";
+          status.value = true;
+        }else if(currStatusCode == 2){
+          status.key = "Success";
+          status.value = true;
+        }
+      }else{
+        status.key = "inPrepareOrder";
+        status.value = true;
+      }
+
+      // SEND REQUEST UPDATE STATUS
+      await updateStageOrder({userID,orderCode,status});
+    
+      // REMOVE ORDER IN TABLE
+      let classListStr = $(e.target).closest(".row-table").attr("class");
+      if(classListStr.includes("row-table")){
+        let className = $(e.target).closest(".row-table").attr("class").split(" ")[1];
+        $(`.${className}`).remove()
+      }
+
+    })
+
+    $(".edit").each(function(index,element){
+      console.log($(element).attr("title"));
+    })
+  
+  </script>
+
+</body>
+
+</html>

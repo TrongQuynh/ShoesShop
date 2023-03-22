@@ -534,11 +534,12 @@
 
                 async function sendProductData(product) {
                     let data = new FormData();
-                    data.append("productID", product.productID)
+                    data.append("productCode", product.productCode)
                     data.append("productName", product.productName)
                     data.append("quantity", product.quantity)
                     data.append("productStatus", product.productStatus)
                     data.append("category", product.category)
+                    data.append("productPrice", product.productPrice)
                     data.append("productSizes", product.productSizes)
                     data.append("note", product.note)
                     for (let file of product.productImage) {
@@ -546,7 +547,7 @@
                     }
 
                     // console.log(product.productImage);
-                    let raw_respone = await fetch("/san-pham/san-pham-moi", {
+                    let raw_respone = await fetch("/quan-ly/san-pham-moi", {
                         method: "POST",
                         body: data
                     });
@@ -555,17 +556,18 @@
 
                 // EVENT COMPLETE
                 $("#btn_complete").off().click(async function () {
-                    let productID = $("#productID").val();
+                    let productCode = $("#productID").val();
                     let productName = $("#productName").val();
-                    let quantity = $("#productQuantity").val();
+                    let quantity = parseInt($("#productQuantity").val());
                     let productStatus = $("#cbox_productStatus").val();
                     let category = $("#cbox_productCategory").val();
                     let productSizes = $("#productSize").val().split(",");
                     let productPrice = $("#productPrice").val();
+                    productPrice = parseInt(productPrice.replaceAll(".",""));
                     let note = $("#productNote").val();
                     let productImage = $("#productImgs").prop("files")
-                    console.log({ productID, productName, quantity, productStatus, category, productSizes, productPrice, note, productImage });
-                    await sendProductData({ productID, productName, quantity, productStatus, category, productSizes, productPrice, note, productImage });
+                    console.log({ productCode, productName, quantity, productStatus, category, productSizes, productPrice, note, productImage });
+                    await sendProductData({ productCode, productName, quantity, productStatus, category, productSizes, productPrice, note, productImage });
                 })
 
                 /*

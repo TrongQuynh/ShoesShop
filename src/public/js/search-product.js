@@ -91,14 +91,14 @@ $(document).ready(function () {
         window.location.replace(`/tim-kiem?size=${size}&rangePrice=${price}&sort=${sort}`);
     });
 
-    $(".page-link").click(function (e) {
-        e.preventDefault();
-        let currentUrl = window.location.href;
-        let currentPage = $(this).data("page");
-        let queryString = (window.location.href).replaceAll(window.location.pathname, "").replaceAll(window.location.origin, "");
-        if (String(queryString).includes("&page=")) {
-            queryString = queryString.slice(0, String(queryString).indexOf("&page="));
-        }
-        window.location.replace(`/tim-kiem${queryString}&page=${currentPage}`);
-    });
+    // $(".page-link").click(function (e) {
+    //     e.preventDefault();
+    //     let currentUrl = window.location.href;
+    //     let currentPage = $(this).data("page");
+    //     let queryString = (window.location.href).replaceAll(window.location.pathname, "").replaceAll(window.location.origin, "");
+    //     if (String(queryString).includes("&page=")) {
+    //         queryString = queryString.slice(0, String(queryString).indexOf("&page="));
+    //     }
+    //     window.location.replace(`/tim-kiem${queryString}&page=${currentPage}`);
+    // });
 });

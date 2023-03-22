@@ -21,6 +21,45 @@
             <!-- Shopping cart Section -->
             <section class="shopping-box">
                 <div class="container">
+
+                    <ul class="nav nav-tabs" id="statusTab" role="tablist" style="justify-content: center;">
+                        <li class="nav-item">
+                          <a class="nav-link" id="home-tab"
+                            href="/user/purchase?status=0" role="tab" aria-controls="home" aria-selected="true">Tất cả</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" id="profile-tab"
+                             href="/user/purchase?status=1" role="tab" aria-controls="profile" aria-selected="false">Chờ duyệt</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab"
+                              href="/user/purchase?status=2" role="tab" aria-controls="contact" aria-selected="false">Đang chuẩn bị</a>
+                          </li>
+                        <!-- <li class="nav-item">
+                          <a class="nav-link" id="contact-tab" data-toggle="tab" 
+                            href="/user/purchase?type=3" role="tab" aria-controls="contact" aria-selected="false">Vận chuyển</a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab"
+                                href="/user/purchase?status=3" role="tab" aria-controls="contact" aria-selected="false">
+                                Đang giao <span class="text-danger">(1)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab"
+                                href="/user/purchase?status=4" role="tab" aria-controls="contact" aria-selected="false">Hoàn thành</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab"
+                                href="/user/purchase?status=5" role="tab" aria-controls="contact" aria-selected="false">Đã hủy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="contact-tab"
+                                href="/user/purchase" role="tab" aria-controls="contact" aria-selected="false">Trả hàng/Hoàn tiền</a>
+                        </li>
+    
+                    </ul>
+
                     <!-- Header cart -->
                     <div class="cart-page">
                         <div class="shopping-header">
@@ -49,8 +88,8 @@
                                     <tbody>
                                         <% for(let product of order.products){ %>
                                             <tr class="product-row" data-href="<%= product.slug %>">
-                                                <td><img src="<%= product["picture"] %>" alt="" width="100"></td>
-                                                <td>
+                                                <td><img src="<%= product["image"] %>" alt="" width="100"></td>
+                                                <td class="product-name" id="<%= product["productName"] %>">
                                                     <h6 class="truncate">
                                                         <%= product["productName"] %>
                                                     </h6>
@@ -62,27 +101,27 @@
                                                     <%= product.size %>
                                                 </td>
                                                 <td>
-                                                    <%= formatMoney(product.price) %>
+                                                    <%= product.price %>
                                                 </td>
                                             </tr>
-                                            <% } %>
+                                        <% } %>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="footer-cart">
                                 <div class="total-box">
                                     <p><i class="fas fa-dollar-sign"></i>Tổng số tiền: <span class="total-price">
-                                            <%= formatMoney(order.totalMoney) %>
+                                            <%= order.totalBill %>
                                         </span>
                                     </p>
                                 </div>
-                                <div class="btn-box">
-                                    <a class="btn-repurchase" href="">Mua Lại</a>
+                                <div class="btn-box" data-orderCode="<%= order.orderCode %>">
+                                    <a class="btn-reBuy">Mua Lại</a>
                                     <a id="btn-rate" href="">Đánh Giá</a>
                                 </div>
                             </div>
                         </div>
-                        <% } %>
+                    <% } %>
                 </div>
             </section>
         </main>
@@ -90,27 +129,77 @@
         <!-- Subscribe Section-->
         <%- include ('tiles/subscribe') %>
 
-            <!-- footer -->
-            <%- include ('tiles/footer') %>
+        <!-- footer -->
+        <%- include ('tiles/footer') %>
 
-                <!-- Script -->
-                <%- include ('tiles/script') %>
+        <!-- Script -->
+        <%- include ('tiles/script') %>
 
-                    <script src="/js/logout.js"></script>
+        <script src="/js/logout.js"></script>
 
-                    <!-- Delete product in mini cart -->
-                    <script src="/js/delete-product.js"></script>
+        <!-- Delete product in mini cart -->
+        <script src="/js/delete-product.js"></script>
 
-                    <script>
-                        $(document).ready(function () {
-                            $(".product-row").click(function () {
-                                window.location = `/san-pham/${$(this).data("href")}`;
-                            })
-                            $(".btn-repurchase").click(function () {
-                                $(this)
-                            })
-                        })
-                    </script>
+    <!-- SHOW PRODUCT DETAIL -->
+    <script>
+        $(document).ready(function () {
+            $(".product-row").click(function () {
+                window.location = `/san-pham/${$(this).data("href")}`;
+            })
+        })
+    </script>
+
+    <!-- HANDLE STYLE TAB ACTIVE  -->
+    <script>
+        // STYLE TAB ACTIVE
+        $(document).ready(function(){
+        let url = window.location.href;
+        if(!url.includes("status") && window.location.pathname == "/user/purchase"){
+            $("#statusTab .nav-link[href='/user/purchase?status=0']").addClass("active");  
+            return;
+        }
+        
+
+        $("#statusTab .nav-link").each(function(index,element){
+    
+            if(url.includes($(element).attr("href"))){
+                $(element).addClass("active");   
+            }  
+        })
+
+        // HIDEN "NEXT STAGE" BUTTON WHEN IN "SUCCESS" STAGE
+        let statusCode = (url.split("?")[1])[(url.split("?")[1]).length - 1]; 
+        if(statusCode == 3){
+            $(".next-stage").remove();
+        }
+        })
+    </script>
+
+    <!-- HANDLE EVENT RE-BUY -->
+    <script>
+        $(document).ready(function(){
+            async function repurchase(orderCode) {
+                let respone = await fetch("/user/repurchase", {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ orderCode })
+                })
+                return respone;
+            }
+
+            $(".btn-reBuy").click(async function(){
+                let orderCode = $(this).closest(".btn-box").attr("data-orderCode");
+                let respone = await repurchase(orderCode);
+                if(respone.status == 200){
+                    window.location.href = "/gio-hang";
+                }
+            })
+        })
+        
+    </script>
 </body>
 
 </html>

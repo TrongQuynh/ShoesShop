@@ -1,72 +1,107 @@
 
-const helper = require("../helpers/index");
 
-const billModel = require("../models/bill.model");
-const userModel = require("../models/user.model");
+const helperData = require("../helpers/data");
+
+//  MODEL
+const orderModel = require("../models/order.model");
+const shoppingCartModel = require("../models/shoppingCart.model");
+const productModel = require("../models/products.model");
 
 const cartController = require("../controllers/shoppingCart-controller");
-const productModel = require("../models/products.model");
+const helper = require("../helpers/index");
+
 
 
 
 module.exports = {
 
-    // [GET] /user/purchase
+    // [GET] /user/purchase?type
     async purchase(req, res, next) {
-        console.log("Debug 1");
         let userID = req.userID;
-        const bill = await billModel.findOne({ userID: userID });
-        console.log("Debug 2");
-        let purchases = [];
-        if (bill) {
-            // if user have bill
-            purchases = await helper.getProductBill(bill.orders);
-            console.log("Debug 3");
+        let reqType = req.query.status;
+        if(!reqType){
+            // GET ALL PRODUCT
+            reqType = 0;
         }
+        
+        let reqStatus = {};
+        reqStatus.number = parseInt(reqType);
+        switch(parseInt(reqType)){
+            case 1:
+                reqStatus.key =  "inWaitConfirm";
+                reqStatus.value = true;
+            break;
+            case 2:
+                // In PREPARE stage
+                reqStatus.key =  "inPrepareOrder";
+                reqStatus.value = true;
+            break;
+            case 3:
+                // In DELIVERY stage
+                reqStatus.key =  "inDeliveryOrder";
+                reqStatus.value = true;
+            break;
+            case 4:
+                // In SUCCESS stage
+                reqStatus.key =  "Success";
+                reqStatus.value = true;
+            break;
+            case 5:
+                // In CANCEL stage
+                reqStatus.key =  "isOrderCancel";
+                reqStatus.value = true;
+            break;
+        }
+
+        // Get data of product in cart
         let cartProduct = userID == "" ? { cartProducts: [], totalBill: 0 } : await cartController.getCartProduct(userID);
-        console.log("Debug 4");
-        // return res.json(purchases);
+
+        let userOrder = await orderModel.findOne({userID});
+        let purchases = [];
+        if (userOrder) {
+            // if have this user
+            if(reqType == 0){
+                purchases = await helperData.getAllOrderDetail([userOrder],reqStatus);
+            }else{
+                purchases = await helperData.getOrderDetailWithStatus([userOrder],reqStatus);
+            }
+        }
+        
         return res.render("purchase", {
             purchases,
             cartProduct,
-            userData: req.user,
+            userData: req.userData,
             formatMoney: helper.formatToMoney
         })
     },
 
-    // [GET] /user/tao-san-pham-moi
-    showCreateNewProduct(req, res) {
-        return res.render("admin");
-    },
+    // [POST] /user/repurchase
+    async repurchase(req,res){
+        let userID = req.userID;
+        let {orderCode} = req.body;
 
-    // [POST] /user/products
-    async addNewProduct(req, res, next) {
-        let productData = req.body;
-
-        let productCode = productData.productCode;
-        try {
-            let product = await productModel.findOne({ productCode });
-            if (product) {
-                product = productData;
-                product.save();
-            } else {
-                await new productModel(productData).save();
-                return res.status(200).end();
+        let userOrder = await orderModel.findOne({userID});
+        if(userOrder){
+            for(let order of userOrder.orders){
+                if(order.orderCode == orderCode){
+                    for(let product of order.products){
+                        const {productID, quantity, size } = product;
+                        let cart = await shoppingCartModel.findOne({ userID });
+                        if (cart) {
+                            cart.products.push({productID, quantity, size});
+                            cart = await cart.save();
+                        } else {
+                            await new shoppingCartModel({
+                                userID,
+                                products: [{ productID, quantity, size }]
+                            }).save();
+                        }
+                    }
+                }
             }
-        } catch (error) {
-            console.log("Error when try to add new product");
-        }
+        }else{
 
-    },
-
-    async getUserInfoBy_ID(userID) {
-        let data = await userModel.findOne({ _id: userID });
-        let userData = {
-            username: data.username,
-            phonenumber: data.phonenumber,
-            picture: data.picture
         }
-        return userData;
+        return res.status(200).end();
     }
-
 }

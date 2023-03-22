@@ -8,6 +8,7 @@ const postData = require("../models/post.model");
 
 // Helper function
 const helper = require("../helpers/index");
+const helperData = require("../helpers/data");
 
 class homeController {
     // [GET] /
@@ -21,7 +22,9 @@ class homeController {
         let news = await postData.find().limit(4).exec()
         let products = await productData.find().limit(20).lean().getNewProduct().exec();
 
-        let userData = userId == "" ? null : await userController.getUserInfoBy_ID(userId);
+        // let userData = userId == "" ? null : await userController.getUserInfoBy_ID(userId);
+        let userData = userId == "" ? null : await helperData.getUserInfoBy_ID(userId);
+
 
         return res.render("home", {
             cartProduct,
