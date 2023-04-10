@@ -33,6 +33,13 @@ To update data of products
 node .\src\data\crawl-data.js 
 ```
 
+# Usage technology
+#### ***Front-End :***
+* ***EJS template, Bootstrap 4, HTML,CSS.***
+#### ***Back-End :***
+* ***NodeJS, ExpressJS, MongoDB,.***
+* Mongoose library, JWT, oauth2, passport.
+
 # More Info
 * User can login/ register (traditional way or oauth)
 * See detail product
