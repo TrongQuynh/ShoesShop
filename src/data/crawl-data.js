@@ -56,6 +56,7 @@ async function crawlProductDetail(url) {
         let newPrice = $(".ps-product__price > .new-price").text();
         newPrice = Number(newPrice.replace(/,/g, "").replace(/ đ/g, ""));
         let oldPrice = $(".ps-product__price > .old-price").text();
+        oldPrice = Number(oldPrice.replace(/,/g, "").replace(/ đ/g, ""));
         let discount = $(".ps-product__thumbnail > .product-label-group")
             .find(".ps-badge--sale > span")
             .text()
@@ -64,6 +65,8 @@ async function crawlProductDetail(url) {
         if (!oldPrice) {
             oldPrice = 0;
             discount = 0;
+        }else{
+            newPrice = oldPrice;
         }
         let productSize = [];
         $("ul.wapper_cb > li.cb").each(function () {
@@ -90,8 +93,8 @@ async function crawlProductDetail(url) {
 
         let createdAt = randomDate(new Date(2022, 0, 1), new Date());
         let result = {
-            productImgs, productName, productCode, newPrice,
-            oldPrice, discount, productSize, slug, productType, createdAt, quantity, note, status
+            productImgs, productName, productCode, newPrice
+            , discount, productSize, slug, productType, createdAt, quantity, note, status
         };
         return result;
     } catch (error) {
@@ -270,12 +273,12 @@ async function run() {
 
 async function saveFile(collection) {
     let content = productList;
-    let fileName = 'productDataV2.json';
+    let fileName = 'productData.json';
     if (collection == "post") {
         fileName = "postData.json"
         content = postList;
     }
-    await fs.writeFile(`${__dirname}/${fileName}`, JSON.stringify(content));
+    await fs.writeFileSync(`${__dirname}/${fileName}`, JSON.stringify(content));
     console.log(`"Write ${fileName} success"`);
     // fs.writeFile(`${__dirname}/${fileName}`, JSON.stringify(content), err => {
     //     if (err) {

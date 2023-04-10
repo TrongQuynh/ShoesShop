@@ -73,22 +73,22 @@
                                     <div class="product-thumbnail">
                                         <div class="product-label-group">
                                             <% if(product.isNewProduct){ %>
-                                                <div class="product-label">
+                                                <div class="product-label mb-2">
                                                     <span>New</span>
                                                 </div>
-                                                <% } %>
+                                            <% } %>
 
-                                                    <% if(product.isHotProduct){ %>
-                                                        <div class="product-label hot-label">
-                                                            <span>Hot</span>
-                                                        </div>
-                                                        <% } %>
+                                            <% if(product.isHotProduct){ %>
+                                                <div class="product-label hot-label mb-2">
+                                                    <span>Hot</span>
+                                                </div>
+                                            <% } %>
 
-                                                            <% if(product.discount !=0){ %>
-                                                                <div class="product-label discount-percent">
-                                                                    <span>-<%= product.discount %>%</span>
-                                                                </div>
-                                                                <% } %>
+                                            <% if(product.discount !=0){ %>
+                                                <div class="product-label discount-percent">
+                                                    <span>-<%= product.discount %>%</span>
+                                                </div>
+                                            <% } %>
                                         </div>
                                         <a href="/san-pham/<%= product.slug %>">
                                             <img class="product-img" src="<%= product.productImgs[0]%>"
@@ -107,14 +107,14 @@
                                             </div>
                                             <div class="shoes-price">
                                                 <b>
-                                                    <%= formatMoney(product.newPrice) %>
+                                                    <%= formatMoney(product.newPrice - Math.ceil((product.newPrice * product.discount)/100)) %>
                                                 </b>
                                             </div>
                                             <% if(product.discount !=0){ %>
                                                 <div class="old-price">
-                                                    <%= product.oldPrice %>
+                                                    <%= formatMoney(product.newPrice) %>
                                                 </div>
-                                                <% } %>
+                                            <% } %>
                                         </div>
                                     </div>
                                 </div>
@@ -188,14 +188,14 @@
                         <div class="product-item">
                             <div class="product-thumbnail">
                                 <div class="product-label-group">
-                                    <div class="product-label hot-label">
+                                    <div class="product-label hot-label mb-2">
                                         <span>Hot</span>
                                     </div>
                                     <% if(product.discount !=0){ %>
                                         <div class="product-label discount-percent">
                                             <span>-<%= product.discount %>%</span>
                                         </div>
-                                        <% } %>
+                                    <% } %>
                                 </div>
                                 <a href="/san-pham/<%= product.slug %>">
                                     <img class="product-img" src="<%= product.productImgs[0] %>"
@@ -214,14 +214,14 @@
                                     </div>
                                     <div class="shoes-price">
                                         <b>
-                                            <%= formatMoney(product.newPrice) %>
+                                            <%= formatMoney(product.newPrice - Math.ceil((product.newPrice * product.discount)/100)) %>
                                         </b>
                                     </div>
                                     <% if(product.discount !=0){ %>
                                         <div class="old-price">
-                                            <%= product.oldPrice %>
+                                            <%= formatMoney(product.newPrice) %>
                                         </div>
-                                        <% } %>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
@@ -243,10 +243,10 @@
                             <div class="product-thumbnail">
                                 <div class="product-label-group">
                                     <% if(product.isNewProduct){ %>
-                                        <div class="product-label">
+                                        <div class="product-label mb-2">
                                             <span>New</span>
                                         </div>
-                                        <% } %>
+                                    <% } %>
 
                                             <!-- <% if(product.isHotProduct){ %>
                                                 <div class="product-label hot-label">
@@ -254,11 +254,11 @@
                                                 </div>
                                                 <% } %> -->
 
-                                            <% if(product.discount !=0){ %>
-                                                <div class="product-label discount-percent">
-                                                    <span>-<%= product.discount %>%</span>
-                                                </div>
-                                                <% } %>
+                                    <% if(product.discount !=0){ %>
+                                        <div class="product-label discount-percent">
+                                            <span>-<%= product.discount %>%</span>
+                                        </div>
+                                    <% } %>
                                 </div>
                                 <a href="/san-pham/<%= product.slug %>">
                                     <img class="product-img" src="<%= product.productImgs[0] %>"
@@ -277,14 +277,14 @@
                                     </div>
                                     <div class="shoes-price">
                                         <b>
-                                            <%= formatMoney(product.newPrice) %>
+                                            <%= formatMoney(product.newPrice - Math.ceil((product.newPrice * product.discount)/100)) %>                                            
                                         </b>
                                     </div>
                                     <% if(product.discount !=0){ %>
                                         <div class="old-price">
-                                            <%= product.oldPrice %>
+                                            <%= formatMoney(product.newPrice) %>
                                         </div>
-                                        <% } %>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
@@ -308,19 +308,19 @@
                                         <div class="product-label">
                                             <span>New</span>
                                         </div>
-                                        <% } %>
+                                    <% } %>
 
-                                            <% if(product.isHotProduct){ %>
-                                                <div class="product-label hot-label">
-                                                    <span>Hot</span>
-                                                </div>
-                                                <% } %>
+                                    <% if(product.isHotProduct){ %>
+                                        <div class="product-label hot-label">
+                                            <span>Hot</span>
+                                        </div>
+                                    <% } %>
 
-                                                    <% if(product.discount !=0){ %>
-                                                        <div class="product-label discount-percent">
-                                                            <span>-<%= product.discount %>%</span>
-                                                        </div>
-                                                        <% } %>
+                                    <% if(product.discount !=0){ %>
+                                        <div class="product-label discount-percent">
+                                            <span>-<%= product.discount %>%</span>
+                                        </div>
+                                    <% } %>
                                 </div>
                                 <a href="/san-pham/<%= product.slug %>">
                                     <img class="product-img" src="<%= product.productImgs[0] %>"
@@ -339,14 +339,14 @@
                                     </div>
                                     <div class="shoes-price">
                                         <b>
-                                            <%= formatMoney(product.newPrice) %>
+                                            <%= formatMoney(product.newPrice - Math.ceil((product.newPrice * product.discount)/100)) %>
                                         </b>
                                     </div>
                                     <% if(product.discount !=0){ %>
                                         <div class="old-price">
-                                            <%= product.oldPrice %>
+                                            <%= formatMoney(product.newPrice) %>
                                         </div>
-                                        <% } %>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>

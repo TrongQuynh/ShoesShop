@@ -80,7 +80,7 @@ class cartController {
         const {productID, quantity, size } = req.body;
         // let userId = "62efa3490f31b54514b2baf2", productCode ="Mk23", quantity = 2, size = 45;
         let cart = await shoppingCartModel.findOne({ userID });
-        let totalQuantity = 0;
+        // let totalQuantity = 0;
         if (cart) {
             cart = updateProductQuantity(cart, {productID, quantity, size},false);
             cart = await cart.save();
@@ -90,8 +90,8 @@ class cartController {
                 products: [{ productID, quantity, size }]
             }).save();
         }
-        cart = await shoppingCartModel.findOne({ userID });
-        cart.products.forEach((product) => totalQuantity += product.quantity);
+        // cart = await shoppingCartModel.findOne({ userID });
+        // cart.products.forEach((product) => totalQuantity += product.quantity);
     
         return res.status(200).json({ "status": 200 }).end();
     }

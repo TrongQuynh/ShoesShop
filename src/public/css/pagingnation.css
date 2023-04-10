@@ -7,14 +7,15 @@
 
 .page-item:first-child .page-link,
 .page-item:last-child .page-link {
-    /* border-radius: 50%; */
+    border-radius: 50%;
 }
 
 
 .page-item>.page-link {
-    /* border-radius: 50%; */
-    margin: 0 10px;
-    padding: 20px 20px;
+    display: inline-block;
+    border-radius: 50%;
+    margin: 0 5px;
+    padding: 15px 20px;
     transition: 0.4s;
     color: #000000;
 }
@@ -26,4 +27,6 @@
 
 .page-active {
     background-color: var(--yellow-color);
+    font-weight: 600;
+    color: aliceblue !important;
 } 

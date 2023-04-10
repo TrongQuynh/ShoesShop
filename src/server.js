@@ -29,7 +29,7 @@ app.set("views", path.join(__dirname, "views"));
 
 // Body parser (Express 4.16+)
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended: true}));
 
 // Set DB
 db.connect;

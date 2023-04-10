@@ -133,11 +133,11 @@
                                                                 <%= formatMoney(product.newPrice) %>
                                                             </b>
                                                         </div>
-                                                        <% if(product.discount != ""){ %>
+                                                        <% if(product.discount != 0){ %>
                                                             <div class="old-price">
-                                                                <%= product.oldPrice %>
+                                                                <%= formatMoney(Math.ceil((product.newPrice * product.discount)/100)) %>
                                                             </div>
-                                                            <% } %>
+                                                        <% } %>
                                                     </div>
                                                 </div>
                                             </div>
@@ -254,15 +254,17 @@
                 
                     <script src="/js/logout.js"></script>
                              <!-- Search Product-->
-         <script src="/js/search-product.js"></script>
-                <script src="/js/rate-star.js"></script>
-                <script>
-                    $(".ratings").starrr({
-                        rating: 5,
-                        readOnly: true
-                    });
-
-                </script>
+        <script src="/js/search-product.js"></script>
+        <script src="/js/rate-star.js"></script>
+        <script>
+            $(".ratings").starrr({
+                rating: 5,
+                readOnly: true
+            });
+        </script>
+        <script>
+            
+        </script>
 </body>
 
 </html>
