@@ -38,7 +38,7 @@ node .\src\data\crawl-data.js
 * ***EJS template, Bootstrap 4, HTML,CSS.***
 #### ***Back-End :***
 * ***NodeJS, ExpressJS, MongoDB,.***
-* Mongoose library, JWT, oauth2, passport, cheerio.
+* Mongoose library, JWT, passport, cheerio.
 
 # More Info
 * User can login/ register (traditional way or oauth)
