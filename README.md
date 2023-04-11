@@ -48,7 +48,7 @@ node .\src\data\crawl-data.js
 * See order history and order history
 * Admin user can CRUD data of product, manage the current status of the order.
 
-# A Few Picture Demo
+# A Few Demo Picture
 #### ***Home Page***
 ![image](https://user-images.githubusercontent.com/90363223/231155762-37f0ebad-71e5-4269-8d30-5f8181af1828.png)
 ![image](https://user-images.githubusercontent.com/90363223/231157145-98d3f5d1-9e85-4bc8-91d0-16edc11c85d6.png)
