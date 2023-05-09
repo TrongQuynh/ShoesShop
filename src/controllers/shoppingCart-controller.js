@@ -34,7 +34,8 @@ async function getCartProduct(userID){
         }
         for (let cartProduct of cart.products) {
             let product = await productModel.findOne({ _id: cartProduct.productID });
-            totalBill += ((product.newPrice) * (cartProduct.quantity));
+            let totalMoneyOfProduct = ((product.newPrice - Math.ceil(product.newPrice * (product.discount/100))) * (cartProduct.quantity));
+            totalBill += totalMoneyOfProduct;
             totalProduct += Number(cartProduct.quantity);
             newCartProduct.push({
                 price: product.newPrice,
@@ -42,11 +43,12 @@ async function getCartProduct(userID){
                 productCode: product.productCode,
                 productName: product.productName,
                 quantity: cartProduct.quantity,
+                discount: product.discount,
                 thumbnail: product.productImgs[0],
                 size: cartProduct.size,
                 slug: product.slug,
                 cardID: cartProduct._id,
-                totalPrice: (product.newPrice) * (cartProduct.quantity)
+                totalPrice: totalMoneyOfProduct
             })
         }
         return {cartProducts:newCartProduct, totalBill,totalProduct};
@@ -115,7 +117,7 @@ class cartController {
         let id = req.params.id;
         let userID = req.userID;
         let cart = await shoppingCartModel.findOne({ userID });
-        let products = cart.products.filter((product) => product.productID != id);
+        let products = cart.products.filter((product) => product._id != id);
         cart.products = products;
         await cart.save();
 

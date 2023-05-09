@@ -9,12 +9,12 @@
         <link rel="stylesheet" href="/css/subcribe.css">
         <link rel="stylesheet" href="/css/shopping-cart.css">
 
-        <title>HAN Shop</title>
+        <title>HAN Shop | Giỏ Hàng</title>
         
 </head>
 
 <body>
-
+    
     <!-- Header -->
     <%- include ('tiles/header') %>
 
@@ -44,6 +44,9 @@
                                                     <a class="image-link" href="/san-pham/<%= product.slug %> ">
                                                         <img src="<%= product.thumbnail %> " alt="">
                                                     </a>
+                                                    <%if(product.discount > 0){%>
+                                                        <span class="discountTag"><%= product.discount %>%</span>
+                                                    <%}%>
                                                 </div>
                                                 <div class="item-info">
                                                     <div class="item-title">
@@ -77,7 +80,9 @@
                                                         </div>
                                                         <i class="fa fa-times"></i>
                                                         <span class="textPrice priceProduct"
-                                                            data-price="<%= product.price %> " id="<%= product.id %>">
+                                                            data-price="<%= product.price %>" 
+                                                            data-discount="<%= product.discount %>"
+                                                            id="<%= product.id %>">
                                                             <%= formatMoney(product.price,"VND") %>
                                                         </span>
                                                     </div>
@@ -88,7 +93,7 @@
                                                         </span>
                                                     </div>
                                                     <div class="btn-card">
-                                                        <button data-productID="<%= product.productID %>" type="button"
+                                                        <button data-productID="<%= product.cardID %>" type="button"
                                                             class="btn-remove" data-toggle="modal"
                                                             data-target="#delete-product">
                                                             <i class="fa fa-times" aria-hidden="true"></i>
@@ -109,8 +114,8 @@
                                     </span>
                                 </div>
                                 <div class="btn-next">
-                                    <a href="/san-pham" id="btn-contBuy" type="button">Mua Tiep</a>
-                                    <a href="/checkouts" id="btn-order" type="button">Dat Hang</a>
+                                    <a href="/san-pham" id="btn-contBuy" type="button">Mua Tiếp</a>
+                                    <a href="/checkouts" id="btn-order" type="button">Đặt Hàng</a>
                                 </div>
                             </div>
                             <div class="other-info">
@@ -138,29 +143,13 @@
                                     <strong>200K</strong> vào tài khoản ngân hàng <strong>(nội dung ck: ghi họ tên và số
                                         điện thoại)</strong>. Kingshoes liện lạc xác nhận cọc và ship hàng ngay cho Bạn.
                                 </p>
-                                <p><span id="cke_bm_739S" style="display: none;">&nbsp;</span><img alt="" height="16"
-                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
-                                        width="16"><img alt="" height="16"
-                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
-                                        width="16"><img alt="" height="16"
-                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
-                                        width="16">&nbsp;Ngân Hàng <strong>VIETCOMBANK</strong>&nbsp;<img alt=""
-                                        height="16"
-                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
-                                        width="16"><img alt="" height="16"
-                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
-                                        width="16"><img alt="" height="16"
-                                        src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
-                                        width="16"><br>
-                                    ✅ Stk: <b>90327 33333</b>&nbsp;<br>
-                                    ✅ Ctk: <b>Nguyễn Thế Hùng</b>&nbsp;✅&nbsp;CN Tien Giang</p>
                                 <p><span id="cke_bm_1225S" style="display: none;">&nbsp;</span><img alt="" height="16"
                                         src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
                                         width="16"><img alt="" height="16"
                                         src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
                                         width="16"><img alt="" height="16"
                                         src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
-                                        width="16">&nbsp;Ngân Hàng <strong>TIÊN PHONG&nbsp;BANK</strong>&nbsp;<img
+                                        width="16">&nbsp;Ngân Hàng <strong>Agribank&nbsp;</strong>&nbsp;<img
                                         alt="" height="16"
                                         src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
                                         width="16"><img alt="" height="16"
@@ -168,12 +157,10 @@
                                         width="16"><img alt="" height="16"
                                         src="https://static.xx.fbcdn.net/images/emoji.php/v9/ffc/1/16/1f3e6.png"
                                         width="16"><br>
-                                    ✅ Stk: <strong>062 123579 01</strong><br>
-                                    ✅ Ctk: <b>Nguyễn Thế Hùng</b>&nbsp;✅&nbsp;CN&nbsp;TP.Hồ Chí Minh&nbsp;</p>
+                                    ✅ Stk: <strong>062 ****** 01</strong><br>
+                                    ✅ Ctk: <b>Nông Trọng Quỳnh</b>&nbsp;✅&nbsp;CN&nbsp;Lâm Đồng&nbsp;</p>
                                 <p>
-                                    <strong>---&gt;&gt;&gt; Chúng tôi biết BẠN có nhiều sự lựa chọn. Cảm ơn BẠN đã chọn
-                                        KING
-                                        SHOES.</strong>
+                                    <strong>Chúng tôi biết BẠN có nhiều sự lựa chọn. Cảm ơn BẠN đã chọn HAN SHOES.</strong>
                                 </p>
                             </div>
                         <% } %>
@@ -233,6 +220,7 @@
         <%- include ('tiles/script') %>
         <!-- Delete product in cart -->
         <script src="/js/delete-product.js"></script>
+        <script src="/js/search-product.js"></script>
         <!-- Log Out -->
         <script src="/js/logout.js"></script>
 
@@ -312,17 +300,23 @@
                 let quantity = 0;
                 let price = 0;
                 let totalBill = 0;
+                let discount = 0;
+                let productTitlePrice = 0;
 
                 $(".itemCart").each(function () {
                     // Get price for 1 product
                     price = Number($(this).find(".priceProduct").data("price"));
                     // Get quantity of 1 product
                     quantity = Number($(this).find(".item-amount").attr("value"));
+                    // Get discount of 1 product
+                    discount = Number($(this).find(".priceProduct").data("discount"));
+
                     if ($(this).data("productID") == id) {
                         // set total price for 1 product
-                        $(this).find(".total_price > .textPrice").text(formatMoney(quantity * price));
+                        productTitlePrice = ((price - Math.ceil(price * (discount/100))) * (quantity));
+                        $(this).find(".total_price > .textPrice").text(formatMoney(productTitlePrice));
                     }
-                    totalBill += (quantity * price);
+                    totalBill += productTitlePrice;
                 })
                 // Set Total bill
                 $("#totalPrice").text(formatMoney(totalBill, "VND"))

@@ -26,7 +26,8 @@ $(document).ready(function () {
     }
 
     function getHTML(product) {
-        let oldPrice = product.oldPrice === 0 ? "" : product.oldPrice;
+        console.log(product);
+        let currentPrice = product.discount > 0 ? product.newPrice - Math.ceil(product.newPrice * (product.discount/100)) : product.newPrice;
         return `
         <div class="product-suggest">
             <div class="img-side">
@@ -35,9 +36,9 @@ $(document).ready(function () {
             <div class="info-side">
                 <a href="/san-pham/${product.slug}">${product.productName}</a>
                 <br>
-                <span class="price">${formatToMoney(product.newPrice, 'vi-VN')}</span>
+                <span class="price">${formatToMoney(currentPrice, 'vi-VN')}</span>
                 <br>
-                <del><del class="old-price">${oldPrice}</del></del>
+                <del><del class="old-price">${product.discount > 0 ? formatToMoney(product.newPrice, 'vi-VN') : ""}</del></del>
             </div>
             <div class="clear"></div>
         </div>

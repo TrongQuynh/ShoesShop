@@ -9,12 +9,17 @@ const productSchema = new Schema({
     productName: { type: String, default: "" },
     productImgs: { type: Array },
     newPrice: Number,
-    quantity: { type: Number, default: 0 },
+    // quantity: { type: Number, default: 0 },
     oldPrice: String,
     discount: {type: Number, default: 0},
     isHotProduct: {type: Boolean, default: false},
     isNewProduct: {type: Boolean, default: false},
-    productSize: { type: Array },
+    productSize: [
+        {
+            "size": {type: String},
+            "quantity": {type: Number}
+        }
+    ],
     productCode: String,
     productType: {type: String, default: "Shoes"},
     note: String,

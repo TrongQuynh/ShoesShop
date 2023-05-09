@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <!-- Logo titlebar -->
+    <link rel="icon" href="/images/logoShopFooter.png" type="image/icon type">
+    
     <link rel="stylesheet" href="/css/checkout.css">
-    <title>Document</title>
+    <title>Han Shop | Checkout</title>
 </head>
 
 <body>
@@ -42,11 +44,11 @@
                         <h2>Thông tin giao hàng</h2>
                         <div class="main-content-info">
                             <div class="row">
-                                <input class="field" id="username" type="text" placeholder="Họ và tên" value="han">
-                                <input class="field" id="phonenumber" type="text" placeholder="Số điện thoại" value="0925714402">
+                                <input class="field" id="username" type="text" placeholder="Họ và tên" value="<%= userData.username%>">
+                                <input class="field" id="phonenumber" type="text" placeholder="Số điện thoại" value="<%= userData.phonenumber%>">
                             </div>
                             <div class="row">
-                                <input class="field" id="address" type="text" placeholder="Địa chỉ" value="21 bach dang">
+                                <input class="field" id="address" type="text" placeholder="Địa chỉ" value="<%= userData.address%>">
                             </div>
                             <div class="row">
                                 <select class="field field-third" name="calc_shipping_provinces" id="province" required="">
@@ -105,7 +107,8 @@
                                     <img src="https://kingshoes.vn/data/upload/media/king-shoes-thanh-toan.png"
                                         alt="" width="619" height="376">
                                 </p>
-                                <p>Chúng tôi biết BẠN có nhiều sự lựa chọn. Cảm ơn BẠN đã chọn HAN SHOES</p>
+                                <p style="text-align: center;">Chúng tôi biết BẠN có nhiều sự lựa chọn.</p>
+                                <p> Cảm ơn BẠN đã chọn HAN SHOES</p>
                            </div>
                         </div>
                     </div>
@@ -145,7 +148,7 @@
             </div>
         </div>
         <div class="sidebar">
-            <h2>Thong Tin Don Hang</h2>
+            <h2>Thông Tin Đơn Hàng</h2>
             <div class="product-list">
                 <table class="product-table">
                     <thead>
@@ -156,38 +159,18 @@
                         </tr>
                     </thead>
                     <tbody id="product-box">
-                        <% for(let product of products.cartProducts){ %> 
-                            <tr class="product" data-product-id="1419">
-                                <td class="product-image">
-                                    <a href="" target="_blank">
-                                    <div class="product-thumbnail">
-                                        <div class="product-thumbnail-wrapper">
-                                          <img class="product-thumbnail-image" 
-                                          alt="<%= product.productName %>" src="<%= product.thumbnail %>">
-                                        </div>
-                                        <span class="product-thumbnail-quantity" aria-hidden="true"><%= product.quantity %></span>
-                                    </div>
-                                    </a>
-                                </td>
-                                <td class="product-description">
-                                    <a href="adidas-qtflex-da9449.html" target="_blank"><span class="product-description-name order-summary-emphasis"><%= product.productName %></span></a>
-                                    <% if(product.size) {%>
-                                        <div class="attribute_pro"><span class="badge-size">Size Giày: <b><%= product.size %></b></span></div>
-                                    <% } %>  
-                                </td>
-                                <!-- <td class="product-quantity visually-hidden"><%= product.quantity %></td> -->
-                                <td class="product-price">
-                                    <span class="order-summary-emphasis"><%= formatMoney(product.totalPrice) %></span>
-                                </td>
-                            </tr>
-                        <% } %> 
+                        <!-- RENDER PRODUCT INFO HERE -->
                     </tbody>
                 </table>
             </div>
             <div class="total-section">
+                <div class="total-line total-line-discount">
+                    <span class="total-line-name">Tiết kiệm</span>
+                    <span class="total-line-price" id="totalSaving">0 VND</span>
+                </div>
                 <div class="total-line total-line-subtotal">
                     <span class="total-line-name">Tạm tính</span>
-                    <span class="total-line-price" id="tmp_totalBill"><%= formatMoney(products.totalBill) %></span>
+                    <span class="total-line-price" id="tmp_totalBill">0 VND</span>
                 </div>
                 <div class="total-line total-line-shipping">
                     <span class="total-line-name">Phí vận chuyển</span>
@@ -195,7 +178,7 @@
                 </div>
                 <div class="total-line total-line-footer">
                     <span class="total-line-name">Tổng cộng</span>
-                    <span class="payment-due-price" id="totalBill"><%= formatMoney(products.totalBill,"VND") %></span>
+                    <span class="payment-due-price" id="totalBill">0 VND</span>
                 </div>
             </div>
         </div>
@@ -220,6 +203,7 @@
         })
     </script>
 
+    <!-- =============== HANDLE PROVINCE =============== -->
     <script>
         let provinceName = "", districName = "", wardName = "";
 
@@ -277,7 +261,7 @@
         }
     </script>
 
-    <!-- HANDLE COMPLETE ORDER -->
+    <!-- =============== HANDLE COMPLETE ORDER =============== -->
     <script>
 
         function checkValidateAddress(){
@@ -368,11 +352,21 @@
         }
 
         function getHTMLProduct(product){
-            let sizeHtml = "";
+            let sizeHTML = "";
+            let discountHTML = "";
+            let productPriceHTML = `
+                    <span class="order-summary-emphasis">${formatToMoney(parseInt(product.quantity) * product.priceAfterDisscount)}</span>
+                `;
             if(product.size) {
-                sizeHtml = `<div class="attribute_pro"><span class="badge-size">Size Giày: <b>${product.size}</b></span></div>`;
-            } 
-            console.log(sizeHtml);
+                sizeHTML = `<span class="badge-info badge-size">Size Giày: <b>${product.size}</b></span>`;
+            }
+            if(Number(product.discount) > 0){
+                discountHTML = `<span class="badge-info badge-discount">Giảm giá: <b>${product.discount}%</b></span>`;
+                productPriceHTML += `
+                    <span class="order-summary-emphasis old-price"><del> ${formatToMoney(parseInt(product.quantity) * parseInt(product.newPrice))} </del></span>
+                `;
+            }
+            
             return `
                 <tr class="product">
                     <td class="product-image">
@@ -388,13 +382,14 @@
                     </td>
                     <td class="product-description">
                         <a href="adidas-qtflex-da9449.html" target="_blank"><span class="product-description-name order-summary-emphasis">${product.productName}</span></a>
-            ` +
-                    sizeHtml
-            +` 
+                        <div class="attribute_pro">
+                            ${sizeHTML}
+                            ${discountHTML}
+                        </div>
                     </td>
                     <td class="product-quantity visually-hidden">${ product.quantity }</td>
                     <td class="product-price">
-                        <span class="order-summary-emphasis">${formatToMoney(parseInt(product.quantity) * parseInt(product.newPrice))}</span>
+                        ${productPriceHTML}
                     </td>
                 </tr>
             `
@@ -402,18 +397,22 @@
 
         async function renderProductList(){
             let productList = JSON.parse(localStorage.getItem("products") || "[]");
-            console.log(productList);
             let totalBill = 0;
+            let totalSaving = 0;
             $("#product-box").empty();
             for(let value of productList){
                 let product = await getProductData(value.productID);
+                let saving_money = Math.ceil(Number(product.newPrice) * (Number(product.discount)/100));
                 product.size = value.size;
                 product.quantity = value.quantity;
+                product.priceAfterDisscount = (parseInt(product.newPrice) - saving_money);
                 $("#product-box").append(getHTMLProduct(product));
-                totalBill += (parseInt(product.newPrice) * parseInt(value.quantity));
+                totalBill += ((parseInt(product.newPrice) - saving_money) * parseInt(value.quantity));
+                totalSaving += saving_money;
             }
             $("#tmp_totalBill").text(formatToMoney(totalBill,"VND"));
             $("#totalBill").text(formatToMoney(totalBill,"VND"));
+            $("#totalSaving").text(`- ${formatToMoney(totalSaving,"VND")}`);
         }
 
         $(document).ready(async function(){

@@ -74,7 +74,8 @@ class accountController {
         const saltRounds = 10;
         // VALIDATE DATA BEFORE WE ARE USER
         let { error } = registerDataValidator(data);
-        if (error) return res.status(404).json(error.details[0].message);
+        console.log(error);
+        if (error) return res.status(404).json({"message":error.details[0].message});
 
         // Check if account exsit
         let user = await userModel.findOne({ "phonenumber": data.phonenumber });

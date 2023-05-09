@@ -9,17 +9,20 @@
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="/css/register.css">
-    <title>Document</title>
+    <title>Han Shop | Đăng Ký</title>
 </head>
 
 <body>
+    <!-- Import Modal -->
+    <%- include('tiles/modal') %>
+
     <div class="container">
         <div class="section-header">
             <a href="/">
                 <img src="/images/logoShop.png" alt="logo" class="header-logo">
             </a>
-            <h3 class="header-title">Đăng ký</h3>
-            <a href="" class="header-help">Bạn cần giúp đỡ?</a>
+            <!-- <h3 class="header-title">Đăng ký</h3>
+            <a href="" class="header-help">Bạn cần giúp đỡ?</a> -->
         </div>
         <div class="section-body">
             <div class="logo-box">
@@ -56,9 +59,6 @@
                         <div class="col-lg-12 mb-3">
                             <button type="button" id="btn-register" class="btn btn-warning">Đăng ký</button>
                         </div>
-                        <div class="col-lg-12 mb-1 text-right">
-                            <a href="" class="text-warning">Quên mật khẩu?</a>
-                        </div>
                         <div class="col-lg-12 mb-3 line-or align-middle">
                             <div class="line align-middle"></div>
                             <span class="mr-2 ml-2">HOẶC</span>
@@ -82,8 +82,8 @@
                             </button>
                         </div>
                         <div class="col-lg-12 mb-3 text-center">
-                            Bạn mới biết đến Shopee?
-                            <a href="/accounts/login" class="text-warning">Đăng nhập</a>
+                            Bạn đã có tài khoản ?
+                            <a href="/accounts/login" class="text-secondary font-italic mr-1">Đăng nhập</a>
                         </div>
                     </div>
                 </form>
@@ -217,10 +217,25 @@
                 });
                 const resData = await response.json();
                 // Get status code
-                if(response.status === 400) alert(resData.message)
-                if(response.status === 409) alert("User already exsit")
                 if(response.status === 200) return true;
-            } catch (error) {}
+                // if(response.status === 400) alert(resData.message)
+                // if(response.status === 409) alert("User already exsit")
+                // alert(resData.message)
+                showDialog(resData.message);
+                return false;
+                
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        function showDialog(message){
+            $("#modal_dialog").modal('show');
+            $("#modal_dialog #modalLabel").text("Error");
+            $("#modal_dialog #modalLabel").text("Error");
+            $("#modal_dialog #modalContent").text(message);
+            $("#modal_dialog #modalButton").empty();
+            $("#modal_dialog #modalButton").append(`<button type="button" class="btn btn-danger w-100" data-dismiss="modal">Close</button>`);
         }
 
         $("#btn-register").click(async function(event){

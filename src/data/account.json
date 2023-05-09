@@ -1,0 +1,30 @@
+[
+    {
+        "_id": {
+          "$oid": "63b94c8a3bbe3f99fc48103f"
+        },
+        "username": "han123",
+        "phonenumber": "0987685043",
+        "address": "",
+        "email": "ab@gmail.com",
+        "picture": "/images/default-user.jpg",
+        "role": 1,
+        "password": "$2b$10$GuuQd9xhY1jKk8H7fjQOSO5sPbvBIaMWLmSHlloQZbE0bdv879NTu",
+        "modifiedOn": {
+          "$date": {
+            "$numberLong": "1673088138280"
+          }
+        },
+        "createdAt": {
+          "$date": {
+            "$numberLong": "1673088138283"
+          }
+        },
+        "updatedAt": {
+          "$date": {
+            "$numberLong": "1673088138283"
+          }
+        },
+        "__v": 0
+      }
+]

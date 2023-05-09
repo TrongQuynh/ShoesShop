@@ -63,7 +63,7 @@
         <!-- Links -->
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">Gioi Thieu</a>
+                <a class="nav-link" href="#">Giới Thiệu</a>
             </li>
             <!-- Dropdown -->
             <li class="nav-item dropdown">
@@ -72,7 +72,7 @@
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="#">NAM</a>
-                    <a class="dropdown-item" href="#">NU</a>
+                    <a class="dropdown-item" href="#">NỮ</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -130,7 +130,7 @@
             <div class="shopping-cart nav-item">
                 <a href="/gio-hang" class="btn-cart rounded-circle"><i
                         class="fa-solid fa-cart-shopping text-white"></i></a>
-                <span class="badge badge-light bg-warning text-white" id="item-cart-quantity">
+                <span class="badge badge-light bg-warning text-white p-1" id="item-cart-quantity">
                     <%= cartProduct.totalProduct || 0 %>
                 </span>
                 <!-- dropdown shopping cart -->
@@ -141,16 +141,16 @@
                             <div class="cart-content">
                                 <% for(let product of cartProduct.cartProducts){ %>
                                     <div class="cart-item">
-                                        <a href="#delete-product-cart" id="btn-cartDel" data-id="<%= product.id %>"
+                                        <a href="#delete-product-cart" id="btn-cartDel" data-id="<%= product.cardID %>"
                                             data-toggle="modal" data-target="#delete-product-cart">
                                             <i class="fa-solid fa-xmark"></i>
                                         </a>
                                         <div class="item-cart-thumbnail">
-                                            <a href=""></a>
+                                            <a href="/san-pham/<%= product.slug%>"></a>
                                             <img src="<%= product.thumbnail %> " alt="<%= product.productName %>">
                                         </div>
                                         <div class="item-cart-content">
-                                            <a href="" class="cart-item-namePro">
+                                            <a href="/san-pham/<%= product.slug%>" class="cart-item-namePro">
                                                 <%= product.productName %>
                                             </a>
                                             <div class="pro-attribute">

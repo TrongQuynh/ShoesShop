@@ -71,7 +71,7 @@ async function crawlProductDetail(url) {
         let productSize = [];
         $("ul.wapper_cb > li.cb").each(function () {
             let size = $(this).find(".rd_in").text();
-            productSize.push(size);
+            productSize.push({"size":size, "quantity":getRandomQuantity()});
         })
         // let reviewList =[];
         //  $(".tab-content-info").find("p").each(function(){
@@ -94,7 +94,7 @@ async function crawlProductDetail(url) {
         let createdAt = randomDate(new Date(2022, 0, 1), new Date());
         let result = {
             productImgs, productName, productCode, newPrice
-            , discount, productSize, slug, productType, createdAt, quantity, note, status
+            , discount, productSize, slug, productType, createdAt, note, status
         };
         return result;
     } catch (error) {

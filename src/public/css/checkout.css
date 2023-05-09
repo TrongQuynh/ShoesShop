@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
 :root {
   --yellow-color: #fed700;
   --bg-discount: #cf5050;
@@ -13,7 +16,7 @@
 
 body {
   overflow-x: hidden;
-  font-family: "Roboto Condensed", sans-serif !important;
+  font-family: 'Varela Round', sans-serif !important;
 }
 
 /* Main */
@@ -250,6 +253,16 @@ li.menu-item a {
   max-width: var(--max-width-main-container);
 }
 
+.margin-box > p:nth-child(2){
+  font-size: 1.3rem;
+  font-style: italic;
+}
+
+.margin-box > p:nth-child(2),.margin-box > p:nth-child(3){
+  text-align: center;
+  margin: .5rem 0;
+}
+
 /* ================================================================================== */
 /* SLIDEBAR SECTION */
 .sidebar {
@@ -268,6 +281,7 @@ li.menu-item a {
 }
 
 .product-thumbnail-wrapper {
+  position: relative;
   width: 100%;
   height: 100%;
   position: relative;
@@ -314,7 +328,12 @@ li.menu-item a {
   color: #4b4b4b;
 }
 
-.badge-size {
+.old-price{
+  font-size: 0.9rem;
+  color: #999999;
+}
+
+.badge-info {
   display: inline-block;
   padding: 0.35em 0.65em;
   font-size: .75em;
@@ -326,7 +345,15 @@ li.menu-item a {
   vertical-align: baseline;
   border-radius: 0.25rem;
   margin: 2px 2px;
+
+}
+
+.badge-size{
   background-color: #d26e4b;
+}
+
+.badge-discount{
+  background-color: var(--bg-discount);
 }
 
 .visually-hidden {

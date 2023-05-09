@@ -72,7 +72,7 @@ module.exports = {
         try {
             let search = req.body.search;
             console.log(search);
-            let products = productModel.find({}, "productImgs productName newPrice oldPrice slug");
+            let products = productModel.find({}, "productImgs productName newPrice oldPrice slug discount");
             if (search) {
                 search = String(search).toUpperCase();
                 products = products.searchProductByName(search).limit(4);

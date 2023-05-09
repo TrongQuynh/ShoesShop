@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
 :root {
     --yellow-color: #fed700;
     --bg-discount: #cf5050;
@@ -13,7 +15,7 @@
 
 body {
     overflow-x: hidden;
-    font-family: "Roboto Condensed", sans-serif !important;
+    font-family: 'Varela Round', sans-serif !important;
 }
 
 .clear {

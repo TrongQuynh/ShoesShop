@@ -5,8 +5,11 @@ exports.registerDataValidator = data => {
         phonenumber: Joi.string().regex(/^[0-9]{10}$/).messages({'string.pattern.base': `Phone number must have 10 digits.`}).required(),
         address: Joi.string(),
         username: Joi.string().min(6).required(),
-        password: Joi.string().min(3).required(),
-        email: Joi.string().min(10).required().email(),
+        password: Joi.string().min(8).required().pattern(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$%\^&\*])/).messages({
+            'string.pattern.base': `Password should contains uppercase letters, number and special characters`,
+            'string.min': `Password must have atlest 8 charecters`
+        }),
+        email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
     });
     return schema.validate(data);
 }

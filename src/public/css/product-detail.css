@@ -1,6 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Andika:wght@700&family=Source+Sans+Pro:ital@1&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 :root {
     --yellow-color: #fed700;
@@ -19,7 +20,7 @@
 
 body {
     overflow-x: hidden;
-    font-family: "Roboto Condensed", sans-serif !important;
+    font-family: 'Varela Round', sans-serif !important;
 }
 
 .header-top {
@@ -298,9 +299,8 @@ ol.breadcrumb {
     margin: 0 auto;
     border: 3px solid #8d8d8d;
     cursor: pointer;
+    border-radius: 4px;
 }
-
-
 
 .banner-img>img {
     width: 100%;
@@ -328,9 +328,13 @@ ol.breadcrumb {
     list-style: none;
 }
 
+.product-size label{
+    margin-bottom: 0;
+}
+
 .product-size li {
     display: inline-block;
-    margin-right: 10px;
+    margin: 0 10px 5px 0;
 }
 
 .size {
@@ -338,11 +342,20 @@ ol.breadcrumb {
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px 0px;
     border-radius: 4px;
+   
+}
+
+.soldout{
+    background: url("../images/soldout_n.webp");
+    background-size: 100% 102%;
+    pointer-events: none;
 }
 
 input[type=radio]:checked+.size {
     box-shadow: none;
-    border: 1.5px solid black;
+    border: 1.5px solid aliceblue;
+    background-color: var(--bg-hot);
+    color: aliceblue;
 }
 
 /* Price */
@@ -353,6 +366,11 @@ input[type=radio]:checked+.size {
 .new-price {
     margin-right: 20px;
     color: #fb0000;
+}
+
+.old-price{
+    font-size: 1.5rem;
+    color: #8d8d8d;
 }
 
 /* label tag */
@@ -460,6 +478,14 @@ input[type=radio]:checked+.size {
 #btn-increment:hover {
     background-color: limegreen;
     color: white;
+}
+
+.availableProduct{
+    font-size: 1.3rem;
+}
+
+.availableProduct > b{
+    margin-right: 0.3rem;
 }
 
 /* Phone contact */

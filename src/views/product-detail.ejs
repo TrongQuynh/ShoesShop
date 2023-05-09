@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Document</title>
+    <title>Han Shop | Sản Phẩm</title>
     <%- include ('tiles/head') %>
         <!-- Slick -->
         <link rel="stylesheet" type="text/css"
@@ -125,13 +125,13 @@
                                 <h4>Giá sản phẩm</h4>
                                 <h3>
                                     <b class="new-price" data-price="<%= product.newPrice %>">
-                                        <%= formatMoney(product.newPrice,"VND") %>
+                                        <%= formatMoney(product.newPrice - (Math.ceil(product.newPrice * (product.discount/100))),"VND") %>
                                     </b>
-                                    <% if(product.discount !=0 ){ %>
+                                    <% if(product.discount > 0 ){ %>
                                         <del class="old-price">
-                                            <%= product.oldPrice %>
+                                            <%= formatMoney(product.newPrice,"VND") %>
                                         </del>
-                                        <% } %>
+                                    <% } %>
                                 </h3>
                             </div>
                             <hr>
@@ -139,58 +139,46 @@
                                 <h3>Kích thước</h3>
                                 <% if(product.productSize==0){ %>
                                     <h5 style="color: #fed700;">Free Size</h2>
-                                        <% } %>
-                                            <ul>
-
-                                                <% product.productSize.forEach((val, index)=>{ %>
-                                                    <% if(index==0){ %>
-                                                        <li>
-                                                            <label for="<%= val %>">
-                                                                <input type="radio" name="btn-size" class="btn-size"
-                                                                    id="<%= val %>" data-size="<%= val %>" checked>
-                                                                <div class="size">
-                                                                    <%= val %>
-                                                                </div>
-                                                            </label>
-                                                        </li>
-                                                        <% }else{ %>
-                                                            <li>
-                                                                <label for="<%= val %>">
-                                                                    <input type="radio" name="btn-size" class="btn-size"
-                                                                        id="<%= val %>" data-size="<%= val %>">
-                                                                    <div class="size">
-                                                                        <%= val %>
-                                                                    </div>
-                                                                </label>
-                                                            </li>
-                                                            <% } %>
-                                                                <%}) %>
-                                            </ul>
+                                <% } %>
+                                <ul>
+                                    <% product.productSize.forEach((val, index)=>{ %>
+                                            <li class="<%= val.quantity > 0 ? "" : "soldout" %>">
+                                                <label for="<%= val.size %>">
+                                                    <input type="radio" name="btn-size" class="btn-size"
+                                                        id="<%= val.size %>" data-quantity="<%= val.quantity %>" data-size="<%= val.size %>">
+                                                    <div class="size">
+                                                        <%= val.size %>
+                                                    </div>
+                                                </label>
+                                            </li>
+                                    <%}) %>
+                                </ul>
                             </div>
                             <hr>
-                            <%if(product.quantity> 0){%>
-                                <form action="">
-                                    <div class="product-amount">
-                                        <h3>Số lượng</h3>
-                                        <div>
-                                            <button type="button" class="btn-amount" id="btn-decrement">-</button>
-                                            <input id="input-amount" type="number" min="1" maxlength="12" value="1"
-                                                autocomplete="off" readonly>
-                                            <button type="button" class="btn-amount" id="btn-increment">+</button>
-                                        </div>
-                                        <h6>
-                                            <%= product.quantity%> sản phẩm có sẵn.
-                                        </h6>
+                            
+                            <form action="" id="formAction">
+                                <div class="product-amount">
+                                    <h3>Số lượng</h3>
+                                    <div>
+                                        <button type="button" class="btn-amount" id="btn-decrement">-</button>
+                                        <input id="input-amount" type="number" min="1" maxlength="12" value="1"
+                                            autocomplete="off" readonly>
+                                        <button type="button" class="btn-amount" id="btn-increment">+</button>
                                     </div>
-                                    <div class="group-button">
-                                        <button class="ps-button" id="btn-addToCard" type="button" data-toggle="modal"
-                                            data-target="#add-product">THÊM VÀO GIỎ</button>
-                                        <button class="ps-button" id="btn-buyNow">MUA NGAY</button>
-                                    </div>
-                                </form>
-                            <%}else{%>
-                                <h4 style="color: red;">Sản phẩm này hiện tại đã hết hàng.</h4>
-                            <%}%>
+                                    <hr>
+                                    <h6 class="availableProduct">
+                                        <b><span id="inventoryNumber"></span></b> Sản phẩm có sẵn.
+                                    </h6>
+                                </div>
+                                <div class="group-button">
+                                    <button class="ps-button" id="btn-addToCard" type="button" data-toggle="modal"
+                                        data-target="#add-product">THÊM VÀO GIỎ</button>
+                                    <button class="ps-button" id="btn-buyNow">MUA NGAY</button>
+                                </div>
+                            </form>
+                        
+                            <h4 class="d-none" id="quantityNotification">Sản phẩm này hiện tại đã hết hàng.</h4>
+                            
 
                         </div>
                     </div>
@@ -203,7 +191,7 @@
                             <a title="Tư vấn &amp; đặt hàng: 093751xxxx" href="tel:093751xxxx">093751xxxx</a>
                             ( Tư vấn Miễn phí )
                         </div>
-                        <div class="social-media-block">
+                        <!-- <div class="social-media-block">
                             <h3>Mạng xã hội</h3>
                             <div class="box-icon">
                                 <a href="">
@@ -225,7 +213,7 @@
                                     <i class="fa-brands fa-twitter"></i>
                                 </a>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="other-info-block">
                             <div class="product-review-block" style="text-align: left;">
 
@@ -403,7 +391,6 @@
                             size = $(this).data("size");
                         }
                     })
-
                     return await sendAddToCart({ productID, quantity, size });
 
                 }
@@ -431,6 +418,45 @@
                     }else{
                         window.location.href = "/gio-hang";
                     }
+                })
+            })
+        </script>
+
+        <!-- Handle choose size -->
+        <script>
+
+            function hiddenAndShowForm(){
+                $(".btn-size").each(function(index, size){
+                    let quantity = $(size).data("quantity");
+                    if(Number(quantity) > 0){
+                        $(size).prop("checked", true);
+                        // Set products available.
+                        $("#inventoryNumber").text(quantity);
+                        return false;
+                    }
+                })
+            }
+
+            $(document).ready(function(){
+
+                // Default selectedd size
+                hiddenAndShowForm();
+
+                $(".btn-size").each(function(index, size){
+                    $(size).click(function(){
+                        let quantity = $(this).data("quantity");
+
+                        // Set products available.
+                        $("#inventoryNumber").text(quantity);
+
+                        if(Number(quantity) > 0){
+                            $("#formAction").removeClass("d-none")
+                            $("#quantityNotification").addClass("d-none");
+                        }else{
+                            $("#formAction").addClass("d-none");
+                            $("#quantityNotification").removeClass("d-none")
+                        }
+                    })
                 })
             })
         </script>

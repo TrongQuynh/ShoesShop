@@ -20,11 +20,10 @@ class checkoutController {
     // [GET] /checkouts    
     async loadData(req, res, next) {
         let userId = req.userID;
-        let products = userId == "" ? { cartProducts: [], totalBill: 0 } : await cartController.getCartProduct(userId);
+        let userData = await userModel.findOne({_id: userId},"_id username phonenumber address email");
         return res.render("checkouts", {
-            products,
             provinces: provincesData,
-            formatMoney: helper.formatToMoney
+            userData
         });
     }
 
